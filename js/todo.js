@@ -7,11 +7,11 @@ let filterStatus = document.getElementById("filter-todo-status");
 let categoryStatus = document.querySelectorAll("input[name='filter-category']");
 let addTodoButton = document.getElementById("add-todo");
 
-let todoList = []; 
+let todoList = [];
 let editIndex = -1;
 
-const addOrUpdateTodo = (event) => {
-    event.preventDefault(); 
+todoForm.addEventListener("submit", (event) => {
+    event.preventDefault();
 
     const title = document.getElementById("todo-title").value.trim();
     const description = document.getElementById("todo-description").value.trim();
@@ -35,16 +35,15 @@ const addOrUpdateTodo = (event) => {
         todoList.push(newTodo);
     }
 
-    console.log("Todo List:", todoList); 
-    renderTodos();
+    renderTodos(todoList);
     todoForm.reset();
-};
+});
 
-const renderTodos = () => {
+const renderTodos = (todos) => {
     listContainer.innerHTML = "";
 
-    todoList.forEach((todo, index) => {
-        const listItem = document.createElement("li");
+    todos.forEach((todo, index) => {
+        let listItem = document.createElement("li");
         listItem.className = `todo-item ${todo.status === "done" ? "completed" : ""}`;
 
         listItem.innerHTML = `
@@ -60,4 +59,39 @@ const renderTodos = () => {
     });
 };
 
-todoForm.addEventListener("submit", addOrUpdateTodo);
+window.toggleComplete = (index) => {
+    todoList[index].status = todoList[index].status === "done" ? "not-done" : "done";
+    renderTodos(todoList);
+};
+
+window.removeTodo = (index) => {
+    todoList.splice(index, 1);
+    renderTodos(todoList);
+};
+
+window.editTodo = (index) => {
+    const todo = todoList[index];
+
+    document.getElementById("todo-title").value = todo.title;
+    document.getElementById("todo-description").value = todo.description;
+    document.getElementById("todo-status").value = todo.status;
+    document.getElementById("todo-time").value = todo.time;
+    document.getElementById("todo-category").value = todo.category;
+    document.getElementById("todo-deadline").value = todo.deadline;
+
+    editIndex = index;
+    addTodoButton.textContent = "Edit Task";
+};
+
+filterButton.addEventListener("click", () => {
+    const selectedStatus = filterStatus.value;
+    let filteredTodos = todoList;
+
+    if (selectedStatus === "done") {
+        filteredTodos = todoList.filter(todo => todo.status === "done");
+    } else if (selectedStatus === "not-done") {
+        filteredTodos = todoList.filter(todo => todo.status === "not-done");
+    }
+
+    renderTodos(filteredTodos);
+});
