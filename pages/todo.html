@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todos & Activities</title>
+    <link rel="stylesheet" href="../css/todo.css">
+</head>
+<body>
+    
+    <main class="container">
+        <h2>Todos & Activities</h2>
+
+    <form id="todo-form">
+       <div class="input-area">
+        <input type="text" id="todo-title" placeholder="Write your task title...">
+        <input type="text" id="todo-description" placeholder="task description...">
+       
+        <select id="toto-status" required>
+            <option value="">Select Status</option>
+            <option value="done">Completed</option>
+            <option value="not-done">Not Completed</option>
+         </select>
+
+         <select id="todo-category" required>
+            <option value="">Select Category</option>
+            <option value="matlagning">🍳 Cooking</option>
+            <option value="restaurangbesök">🍽️  Restaurant Visit</option>
+            <option value="resa">✈️ Travel</option>
+            <option value="hushållsarbete">🏡 Housework</option>
+            <option value="skolarbete">📚 Schoolwork</option>
+            <option value="mode">👗 Mode</option>
+            <option value="musik & avkoppling">🎵 Music & Relaxation</option>
+         </select>
+
+         <input type="date" id="todo-deadline">
+         <button type="submit" id="add-todo">Add</button>
+    </div>
+    </form>
+
+    
+
+
+   
+    </main>
+
+    
+    <script src="../js/todo.js"></script>
+</body>
+</html>
