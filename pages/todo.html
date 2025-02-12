@@ -22,6 +22,15 @@
             <option value="not-done">Not Completed</option>
          </select>
 
+         <select id="todo-time" required>
+            <option value="">Select time estimate</option>
+            <option value="1h">1h</option>
+            <option value="2h">2h</option>
+            <option value="3h">3h</option>
+            <option value="4h">4h</option>
+            <option value="6h">6h</option>
+        </select>
+
          <select id="todo-category" required>
             <option value="">Select Category</option>
             <option value="matlagning">🍳 Cooking</option>
@@ -38,11 +47,42 @@
     </div>
     </form>
 
+    <section class="filter-container">
+        <h2>Filter</h2>
+        <select id="filter-todo-status">
+            <option value="done">Completed</option>
+            <option value="not-done">Not Completed</option>
+        </select>
+    </section>
     
+    <fieldset>
+        <legend>Select a category</legend>
+        <input type="radio" name="filter-category" value="cooking" id="filter-cooking"> 🍳 Cooking
+        <input type="radio" name="filter-category" value="restaurant-visit" id="filter-restaurant-visit"> 🍽️ Restaurant Visit
+        <input type="radio" name="filter-category" value="travel" id="filter-travel"> ✈️ Travel
+        <input type="radio" name="filter-category" value="housework" id="filter-housework"> 🏡 Housework
+        <input type="radio" name="filter-category" value="schoolwork" id="filter-schoolwork"> 📚 Schoolwork
+        <input type="radio" name="filter-category" value="fashion" id="filter-fashion"> 👗 Fashion
+        <input type="radio" name="filter-category" value="music-relaxation" id="filter-music"> 🎵 Music & Relaxation
+    </fieldset>
 
+    <button  id="filter-todos">Filter</button>
 
+    <section class="sort-wrapper">
+        <h2>Sort</h2>
+        <select id="sort-todo">
+            <option value="deadline">Sort by Deadline</option>
+            <option value="time">Sort by Time Estimate</option>
+            <option value="status">Sort by Status</option>
+        </select>
+    </section>
    
-    </main>
+    <ul id="listContainer">
+        
+    </ul>
+
+    <button id="reset-todo" class="reset-button">Reset</button>
+    
 
     
     <script src="../js/todo.js"></script>
