@@ -13,19 +13,19 @@ let editIndex = -1;
 todoForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    const title = document.getElementById("todo-title").value.trim();
-    const description = document.getElementById("todo-description").value.trim();
-    const status = document.getElementById("todo-status").value;
-    const time = document.getElementById("todo-time").value;
-    const category = document.getElementById("todo-category").value;
-    const deadline = document.getElementById("todo-deadline").value;
+    let title = document.getElementById("todo-title").value.trim();
+    let description = document.getElementById("todo-description").value.trim();
+    let status = document.getElementById("todo-status").value;
+    let time = document.getElementById("todo-time").value;
+    let category = document.getElementById("todo-category").value;
+    let deadline = document.getElementById("todo-deadline").value;
 
     if (!title || !description || !status || !time || !category || !deadline) {
         alert("⚠️ All fields must be filled!");
         return;
     }
 
-    const newTodo = { title, description, status, time, category, deadline };
+    const newTodo = {title, description, status, time, category, deadline};
 
     if (editIndex > -1) {
         todoList[editIndex] = newTodo;
@@ -34,12 +34,12 @@ todoForm.addEventListener("submit", (event) => {
     } else {
         todoList.push(newTodo);
     }
-
     renderTodos(todoList);
     todoForm.reset();
 });
 
 const renderTodos = (todos) => {
+
     listContainer.innerHTML = "";
 
     todos.forEach((todo, index) => {
@@ -70,7 +70,7 @@ window.removeTodo = (index) => {
 };
 
 window.editTodo = (index) => {
-    const todo = todoList[index];
+    let todo = todoList[index];
 
     document.getElementById("todo-title").value = todo.title;
     document.getElementById("todo-description").value = todo.description;
@@ -84,7 +84,7 @@ window.editTodo = (index) => {
 };
 
 filterButton.addEventListener("click", () => {
-    const selectedStatus = filterStatus.value;
+   let selectedStatus = filterStatus.value;
     let filteredTodos = todoList;
 
     if (selectedStatus === "done") {
