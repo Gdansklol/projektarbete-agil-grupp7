@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="events.css">
+  <script src="events.js" defer></script>
+  <title>Event Planner</title>
+</head>
+<body>
+  
+  <header>
+    <h1>Event Planner</h1>
+  </header>
+  <main>
+    <div class="container">
+      <section>
+        <form id="inputField">
+          <fieldset>
+            <legend>Add new events</legend>
+
+            <input type="text" id="eventName" placeholder="Title">
+
+            <label for="startTime">Start time:</label>
+            <input type="datetime-local" id="startTime">
+
+            <label for="endTime">End time:</label>
+            <input type="datetime-local" id="endTime">
+
+            <button type="button" id="addBtn">Add event</button>
+          </fieldset>
+        </form>
+      </section>
+  
+      <section>
+        <h2>Upcoming events</h2>
+        <ul id="eventList"></ul>
+      </section>
+
+    </div>
+  </main>
+  
+  
+</body>
+</html>
