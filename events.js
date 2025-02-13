@@ -32,6 +32,8 @@ function createNewEvent() {
     document.querySelector('#startTime').value = ''
     document.querySelector('#endTime').value = ''
 
+    addBtn.innerText = 'Add event'
+
     //om inputs inte är ifyllda, visa alert.
   } else {
 
@@ -46,12 +48,32 @@ function displayEvents() {
   eventList.innerHTML = ''
 
   // Loopa igenom alla events och lägg till dem i listan
-  events.forEach(event => {
+  events.forEach((event, index) => {
     const li = document.createElement('li')
+    const editBtn = document.createElement('span')
+    editBtn.innerText = '✏️'
+    const deleteBtn = document.createElement('span')
+    deleteBtn.innerText = '🗑️'
+
+    deleteBtn.addEventListener('click', () => li.remove())
+
+    editBtn.addEventListener('click', () => {
+      // Fyll i inputfält med det valda eventet
+      document.querySelector('#eventName').value = event.name
+      document.querySelector('#startTime').value = event.startTime
+      document.querySelector('#endTime').value = event.endTime
+
+      events.splice(index, 1)
+      addBtn.innerText = 'Update event'
+    })
+
     //ta bort T
     li.innerText = `${event.name} | Start: ${event.startTime.replace('T', ' ')} | End: ${event.endTime.replace('T', ' ')}`
+
     eventList.append(li)
-  });
+    li.append(deleteBtn, editBtn)
+
+  })
 }
 
 // Lägg till event vid click på 'add event'
