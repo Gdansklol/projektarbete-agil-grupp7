@@ -21,13 +21,12 @@
 
             <form id="todo-form">
                 <div class="input-area">
-                    <input type="text" id="todo-title" placeholder="Write your task title...">
-                    <input type="text" id="todo-description" placeholder="Task description...">
+                    <input type="text" id="todo-title" placeholder="Write your task title..." required>
+                    <input type="text" id="todo-description" placeholder="Task description..." required>
                     
                     <select id="todo-status" required>
-                        <option value="">Select Status</option>
-                        <option value="done">Completed</option>
                         <option value="not-done">Not Completed</option>
+                        <option value="done">Completed</option>
                     </select>
 
                     <select id="todo-time" required>
@@ -36,6 +35,7 @@
                         <option value="2h">2h</option>
                         <option value="3h">3h</option>
                         <option value="4h">4h</option>
+                        <option value="4h">5h</option>
                         <option value="6h">6h</option>
                     </select>
 
@@ -50,7 +50,7 @@
                         <option value="music-relaxation">🎵 Music & Relaxation</option>
                     </select>
 
-                    <input type="date" id="todo-deadline">
+                    <input type="date" id="todo-deadline" required>
                     <button type="submit" id="add-todo">Add task</button>
                 </div>
             </form>
@@ -58,8 +58,9 @@
 
         <section class="filter-container">
             <h2>Filter</h2>
-            
+
             <select id="filter-todo-status">
+                <option value="all">All</option>
                 <option value="done">Completed</option>
                 <option value="not-done">Not Completed</option>
             </select>
@@ -85,6 +86,7 @@
                 <option value="time">Sort by Time Estimate</option>
                 <option value="status">Sort by Status</option>
             </select>
+            <button id="sort-button">Sort</button>
         </section>
 
         <section class="todo-list">
@@ -100,6 +102,5 @@
         <p>&copy; 2025 Todos & Activities. Grupp 7 - All rights reserved.</p>
     </footer>
 
- 
 </body>
 </html>

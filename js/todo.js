@@ -2,12 +2,13 @@ let todoForm = document.getElementById("todo-form");
 let listContainer = document.getElementById("listContainer");
 let resetButton = document.getElementById("reset-todo");
 let sortSelect = document.getElementById("sort-todo");
+let sortButton = document.getElementById("sort-button");
 let filterButton = document.getElementById("filter-todos");
 let filterStatus = document.getElementById("filter-todo-status");
-let categoryStatus = document.querySelectorAll("input[name='filter-category']");
+let categoryRadios = document.querySelectorAll("input[name='filter-category']");
 let addTodoButton = document.getElementById("add-todo");
 
-let todoList = [];
+let todoList = JSON.parse(localStorage.getItem("todoList")) || [];
 let editIndex = -1;
 
 todoForm.addEventListener("submit", (event) => {
@@ -25,7 +26,7 @@ todoForm.addEventListener("submit", (event) => {
         return;
     }
 
-    const newTodo = {title, description, status, time, category, deadline};
+    const newTodo = { title, description, status, time, category, deadline };
 
     if (editIndex > -1) {
         todoList[editIndex] = newTodo;
@@ -34,18 +35,18 @@ todoForm.addEventListener("submit", (event) => {
     } else {
         todoList.push(newTodo);
     }
-    renderTodos(todoList);
+
+    localStorage.setItem("todoList", JSON.stringify(todoList));
     todoForm.reset();
+    renderTodos();
 });
 
-const renderTodos = (todos) => {
-
+const renderTodos = (filteredTodos = todoList) => {
     listContainer.innerHTML = "";
 
-    todos.forEach((todo, index) => {
-        let listItem = document.createElement("li");
+    filteredTodos.forEach((todo, index) => {
+        const listItem = document.createElement("li");
         listItem.className = `todo-item ${todo.status === "done" ? "completed" : ""}`;
-
         listItem.innerHTML = `
             <input type="checkbox" class="check-task" onchange="toggleComplete(${index})" ${todo.status === "done" ? "checked" : ""}>
             <span class="todo-text" style="text-decoration: ${todo.status === "done" ? "line-through" : "none"}">
@@ -54,23 +55,24 @@ const renderTodos = (todos) => {
             <button onclick="editTodo(${index})"><i class="fas fa-edit"></i></button>
             <button onclick="removeTodo(${index})"><i class="fas fa-trash"></i></button>
         `;
-
-        listContainer.append(listItem);
+        listContainer.appendChild(listItem);
     });
+
+    localStorage.setItem("todoList", JSON.stringify(todoList));
 };
 
 window.toggleComplete = (index) => {
     todoList[index].status = todoList[index].status === "done" ? "not-done" : "done";
-    renderTodos(todoList);
+    renderTodos();
 };
 
 window.removeTodo = (index) => {
     todoList.splice(index, 1);
-    renderTodos(todoList);
+    renderTodos();
 };
 
 window.editTodo = (index) => {
-    let todo = todoList[index];
+    const todo = todoList[index];
 
     document.getElementById("todo-title").value = todo.title;
     document.getElementById("todo-description").value = todo.description;
@@ -80,18 +82,49 @@ window.editTodo = (index) => {
     document.getElementById("todo-deadline").value = todo.deadline;
 
     editIndex = index;
-    addTodoButton.textContent = "Edit Task";
+    addTodoButton.textContent = "Update task";
 };
 
 filterButton.addEventListener("click", () => {
-   let selectedStatus = filterStatus.value;
     let filteredTodos = todoList;
 
-    if (selectedStatus === "done") {
-        filteredTodos = todoList.filter(todo => todo.status === "done");
-    } else if (selectedStatus === "not-done") {
-        filteredTodos = todoList.filter(todo => todo.status === "not-done");
-    }
+    let selectedStatus = filterStatus.value;
+    filteredTodos = selectedStatus !== "all" ? filteredTodos.filter(todo => todo.status === selectedStatus) : filteredTodos;
+
+    let selectedCategory = null;
+    categoryRadios.forEach(radio => {
+        if (radio.checked) selectedCategory = radio.value;
+    });
+    filteredTodos = selectedCategory ? filteredTodos.filter(todo => todo.category === selectedCategory) : filteredTodos;
 
     renderTodos(filteredTodos);
 });
+
+sortButton.addEventListener("click", () => {
+    const sortBy = sortSelect.value;
+
+    if (sortBy === "deadline") {
+        todoList.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
+    } else if (sortBy === "time") {
+        todoList.sort((a, b) => parseInt(a.time) - parseInt(b.time));
+    } else if (sortBy === "status") {
+        todoList.sort((a, b) => {
+            if (a.status === b.status) {
+                return new Date(a.deadline) - new Date(b.deadline);
+            }
+            return a.status === "done" ? 1 : -1;
+        });
+    }
+
+    renderTodos();
+});
+
+resetButton.addEventListener("click", () => {
+    if (confirm("⚠️ Do you really want to reset the list?")) {
+        localStorage.removeItem("todoList");
+        todoList = [];
+        renderTodos();
+    }
+});
+
+renderTodos();
