@@ -35,13 +35,13 @@
                         <option value="2h">2h</option>
                         <option value="3h">3h</option>
                         <option value="4h">4h</option>
-                        <option value="4h">5h</option>
+                        <option value="5h">5h</option>
                         <option value="6h">6h</option>
                     </select>
 
                     <select id="todo-category" required>
                         <option value="">Select Category</option>
-                        <option value="cooking">🍳 Cooking</option>
+                        <option value="computer-games">🕹️ Computer Games</option>
                         <option value="restaurant-visit">🍽️ Restaurant Visit</option>
                         <option value="travel">✈️ Travel</option>
                         <option value="housework">🏡 Housework</option>
@@ -67,13 +67,16 @@
 
             <fieldset>
                 <legend>Select a category</legend>
-                <input type="radio" name="filter-category" value="cooking" id="filter-cooking"> 🍳 Cooking
-                <input type="radio" name="filter-category" value="restaurant-visit" id="filter-restaurant-visit"> 🍽️ Restaurant Visit
-                <input type="radio" name="filter-category" value="travel" id="filter-travel"> ✈️ Travel
-                <input type="radio" name="filter-category" value="housework" id="filter-housework"> 🏡 Housework
-                <input type="radio" name="filter-category" value="schoolwork" id="filter-schoolwork"> 📚 Schoolwork
-                <input type="radio" name="filter-category" value="fashion" id="filter-fashion"> 👗 Fashion
-                <input type="radio" name="filter-category" value="music-relaxation" id="filter-music"> 🎵 Music & Relaxation
+                <div class="checkbox-group">
+                    <label><input type="checkbox" id="select-all-categories"> Select All</label>
+                    <label><input type="checkbox" name="filter-category" value="computer-games" id="filter-computer-games"> 🎮 Computer Games</label>
+                    <label><input type="checkbox" name="filter-category" value="restaurant-visit" id="filter-restaurant-visit"> 🍽️ Restaurant Visit</label>
+                    <label><input type="checkbox" name="filter-category" value="travel" id="filter-travel"> ✈️ Travel</label>
+                    <label><input type="checkbox" name="filter-category" value="housework" id="filter-housework"> 🏡 Housework</label>
+                    <label><input type="checkbox" name="filter-category" value="schoolwork" id="filter-schoolwork"> 📚 Schoolwork</label>
+                    <label><input type="checkbox" name="filter-category" value="fashion" id="filter-fashion"> 👗 Fashion</label>
+                    <label><input type="checkbox" name="filter-category" value="music-relaxation" id="filter-music-relaxation"> 🎵 Music & Relaxation</label>
+                </div>
             </fieldset>
 
             <button id="filter-todos">Filter</button>

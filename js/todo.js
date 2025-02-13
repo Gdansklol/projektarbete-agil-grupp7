@@ -5,7 +5,8 @@ let sortSelect = document.getElementById("sort-todo");
 let sortButton = document.getElementById("sort-button");
 let filterButton = document.getElementById("filter-todos");
 let filterStatus = document.getElementById("filter-todo-status");
-let categoryRadios = document.querySelectorAll("input[name='filter-category']");
+let categoryCheckboxes = document.querySelectorAll("input[name='filter-category']");
+let selectAllCategories = document.getElementById("select-all-categories");
 let addTodoButton = document.getElementById("add-todo");
 
 let todoList = JSON.parse(localStorage.getItem("todoList")) || [];
@@ -89,15 +90,28 @@ filterButton.addEventListener("click", () => {
     let filteredTodos = todoList;
 
     let selectedStatus = filterStatus.value;
-    filteredTodos = selectedStatus !== "all" ? filteredTodos.filter(todo => todo.status === selectedStatus) : filteredTodos;
+    if (selectedStatus !== "all") {
+        filteredTodos = filteredTodos.filter(todo => todo.status === selectedStatus);
+    }
 
-    let selectedCategory = null;
-    categoryRadios.forEach(radio => {
-        if (radio.checked) selectedCategory = radio.value;
-    });
-    filteredTodos = selectedCategory ? filteredTodos.filter(todo => todo.category === selectedCategory) : filteredTodos;
+    let selectedCategories = Array.from(categoryCheckboxes)
+        .filter(checkbox => checkbox.checked)
+        .map(checkbox => checkbox.value);
 
+    if (selectedCategories.length > 0) {
+        filteredTodos = filteredTodos.filter(todo => selectedCategories.includes(todo.category));
+    }
+
+    console.log(filteredTodos);
+    console.log()
     renderTodos(filteredTodos);
+});
+
+selectAllCategories.addEventListener("change",(event) => {
+    let isChecked = event.target.checked;
+    categoryCheckboxes.forEach(checkbox => {
+        checkbox.checked = isChecked;
+    });
 });
 
 sortButton.addEventListener("click", () => {
