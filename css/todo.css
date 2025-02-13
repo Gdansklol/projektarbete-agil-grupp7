@@ -1,0 +1,191 @@
+:root {
+    --primary-color: rgb(89, 102, 175);
+    --secondary-color: #130635cb;
+    --gradient: linear-gradient(to right, rgb(207, 211, 133) 0%, rgb(40, 148, 51) 50%, rgb(76, 95, 201) 100%);
+    --gradient2: linear-gradient(90deg, rgba(84, 255, 159, 0.5), rgba(0, 183, 255, 0.8));
+}
+
+body, h1, h2, p, ul, li, input, select, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #f4f4f4;
+    text-align: center;
+    padding: 0 4px;
+    overflow-x: hidden; 
+}
+
+header {
+    position: relative;
+    width: 100%;
+    height: 150px;
+    background: var(--gradient);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+header h1 {
+    font-size: 24px;
+    color: #fff;
+    z-index: 1;
+    animation: slideIn 3s ease-in-out infinite alternate;
+}
+
+@keyframes slideIn {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.container {
+    width: 100%;
+    margin: 20px auto;
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.input-area, .filter-container, .sort-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+input, select, button {
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease-in-out;
+    width: 90%;
+    max-width: 300px;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+button {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+button:hover {
+    background: var(--secondary-color);
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background: white;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.todo-remove, .todo-edit {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.todo-remove:hover {
+    color: rgb(239, 98, 22);
+}
+
+.todo-edit:hover {
+    color: green;
+}
+
+footer {
+    margin-bottom: 40px; 
+}
+
+@media (min-width: 600px) {
+    body {
+        padding: 0 16px;
+    }
+
+    .container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    header h1 {
+        font-size: 36px;
+    }
+
+    input, select, button {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    .filter-container fieldset {
+        font-size: 18px;
+    }
+
+    input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+@media (min-width: 768px) {
+    .filter-container fieldset {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .filter-container .checkbox-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .filter-container .checkbox-group label {
+        flex: 1 1 calc(25% - 10px); 
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+    }
+
+    button {
+        width: auto;
+        padding: 10px 20px;
+    }
+}
