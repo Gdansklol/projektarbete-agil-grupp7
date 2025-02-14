@@ -114,23 +114,30 @@ selectAllCategories.addEventListener("change",(event) => {
     });
 });
 
-sortButton.addEventListener("click", () => {
-    const sortBy = sortSelect.value;
+const sortTasks = (sortBy, order) => {
+    if(sortBy ===  'deadline' || sortBy === 'time'){
+        todoList.sort((a,b) => {
+            let valueA = sortBy === 'deadline' ? new Date(a.deadline) : new Date(a.time);
+            let valueB = sortBy === 'deadline' ? new Date(b.deadline) : new Date(b.time);
 
-    if (sortBy === "deadline") {
-        todoList.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
-    } else if (sortBy === "time") {
-        todoList.sort((a, b) => parseInt(a.time) - parseInt(b.time));
-    } else if (sortBy === "status") {
-        todoList.sort((a, b) => {
-            if (a.status === b.status) {
-                return new Date(a.deadline) - new Date(b.deadline);
-            }
-            return a.status === "done" ? 1 : -1;
-        });
+            return order === 'asc' ? valueA - valueB : valueB - valueA;
+        })
+    }else if (sortBy === 'status') {
+        todoList.sort((a,b) => {
+            if(a.status > b.status) return order === 'asc' ? 1: -1 ;
+            if(a.status < b.status) return order === 'asc' ? -1: 1 ;
+            return 0;
+        })
     }
 
     renderTodos();
+};
+
+sortButton.addEventListener("click", () => {
+    let sortBy = sortSelect.value; 
+    let order = document.querySelector('input[name="sort-order"]:checked').value; 
+    
+    sortTasks(sortBy, order);
 });
 
 resetButton.addEventListener("click", () => {
