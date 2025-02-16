@@ -103,7 +103,6 @@ filterButton.addEventListener("click", () => {
     }
 
     console.log(filteredTodos);
-    console.log()
     renderTodos(filteredTodos);
 });
 
