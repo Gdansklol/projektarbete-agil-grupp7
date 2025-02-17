@@ -114,21 +114,25 @@ selectAllCategories.addEventListener("change",(event) => {
 });
 
 const sortTasks = (sortBy, order) => {
-    if(sortBy ===  'deadline' || sortBy === 'time'){
-        todoList.sort((a,b) => {
-            let valueA = sortBy === 'deadline' ? new Date(a.deadline) : new Date(a.time);
-            let valueB = sortBy === 'deadline' ? new Date(b.deadline) : new Date(b.time);
-
+    if (sortBy === 'deadline' || sortBy === 'time') {
+        todoList.sort((a, b) => {
+            let valueA, valueB;
+            if (sortBy === 'deadline') {
+                valueA = new Date(a.deadline);
+                valueB = new Date(b.deadline);
+            } else if (sortBy === 'time') {
+                valueA = parseInt(a.time, 10);
+                valueB = parseInt(b.time, 10);
+            }
             return order === 'asc' ? valueA - valueB : valueB - valueA;
-        })
-    }else if (sortBy === 'status') {
-        todoList.sort((a,b) => {
-            if(a.status > b.status) return order === 'asc' ? 1: -1 ;
-            if(a.status < b.status) return order === 'asc' ? -1: 1 ;
+        });
+    } else if (sortBy === 'status') {
+        todoList.sort((a, b) => {
+            if (a.status > b.status) return order === 'asc' ? 1 : -1;
+            if (a.status < b.status) return order === 'asc' ? -1 : 1;
             return 0;
-        })
+        });
     }
-
     renderTodos();
 };
 
