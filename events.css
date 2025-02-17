@@ -14,6 +14,10 @@ main .container {
   flex-direction: column;
   align-items: center;
 }
+main .container .pastEvents {
+  text-decoration: line-through;
+  color: rgb(94, 93, 93);
+}
 main .container #inputField {
   margin: 1.5rem;
 }
