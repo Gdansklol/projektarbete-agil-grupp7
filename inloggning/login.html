@@ -12,14 +12,24 @@
     </header>
 
     <section id="loginFormContainer">
-        <h2>Login</h2>
+        <h2>Log In</h2>
         <form id="loginForm">
             <input type="text" id="loginUsername" placeholder="Write your username..." required> <br>
             <input type="password" id="password" placeholder="Write your password..." required> <br>
+            <button type="submit">Log in</button>
         </form>
-        <p>Not a member? <a href="#">sign up</a></p>
-    </input>
+        <p>Not a member? <a href="#" id="showSignuoForm">sign up</a></p>
     </section>
-   
-</body>
+
+   <section id="signupFormContainer">
+     <h2>Sign Up</h2>
+     <form id="sighupForm">
+        <input type="text" id="signupUsernaame" placeholder="sign up username..."> <br>
+        <input tpe="password" id="signupPassword" placeholder="sign up password..."> <br>
+        <button type="submit">Sign up</button>
+     </form>
+     <p>Already a member? <a href="#" id="showLoginForm" >Log in</a></p>
+   </section>
+
+
 </html>
