@@ -14,6 +14,10 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    .pastEvents {
+      text-decoration: line-through;
+      color: rgb(94, 93, 93);
+    }
     #inputField {
       margin: 1.5rem;
       fieldset {
