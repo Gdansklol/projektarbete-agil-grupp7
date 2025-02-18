@@ -1,0 +1,7 @@
+#loginFormContainer, #signupFormContainer, #userSection {
+    border: 1px solid #ccc;
+    padding: 16px;
+    margin: 16px auto;
+    max-width: 400px;
+    text-align: center;
+  }
