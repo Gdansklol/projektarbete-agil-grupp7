@@ -70,6 +70,12 @@ button {
   cursor: pointer;
 }
 
+#nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
 /* Habits container and other sections */
 #habitsContainer {
   width: 600px;

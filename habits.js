@@ -70,6 +70,9 @@ $(document).ready(function() {
             $('#prioInput').val('');
         }
     });
+
+    // Alert Fyll i inputs. Modal.
+    
     
     // Stäng Success Modal
     $('#closeSuccessModal').click(function() {
