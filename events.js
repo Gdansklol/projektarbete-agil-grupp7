@@ -165,6 +165,8 @@ addBtn.addEventListener('click', () => {
     // Återställ knappen till "Add event"
     addBtn.innerText = 'Add event'
 
+    clearInputs()
+
     // Återställ editIndex
     editIndex = -1
   } else {
