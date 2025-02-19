@@ -4,12 +4,27 @@ const eventList = document.querySelector('#eventList')
 const upcomingBtn = document.querySelector('#upcoming')
 const previousBtn = document.querySelector('#previous')
 const allBtn = document.querySelector('#all')
+const h2Text = document.querySelector('h2')
 
-// Array för att lagra events
-let events = []
+
+// Hämta events från localStorage eller skapa en tom array om inget finns sparat
+let events = JSON.parse(localStorage.getItem('events')) || []
+
 
 //variabel för dagens datum & tid
 const now = new Date()
+
+//index för vilket event som redigeras
+let editIndex = -1
+
+//visa events vid start
+displayEvents(events)
+
+// Funktion för att spara events i localStorage
+function saveEventsToLocalStorage() {
+  localStorage.setItem('events', JSON.stringify(events))
+}
+
 
 // Funktion för att skapa och lägga till event
 function createNewEvent() {
@@ -45,6 +60,9 @@ function createNewEvent() {
 
     //sortera events-listan baserat på ovanstående funktion
     events.sort(sortByStartTime)
+
+    // Spara efter tillägg
+    saveEventsToLocalStorage()
 
     // Uppdatera array med nya events
     displayEvents(events)
@@ -91,7 +109,9 @@ function displayEvents(eventsToDisplay) {
 
     //radera
     deleteBtn.addEventListener('click', () => {
-      li.remove()
+      events.splice(index, 1)
+      saveEventsToLocalStorage()
+      displayEvents(events)
     })
 
 
@@ -103,8 +123,11 @@ function displayEvents(eventsToDisplay) {
       document.querySelector('#startTime').value = event.startTime
       document.querySelector('#endTime').value = event.endTime
 
-      //
-      events.splice(index, 1)
+      //spara indexet på det event som ska redigeras
+      editIndex = index
+
+      saveEventsToLocalStorage()
+      displayEvents(events)
       addBtn.innerText = 'Update event'
     })
 
@@ -117,21 +140,54 @@ function displayEvents(eventsToDisplay) {
   })
 }
 
-// Lägg till event vid click på 'add event'
-addBtn.addEventListener('click', createNewEvent)
+//
+addBtn.addEventListener('click', () => {
+  // Om vi är i redigeringsläge
+  if (editIndex !== -1) {
+    // Hämta de nya värdena från inputfälten
+    const eventName = document.querySelector('#eventName').value
+    const startTime = document.querySelector('#startTime').value
+    const endTime = document.querySelector('#endTime').value
 
+    // Ersätt det gamla eventet med det nya via splice
+    events.splice(editIndex, 1, {
+      name: eventName,
+      startTime: startTime,
+      endTime: endTime
+    })
+
+    // Spara uppdaterade events i localStorage
+    saveEventsToLocalStorage()
+
+    // Uppdatera visningen
+    displayEvents(events)
+
+    // Återställ knappen till "Add event"
+    addBtn.innerText = 'Add event'
+
+    // Återställ editIndex
+    editIndex = -1
+  } else {
+    // Om vi inte är i redigeringsläge, skapa nytt event
+    createNewEvent()
+  }
+})
 
 // Funktion för att filtrera events
 function filterEvents(type) {
 
-  let filteredEvents
+  let filteredEvents = ''
+
   if (type === 'upcoming') {
     filteredEvents = events.filter(event => new Date(event.startTime) > now)
+    h2Text.innerText = 'Upcoming Events'
   } else if (type === 'previous') {
     filteredEvents = events.filter(event => new Date(event.endTime) < now)
+    h2Text.innerText = 'Previous Events'
   } else {
     //visa alla events
     filteredEvents = events
+    h2Text.innerText = 'All Events'
   }
 
   //visa filtrerade events

@@ -7,6 +7,15 @@
 body {
   background-color: cadetblue;
 }
+body header {
+  display: flex;
+}
+body header nav {
+  margin: 20px 0px 20px 40px;
+}
+body header nav a {
+  padding: 20px;
+}
 
 main .container {
   border: solid 2px rgb(27, 25, 25);
