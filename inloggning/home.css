@@ -1,0 +1,93 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  :root {
+    --primary-color: rgb(89, 102, 175); 
+    --secondary-color: #2c3e50; 
+    --accent-color: rgb(76, 95, 201); 
+    --background-light: #f4f4f4;
+    --background-dark: #e0e5ec; 
+  }
+  
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--background-light);
+    color: var(--secondary-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  
+header {
+    text-align: center;
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(to right, rgb(207, 211, 133) 0%, rgb(40, 148, 51) 50%, rgb(76, 95, 201) 100%);
+    color: white;
+    border-radius: 10px;
+    margin-bottom: 40px; 
+  }
+  
+  .wrapper {
+    width: 80px;
+    height: 500px;
+    background: var(--background-dark);
+    border-radius: 50px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+  }
+  
+  .spinner .output {
+    font-size: 25px;
+    color: var(--primary-color);
+  }
+  
+  .spinner .progress {
+    width: 10px;
+    height: 300px;
+    background: #dfe6e9;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  
+  .spinner .progress span {
+    width: 100%;
+    background: var(--accent-color);
+    border-radius: 20px;
+    transition: 0.5s;
+  }
+  
+  .spinner .btn {
+    width: 40px;
+    height: 40px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    line-height: 40px;
+    font-size: 25px;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .spinner .btn:hover {
+    background: var(--accent-color);
+  }
+  
+  @media (max-width: 800px) {
+    .wrapper {
+      transform: scale(1);
+    }
+  }
+  
