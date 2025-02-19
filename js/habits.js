@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     const priorityMapping = {
         1: 'Låg',
         2: 'Mellan',
@@ -23,7 +23,7 @@ $(document).ready(function() {
     function renderTable() {
         $('#myTable').empty()
 
-        filteredHabits.forEach(function(habit, index) {
+        filteredHabits.forEach(function (habit, index) {
             const priorityName = priorityMapping[habit.prioritet];
 
             const row = `<tr data-index="${index}">
@@ -39,7 +39,7 @@ $(document).ready(function() {
     }
 
     // Function Spara button
-    $('#submitBtn').click(function() {
+    $('#submitBtn').click(function () {
         const rutin = $('#rutinInput').val();
         const repetitioner = $('#repInput').val();
         const prioritet = $('#prioInput').val();
@@ -72,24 +72,24 @@ $(document).ready(function() {
     });
 
     // Alert Fyll i inputs. Modal.
-    
-    
+
+
     // Stäng Success Modal
-    $('#closeSuccessModal').click(function() {
+    $('#closeSuccessModal').click(function () {
         $('#successModal').fadeOut();
     });
-    
-    $('#okButton').click(function() {
+
+    $('#okButton').click(function () {
         $('#successModal').fadeOut();
     });
 
     // Stäng button event listener
-    $('.close').click(function() {
+    $('.close').click(function () {
         $(this).closest('.modal').fadeOut();
     });
 
     // Edit function
-    $(document).on('click', '.editBtn', function() {
+    $(document).on('click', '.editBtn', function () {
         const rowIndex = $(this).closest('tr').data('index');
         const habit = habits[rowIndex];
 
@@ -101,14 +101,14 @@ $(document).ready(function() {
     });
 
     // Radera function. Modal.
-    $(document).on('click', '.deleteBtn', function() {
+    $(document).on('click', '.deleteBtn', function () {
         const rowIndex = $(this).closest('tr').data('index');
         $('#confirmDeleteBtn').data('index', rowIndex);
         $('#deleteModal').fadeIn();
     });
 
     // OK button, radera. Modal.
-    $('#confirmDeleteBtn').click(function() {
+    $('#confirmDeleteBtn').click(function () {
         const index = $(this).data('index');
         habits.splice(index, 1);
         saveHabitsToStorage(habits);
@@ -118,12 +118,12 @@ $(document).ready(function() {
     });
 
     // Ångra radera. Modal.
-    $('#cancelDeleteBtn').click(function() {
+    $('#cancelDeleteBtn').click(function () {
         $('#deleteModal').fadeOut();
     });
 
     // Tomma <th> element disable
-    $('th').each(function() {
+    $('th').each(function () {
         if ($(this).text().trim() === "") {
             $(this).css("pointer-events", "none");
             $(this).css("color", "gray");
@@ -131,7 +131,7 @@ $(document).ready(function() {
     });
 
     // Sortera kolumner
-    $('th').on('click', function() {
+    $('th').on('click', function () {
         let column = $(this).data('column');
         let order = $(this).data('order');
         let text = $(this).html();
@@ -169,7 +169,7 @@ $(document).ready(function() {
     });
 
     // Filtering radio buttons
-    $('input[name="radio"]').on('change', function() {
+    $('input[name="radio"]').on('change', function () {
         const selectedPriority = $('input[name="radio"]:checked').val();
 
         if (selectedPriority === "") {
