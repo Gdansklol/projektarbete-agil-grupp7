@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inloggning with random quote API</title>
+  <link rel="stylesheet" href="login.css">
+  <script src="login.js" defer></script>
+</head>
+<body>
+
+  <header id="header">
+    <h1 id="headerText">Productivity Assistant App</h1>
+  </header>
+
+  <main>
+   
+    <section id="loginFormContainer">
+      <h2>Log In</h2>
+      <form id="loginForm">
+        <input type="text" id="loginUsername" placeholder="Write your username..." required>
+        <input type="password" id="password" placeholder="Write your password..." required>
+        <button type="submit">Log in</button>
+      </form>
+      <p>Not a member? <a href="#" id="showSignupForm">Sign up</a></p>
+    </section>
+
+    <section id="signupFormContainer" style="display: none;">
+      <h2>Sign Up</h2>
+      <form id="signupForm">
+        <input type="text" id="signupUsername" placeholder="Sign up username..." required>
+        <input type="password" id="signupPassword" placeholder="Sign up password..." required>
+        <button type="submit">Sign up</button>
+      </form>
+      <p>Already a member? <a href="#" id="showLoginForm">Log in</a></p>
+    </section>
+
+    <section id="userSection" style="display: none;">
+      <h4 id="welcomeMessage">Welcome, <span id="usernameDisplay"></span>!</h4>
+      <button id="logoutButton">Log Out</button>
+      <button id="getRandomMessage">Get Random Message</button>
+      <button id="showTodoList">Todos & Activities</button>
+      <button id="eventPlanner">Event Planner</button>
+      <button id="habits">Habits</button>
+    </section>
+  </main>
+
+</body>
+</html>
