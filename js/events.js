@@ -61,6 +61,7 @@ function createNewEvent() {
     //sortera events-listan baserat på ovanstående funktion
     events.sort(sortByStartTime)
 
+
     // Spara efter tillägg
     saveEventsToLocalStorage()
 
@@ -95,7 +96,10 @@ function displayEvents(eventsToDisplay) {
 
   // Loopa igenom alla events och lägg till dem i listan
   eventsToDisplay.forEach((event, index) => {
+
     const li = document.createElement('li')
+    //ta bort T
+    li.innerText = `${event.name} | Start: ${event.startTime.replace('T', ' ')} | End: ${event.endTime.replace('T', ' ')}`
     const editBtn = document.createElement('span')
     editBtn.innerText = '✏️'
     const deleteBtn = document.createElement('span')
@@ -131,9 +135,6 @@ function displayEvents(eventsToDisplay) {
       addBtn.innerText = 'Update event'
     })
 
-    //ta bort T
-    li.innerText = `${event.name} | Start: ${event.startTime.replace('T', ' ')} | End: ${event.endTime.replace('T', ' ')}`
-
     eventList.append(li)
     li.append(deleteBtn, editBtn)
 
@@ -149,7 +150,7 @@ addBtn.addEventListener('click', () => {
     const startTime = document.querySelector('#startTime').value
     const endTime = document.querySelector('#endTime').value
 
-    // Ersätt det gamla eventet med det nya via splice
+    // Ersätt det gamla eventet med det nya
     events.splice(editIndex, 1, {
       name: eventName,
       startTime: startTime,
