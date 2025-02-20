@@ -1,19 +1,27 @@
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  background-color: aliceblue;
-  font-family: 'Lucida Sans';
 }
 
 body {
   background-color: cadetblue;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
   header {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     nav {
       margin: 20px 0px 20px 40px;
       a {
         padding: 20px;
+        text-decoration: none;
+        color: black;
+        &:hover {
+          color:rgb(3, 27, 240);
+        }
       }
     }
   }
