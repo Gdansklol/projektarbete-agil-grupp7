@@ -8,37 +8,12 @@
 
 body {
   background-color: cadetblue;
-<<<<<<< HEAD
-<<<<<<<< HEAD:css/events.scss
   header {
     display: flex;
-========
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
-  header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
->>>>>>>> feature/event:events.scss
-=======
-  header {
-    display: flex;
->>>>>>> feature/event
     nav {
       margin: 20px 0px 20px 40px;
       a {
         padding: 20px;
-<<<<<<< HEAD
-<<<<<<<< HEAD:css/events.scss
-========
-        text-decoration: none;
-        color: black;
-        &:hover {
-          color:rgb(3, 27, 240);
-        }
->>>>>>>> feature/event:events.scss
-=======
->>>>>>> feature/event
       }
     }
   }
@@ -61,8 +36,4 @@ main {
       }
     }
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> feature/event
