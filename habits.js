@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    //Prio map
     const priorityMapping = {
         1: 'Låg',
         2: 'Mellan',
@@ -38,16 +39,15 @@ $(document).ready(function() {
         });
     }
 
-    // Function Spara button
     $('#submitBtn').click(function() {
         const rutin = $('#rutinInput').val();
         const repetitioner = $('#repInput').val();
         const prioritet = $('#prioInput').val();
-
+    
         if (rutin && repetitioner && prioritet) {
             const habit = { rutin, repetitioner: parseInt(repetitioner), prioritet: parseInt(prioritet) };
-
-            // Uppdatera rutin
+    
+            // Ändra rutin
             if ($('#submitBtn').data('edit')) {
                 const index = $('#submitBtn').data('index');
                 habits[index] = habit;
@@ -55,24 +55,28 @@ $(document).ready(function() {
             } else {
                 habits.push(habit);
             }
-
+    
             saveHabitsToStorage(habits);
             filteredHabits = habits;
             renderTable();
-
-            // Modal meddelande Success
+    
+            // Success Modal
             $('#modalMessage').text("Rutin sparad!");
             $('#successModal').fadeIn();
-
-            // Rensa Inputs
+    
             $('#rutinInput').val('');
             $('#repInput').val('');
             $('#prioInput').val('');
+        } else {
+ 
+            $('#emptyInputsModal').css('display', 'flex');
         }
     });
-
-    // Alert Fyll i inputs. Modal.
     
+    // Stäng empty input. Modal
+    $('#okButtonEmpty').click(function() {
+        $('#emptyInputsModal').css('display', 'none');
+    });
     
     // Stäng Success Modal
     $('#closeSuccessModal').click(function() {
@@ -83,7 +87,6 @@ $(document).ready(function() {
         $('#successModal').fadeOut();
     });
 
-    // Stäng button event listener
     $('.close').click(function() {
         $(this).closest('.modal').fadeOut();
     });
@@ -168,7 +171,7 @@ $(document).ready(function() {
         renderTable();
     });
 
-    // Filtering radio buttons
+    // Filter radio buttons
     $('input[name="radio"]').on('change', function() {
         const selectedPriority = $('input[name="radio"]:checked').val();
 
@@ -181,6 +184,5 @@ $(document).ready(function() {
         renderTable();
     });
 
-    // Render start
     renderTable();
 });

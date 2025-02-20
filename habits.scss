@@ -1,57 +1,51 @@
-/* Modals container */
 #modalsContainer {
-    display: block; /* Allow it to occupy space but manage visibility */
-    position: fixed; /* Fixed positioning */
-    top: 0;
+    display: block;
+    position: fixed;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1000; /* Make sure it's on top */
-    pointer-events: none; /* Ensure it doesn't block interactions with other elements when hidden */
+    z-index: 1000;
+    pointer-events: none;
     display: flex;
-    justify-content: center; /* Center content horizontally */
-    align-items: center; /* Center content vertically */
+    justify-content: center;
+    align-items: center;
 }
 
-/* Modal styles */
 .modal {
-    display: none; /* Hidden by default */
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-    z-index: 1001; /* Make sure modal is on top of background */
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
+    display: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    width: 100%;
+    height: 100%;
     display: flex;
-    justify-content: center; /* Center content horizontally */
-    align-items: center; /* Center content vertically */
+    justify-content: center;
+    align-items: center;
 }
 
-/* Modal content */
 .modal-content {
-    background-color: #fff; /* White background for content */
+    background-color: #fff;
     padding: 20px;
     border: 1px solid #888;
-    width: 50%; /* Modal width */
-    min-width: 300px; /* Minimum width */
+    width: 50%;
+    min-width: 300px;
     border-radius: 5px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3); /* Optional: Add shadow for better visibility */
-}
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
 
 button {
-    cursor: pointer; /* Make buttons clickable */
+    cursor: pointer;
 }
 
-/* Empty Inputs Modal Styles */
 #emptyInputsModal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Fixed positioning */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 1000;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
     overflow: auto;
 }
 
@@ -61,15 +55,15 @@ button {
     border: 1px solid #888;
     width: 50%;
     min-width: 300px;
-    border-radius: 5px;
+    max-width: 300px;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
-    text-align: center; /* Center text */
+    text-align: center;
+    box-sizing: border-box;
 }
 
 #emptyInputsModal button {
     cursor: pointer;
 }
-
 
 #nav{
     display: flex;
@@ -78,8 +72,6 @@ button {
     gap: 24px;
 }
 
-
-  /* Habits container and other sections */
 #habitsContainer {
     width: 600px;
     margin: 0 auto;
@@ -118,11 +110,5 @@ button {
         width: 550px;
         display: flex;
         justify-content: start;
-    gap: 8px;
-    
-        p, label, input {
-            margin: 0;
-        }
     }
 }
-    
