@@ -1,4 +1,3 @@
-
 const addBtn = document.querySelector('#addBtn')
 const eventList = document.querySelector('#eventList')
 const upcomingBtn = document.querySelector('#upcoming')
@@ -16,8 +15,6 @@ const now = new Date()
 
 //index för vilket event som redigeras
 let editIndex = -1
-//hålla koll på nuvarande filter
-let currentFilter = 'all'
 
 //visa events vid start
 displayEvents(events)
@@ -52,13 +49,8 @@ function createNewEvent() {
       return
     }
 
-    // Ersätt event istället för att skapa nytt
-    if (editIndex !== -1) {
-      events[editIndex] = newEvent
-      editIndex = -1
-    } else {
-      events.push(newEvent)
-    }
+    // Lägg till i array
+    events.push(newEvent)
 
     //jämför starttider och få fram det närmst kommande eventet.
     function sortByStartTime(a, b) {
@@ -68,10 +60,12 @@ function createNewEvent() {
     //sortera events-listan baserat på ovanstående funktion
     events.sort(sortByStartTime)
 
+
     // Spara efter tillägg
     saveEventsToLocalStorage()
 
-    filterEvents(currentFilter)
+    // Uppdatera array med nya events
+    displayEvents(events)
 
     //renssa inputfält
     clearInputs()
@@ -85,9 +79,6 @@ function createNewEvent() {
   }
 
 }
-
-
-
 
 //funktion för att tömma inputfält
 function clearInputs() {
@@ -104,7 +95,10 @@ function displayEvents(eventsToDisplay) {
 
   // Loopa igenom alla events och lägg till dem i listan
   eventsToDisplay.forEach((event, index) => {
+
     const li = document.createElement('li')
+    //ta bort T
+    li.innerText = `${event.name} | Start: ${event.startTime.replace('T', ' ')} | End: ${event.endTime.replace('T', ' ')}`
     const editBtn = document.createElement('span')
     editBtn.innerText = '✏️'
     const deleteBtn = document.createElement('span')
@@ -120,7 +114,7 @@ function displayEvents(eventsToDisplay) {
     deleteBtn.addEventListener('click', () => {
       events.splice(index, 1)
       saveEventsToLocalStorage()
-      filterEvents(currentFilter)
+      displayEvents(events)
     })
 
 
@@ -136,11 +130,9 @@ function displayEvents(eventsToDisplay) {
       editIndex = index
 
       saveEventsToLocalStorage()
+      displayEvents(events)
       addBtn.innerText = 'Update event'
     })
-
-    //ta bort T
-    li.innerText = `${event.name} | Start: ${event.startTime.replace('T', ' ')} | End: ${event.endTime.replace('T', ' ')}`
 
     eventList.append(li)
     li.append(deleteBtn, editBtn)
@@ -157,7 +149,7 @@ addBtn.addEventListener('click', () => {
     const startTime = document.querySelector('#startTime').value
     const endTime = document.querySelector('#endTime').value
 
-    // Ersätt det gamla eventet med det nya via splice
+    // Ersätt det gamla eventet med det nya
     events.splice(editIndex, 1, {
       name: eventName,
       startTime: startTime,
@@ -168,12 +160,10 @@ addBtn.addEventListener('click', () => {
     saveEventsToLocalStorage()
 
     // Uppdatera visningen
-    // displayEvents(events)
+    displayEvents(events)
 
     // Återställ knappen till "Add event"
     addBtn.innerText = 'Add event'
-
-    clearInputs()
 
     // Återställ editIndex
     editIndex = -1
@@ -186,7 +176,7 @@ addBtn.addEventListener('click', () => {
 // Funktion för att filtrera events
 function filterEvents(type) {
 
-  let filteredEvents = []
+  let filteredEvents = ''
 
   if (type === 'upcoming') {
     filteredEvents = events.filter(event => new Date(event.startTime) > now)
