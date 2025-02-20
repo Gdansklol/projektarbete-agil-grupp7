@@ -1,4 +1,3 @@
-
 const addBtn = document.querySelector('#addBtn')
 const eventList = document.querySelector('#eventList')
 const upcomingBtn = document.querySelector('#upcoming')
