@@ -108,7 +108,7 @@ if (document.getElementById("eventPlanner")) {
 
   if (document.getElementById("habits")) {
     document.getElementById("habits").addEventListener("click", () => {
-      window.location.href = "habbits.html";
+      window.location.href = "habits.html";
     });
   }
 
