@@ -6,6 +6,24 @@
 
 body {
   background-color: cadetblue;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+body header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+body header nav {
+  margin: 20px 0px 20px 40px;
+}
+body header nav a {
+  padding: 20px;
+  text-decoration: none;
+  color: black;
+}
+body header nav a:hover {
+  color: rgb(3, 27, 240);
 }
 
 main .container {

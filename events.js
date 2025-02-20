@@ -16,6 +16,8 @@ const now = new Date()
 
 //index för vilket event som redigeras
 let editIndex = -1
+//hålla koll på nuvarande filter
+let currentFilter = 'all'
 
 //visa events vid start
 displayEvents(events)
@@ -50,8 +52,13 @@ function createNewEvent() {
       return
     }
 
-    // Lägg till i array
-    events.push(newEvent)
+    // Ersätt event istället för att skapa nytt
+    if (editIndex !== -1) {
+      events[editIndex] = newEvent
+      editIndex = -1
+    } else {
+      events.push(newEvent)
+    }
 
     //jämför starttider och få fram det närmst kommande eventet.
     function sortByStartTime(a, b) {
@@ -64,8 +71,7 @@ function createNewEvent() {
     // Spara efter tillägg
     saveEventsToLocalStorage()
 
-    // Uppdatera array med nya events
-    displayEvents(events)
+    filterEvents(currentFilter)
 
     //renssa inputfält
     clearInputs()
@@ -79,6 +85,9 @@ function createNewEvent() {
   }
 
 }
+
+
+
 
 //funktion för att tömma inputfält
 function clearInputs() {
@@ -111,7 +120,7 @@ function displayEvents(eventsToDisplay) {
     deleteBtn.addEventListener('click', () => {
       events.splice(index, 1)
       saveEventsToLocalStorage()
-      displayEvents(events)
+      filterEvents(currentFilter)
     })
 
 
@@ -127,7 +136,6 @@ function displayEvents(eventsToDisplay) {
       editIndex = index
 
       saveEventsToLocalStorage()
-      displayEvents(events)
       addBtn.innerText = 'Update event'
     })
 
@@ -160,7 +168,7 @@ addBtn.addEventListener('click', () => {
     saveEventsToLocalStorage()
 
     // Uppdatera visningen
-    displayEvents(events)
+    // displayEvents(events)
 
     // Återställ knappen till "Add event"
     addBtn.innerText = 'Add event'
@@ -178,7 +186,7 @@ addBtn.addEventListener('click', () => {
 // Funktion för att filtrera events
 function filterEvents(type) {
 
-  let filteredEvents = ''
+  let filteredEvents = []
 
   if (type === 'upcoming') {
     filteredEvents = events.filter(event => new Date(event.startTime) > now)
