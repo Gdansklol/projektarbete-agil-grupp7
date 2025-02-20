@@ -1,4 +1,9 @@
+<<<<<<< HEAD:js/habits.js
 $(document).ready(function () {
+=======
+$(document).ready(function() {
+    //Prio map
+>>>>>>> feature/habits:habits.js
     const priorityMapping = {
         1: 'Låg',
         2: 'Mellan',
@@ -38,16 +43,20 @@ $(document).ready(function () {
         });
     }
 
+<<<<<<< HEAD:js/habits.js
     // Function Spara button
     $('#submitBtn').click(function () {
+=======
+    $('#submitBtn').click(function() {
+>>>>>>> feature/habits:habits.js
         const rutin = $('#rutinInput').val();
         const repetitioner = $('#repInput').val();
         const prioritet = $('#prioInput').val();
-
+    
         if (rutin && repetitioner && prioritet) {
             const habit = { rutin, repetitioner: parseInt(repetitioner), prioritet: parseInt(prioritet) };
-
-            // Uppdatera rutin
+    
+            // Ändra rutin
             if ($('#submitBtn').data('edit')) {
                 const index = $('#submitBtn').data('index');
                 habits[index] = habit;
@@ -55,25 +64,36 @@ $(document).ready(function () {
             } else {
                 habits.push(habit);
             }
-
+    
             saveHabitsToStorage(habits);
             filteredHabits = habits;
             renderTable();
-
-            // Modal meddelande Success
+    
+            // Success Modal
             $('#modalMessage').text("Rutin sparad!");
             $('#successModal').fadeIn();
-
-            // Rensa Inputs
+    
             $('#rutinInput').val('');
             $('#repInput').val('');
             $('#prioInput').val('');
+        } else {
+ 
+            $('#emptyInputsModal').css('display', 'flex');
         }
     });
+<<<<<<< HEAD:js/habits.js
 
     // Alert Fyll i inputs. Modal.
 
 
+=======
+    
+    // Stäng empty input. Modal
+    $('#okButtonEmpty').click(function() {
+        $('#emptyInputsModal').css('display', 'none');
+    });
+    
+>>>>>>> feature/habits:habits.js
     // Stäng Success Modal
     $('#closeSuccessModal').click(function () {
         $('#successModal').fadeOut();
@@ -83,8 +103,12 @@ $(document).ready(function () {
         $('#successModal').fadeOut();
     });
 
+<<<<<<< HEAD:js/habits.js
     // Stäng button event listener
     $('.close').click(function () {
+=======
+    $('.close').click(function() {
+>>>>>>> feature/habits:habits.js
         $(this).closest('.modal').fadeOut();
     });
 
@@ -168,8 +192,13 @@ $(document).ready(function () {
         renderTable();
     });
 
+<<<<<<< HEAD:js/habits.js
     // Filtering radio buttons
     $('input[name="radio"]').on('change', function () {
+=======
+    // Filter radio buttons
+    $('input[name="radio"]').on('change', function() {
+>>>>>>> feature/habits:habits.js
         const selectedPriority = $('input[name="radio"]:checked').val();
 
         if (selectedPriority === "") {
@@ -181,6 +210,5 @@ $(document).ready(function () {
         renderTable();
     });
 
-    // Render start
     renderTable();
 });
