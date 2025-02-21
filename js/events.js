@@ -64,7 +64,7 @@ function createNewEvent() {
     // Spara efter tillägg
     saveEventsToLocalStorage()
 
-    // Uppdatera visning av events
+    // Uppdatera array med nya events
     displayEvents(events)
 
     //renssa inputfält
@@ -130,7 +130,7 @@ function displayEvents(eventsToDisplay) {
       editIndex = index
 
       saveEventsToLocalStorage()
-      displayEvents(events)
+      filterEvents(event)
       addBtn.innerText = 'Update event'
     })
 
@@ -140,7 +140,7 @@ function displayEvents(eventsToDisplay) {
   })
 }
 
-//lägg till elelr uppdatera befintligt event
+//
 addBtn.addEventListener('click', () => {
   // Om vi är i redigeringsläge
   if (editIndex !== -1) {
@@ -187,7 +187,6 @@ function filterEvents(type) {
   } else {
     //visa alla events
     filteredEvents = events
-    h2Text.innerText = 'All Events'
   }
 
   //visa filtrerade events
