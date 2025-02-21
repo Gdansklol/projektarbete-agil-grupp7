@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="event.css">
+    <script src="event.js" defer></script>
+</head>
+<body>
+
+    <header id="header">
+        <h1 id="headerText">Productivity Assistant App</h1>
+    </header>
+    
+    [<a href="message.html">message</a>]
+    [<a href="event.html">event</a>]
+    [<a href="todo.html">todo</a>]
+    [<a href="habits.html">habits</a>]
+    [<a href="login.html" id="logoutButton">Log out</a>]
+            
+        <section >
+            <h1>Event planner</h1>
+        </section>
+
+            <div class="container">
+              <section>
+                <form id="inputField">
+                  <fieldset>
+                    <legend>Add new events</legend>
+                    <input type="text" id="eventName" placeholder="Title">
+                    <label for="startTime">Start time:</label>
+                    <input type="datetime-local" id="startTime">
+                    <label for="endTime">End time:</label>
+                    <input type="datetime-local" id="endTime">
+                    <button type="button" id="addBtn">Add event</button>
+                  </fieldset>
+                </form>
+              </section>
+        
+              <section>
+                <button id="upcoming">upcoming</button>
+                <button id="previous">previous</button>
+                <button id="all">all</button>
+              </section>
+          
+              <section>
+                <h2>Upcoming Events</h2>
+                <ul id="eventList"></ul>
+              </section>
+        
+            </div>
+          </main>
+          
+    <footer id="footer">
+        <p>&copy; 2025 Todos & Activities. Grupp 7 - All rights reserved.</p>
+    </footer>
+ 
+</body>
+</html>
