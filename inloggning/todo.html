@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todos Page</title>
+  <link rel="stylesheet" href="todo.css">
+  <script src="https://kit.fontawesome.com/28fc0eb946.js" crossorigin="anonymous" defer></script>
+  <script src="todo.js" defer></script>
+</head>
+<body>
+  <header id="header">
+    <h1 id="headerText">Productivity Assistant App</h1>
+  </header>
+ 
+  [<a href="message.html">message</a>]
+  [<a href="event.html">event</a>]
+  [<a href="todo.html">todo</a>]
+  [<a href="habits.html">habits</a>]
+  [<a href="login.html" id="logoutButton">Log out</a>]
+
+  <main class="container">
+    <section>
+      <h1>Todos & Activities</h1>
+    </section>
+        
+    <section class="todo-form-section">
+        <h2>Add a New Task</h2>
+
+        <form id="todo-form">
+            <div class="input-area">
+                <input type="text" id="todo-title" placeholder="Write your task title..." required>
+                <input type="text" id="todo-description" placeholder="Task description..." required>
+                
+                <select id="todo-status" required>
+                    <option value="not-done">Not Completed</option>
+                    <option value="done">Completed</option>
+                </select>
+
+                <select id="todo-time" required>
+                    <option value="">Select time estimate</option>
+                    <option value="1h">1h</option>
+                    <option value="2h">2h</option>
+                    <option value="3h">3h</option>
+                    <option value="4h">4h</option>
+                    <option value="5h">5h</option>
+                    <option value="6h">6h</option>
+                </select>
+
+                <select id="todo-category" required>
+                  <option value="">Select Category</option>
+                  <option value="computer-games">🕹️ Computer Games</option>
+                  <option value="restaurant-visit">🍽️ Restaurant Visit</option>
+                  <option value="travel">✈️ Travel</option>
+                  <option value="housework">🏡 Housework</option>
+                  <option value="schoolwork">📚 Schoolwork</option>
+                  <option value="fashion">👗 Fashion</option>
+                  <option value="music-relaxation">🎵 Music & Relaxation</option>
+                </select>
+
+              <input type="date" id="todo-deadline" required>
+                    <button type="submit" id="add-todo">Add task</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="filter-container">
+            <h2>Filter</h2>
+
+            <select id="filter-todo-status">
+                <option value="all">All</option>
+                <option value="done">Completed</option>
+                <option value="not-done">Not Completed</option>
+            </select>
+
+            <fieldset>
+              <legend>Select a category</legend>
+              <div class="checkbox-group">
+                  <label><input type="checkbox" id="select-all-categories"> Select All</label>
+                  <label><input type="checkbox" name="filter-category" value="computer-games" id="filter-computer-games"> 🎮 Computer Games</label>
+                  <label><input type="checkbox" name="filter-category" value="restaurant-visit" id="filter-restaurant-visit"> 🍽️ Restaurant Visit</label>
+                  <label><input type="checkbox" name="filter-category" value="travel" id="filter-travel"> ✈️ Travel</label>
+                  <label><input type="checkbox" name="filter-category" value="housework" id="filter-housework"> 🏡 Housework</label>
+                  <label><input type="checkbox" name="filter-category" value="schoolwork" id="filter-schoolwork"> 📚 Schoolwork</label>
+                  <label><input type="checkbox" name="filter-category" value="fashion" id="filter-fashion"> 👗 Fashion</label>
+                  <label><input type="checkbox" name="filter-category" value="music-relaxation" id="filter-music-relaxation"> 🎵 Music & Relaxation</label>
+              </div>
+          </fieldset>
+
+          <button id="filter-todos">Filter</button>
+      </section>
+
+      <section class="sort-wrapper">
+        <h2>Sort</h2>
+        <select id="sort-todo">
+            <option value="deadline">Sort by Deadline</option>
+            <option value="time">Sort by Time Estimate</option>
+            <option value="status">Sort by Status</option>
+        </select>
+    
+    <section>
+        <label><input type="radio" name="sort-order" value="asc">Ascending</label>
+        <label><input type="radio" name="sort-order" value="des">Descending</label>
+    </section>
+
+        <button id="sort-button">Sort</button>
+    </section>
+
+    <section class="todo-list">
+        <h2>Task List</h2>
+        <ul id="listContainer"></ul>
+    </section>
+
+    <button id="reset-todo" class="reset-button">Reset</button>
+
+</main>
+  <footer id="footer">
+    <p>&copy; 2025 Todos & Activities. Grupp 7 - All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
