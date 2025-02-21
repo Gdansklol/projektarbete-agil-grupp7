@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="habits.css">
+    <script src="habits.js" defer></script>
+    <title>Habits</title>
+</head>
+<body>
+    <div id="nav">
+        <a href="index.html">Back To Main</a>
+        <a href="/pages/todo.html">Todos & Activities</a>
+        <a href="events.html">Event Planner</a>
+    </div>
+    
+    <div id="habitsContainer">
+        <h1>Habits</h1>
+
+        <div id="inputDiv">
+            
+            <input id="rutinInput" type="text" placeholder="Rutin">
+            
+            <input id="repInput" type="number" name="times" min="0" step="1" placeholder="Antal repetitioner">
+            
+            <select id="prioInput" name="prio">
+                <option value="">Prioritet</option>
+                <option class="låg" value="1">Låg</option>
+                <option class="mellan" value="2">Mellan</option>
+                <option class="hög" value="3">Hög</option>
+            </select>
+            
+            <button id="submitBtn">Spara</button>
+        </div>
+        
+        <div id="radioBtns">
+            <p>Filtrera priotitet:<p>
+            <input type="radio" name="radio" id="låg" value="1">
+            <label for="låg">Låg </label>
+            <input type="radio" name="radio" id="mellan" value="2">
+            <label for="mellan">Mellan </label>
+            <input type="radio" name="radio" id="hög" value="3">
+            <label for="hög">Hög </label>
+            <input type="radio" name="radio" id="alla" value="" checked>
+            <label for="alla">Visa alla </label>
+        </div>
+        
+        <div id="dataTableDiv">
+            <table class="table-striped">
+                <tr class="bg-info">
+                    <th data-column="rutin" data-order="desc">Rutin &#9650</th>
+                    <th data-column="repetitioner" data-order="desc">Repetitioner &#9650</th>
+                    <th data-column="prioritet" data-order="desc">Prioritet &#9650</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tbody id="myTable">
+                    <!-- data läggs här -->
+                </tbody>
+            </table>
+            
+        </div>
+        
+
+        <div id="modalsContainer">
+            <!-- Success Modal -->
+            <div id="successModal" style="display: none;">
+                <div class="modal-content">
+                    <p id="modalMessage"></p>
+                    <button id="okButton">OK</button>
+                </div>
+            </div>
+
+            <!-- Delete Modal -->
+            <div id="deleteModal" style="display: none;">
+                <div class="modal-content">
+                    <p>Är du säker på att du vill ta bort denna rutin?</p>
+                    <button id="confirmDeleteBtn">Ja</button>
+                    <button id="cancelDeleteBtn">Ångra</button>
+                </div>
+            </div>
+
+            <!-- Empty Inputs Modal -->
+            <div id="emptyInputsModal" style="display: none;">
+                <div class="modal-content">
+                    <p id="emptyInputsMessage">Fyll i fälten innan du skapar en ny rutin!</p>
+                    <button id="okButtonEmpty">OK</button>
+                </div>
+            </div>
+
+
+        </div>
+        
+        
+    </div>
+</body>
+</html>
