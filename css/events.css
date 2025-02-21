@@ -1,0 +1,44 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: cadetblue;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+body header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+body header nav {
+  margin: 20px 0px 20px 40px;
+}
+body header nav a {
+  padding: 20px;
+  text-decoration: none;
+  color: black;
+}
+body header nav a:hover {
+  color: rgb(3, 27, 240);
+}
+
+main .container {
+  border: solid 2px rgb(27, 25, 25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+main .container .pastEvents {
+  text-decoration: line-through;
+  color: rgb(94, 93, 93);
+}
+main .container #inputField {
+  margin: 1.5rem;
+}
+main .container #inputField fieldset {
+  padding: 1rem;
+}/*# sourceMappingURL=events.css.map */
