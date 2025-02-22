@@ -62,22 +62,32 @@ De tre rutiner med högst antal repetitioner. Länk för att navigera till lista
 De tre nästkommande händelserna. Länk för att navigera till lista med samtliga händelser.
 
 ## Todos & Activities
-> En todo-app som innehåller funktioner för att lägga till, redigera, ta bort, 
-  filtrera och sortera uppgifter.
+ ### En fullständig todo-app med följande funktioner:
+ - Lägg till nya uppgifter
+ - Redigera uppgifter
+ - Ta bort uppgifter
+ - Filtrera efter status och kategori
+ - Sortera baserat på deadline, tid eller status
 
-> Använder LocalStorage för att lagra och hämta användarspecifika uppgifter, 
-  vilket möjliggör beständig datalagring mellan sidladdningar.
+ ### Använder LocalStorage
+ - Data lagras per användare
+ - Möjliggör beständig datalagring mellan sidladdningar.
 
-> En dynamisk renderingsfunktion för att uppdatera DOM och säkerställa att
-  UI speglar den aktuella uppgiftslistan.
+### Automatisk uppdatering av gränssnittet (UI)
+  - DOM uppdateras genom en dynamisk renderingsfunktion.
+  - Säkerställer att den aktuella uppgiftslistan alltid speglas korrekt.
 
-> Hantering av statusändringar med funktionerna complete,uncomplete, remove, edit, 
-  vilket möjliggör realtidsuppdateringar av uppgiftsstatus.
+### Effektiv datamanipulation
+ - Metoder för att hantera listuppdateringar.
 
-> Eventlyssnare (addEventListener) används för att möjliggöra interaktivitet och reagera
-  på användarhandlingar, inklusive formsubmission, klick och checkbox-ändringar.
+### Interaktivitet genom event-lyssnare
+ - addEventListener() används för att hantera användarinteraktioner såsom
+   formulärinlämningar, klickhändelser och checkboxändringar.
 
-> JSON-strukturerade uppgifter lagras per användare i localStorage.setItem().
+### Effektiv DOM-hantering
+- JSON-strukturerade uppgifter lagras per användare i localStorage.setItem().
+
+<hr>
 
 ## Habits
 
@@ -103,6 +113,8 @@ Sortering - Ska kunna sorteras på (stigande och fallande):
 Repetitioner
 
 Prioritet
+
+<hr>
 
 ## Event planner
 
