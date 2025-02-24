@@ -1,3 +1,4 @@
+
 const addBtn = document.querySelector('#addBtn')
 const eventList = document.querySelector('#eventList')
 const upcomingBtn = document.querySelector('#upcoming')
@@ -60,7 +61,6 @@ function createNewEvent() {
     //sortera events-listan baserat på ovanstående funktion
     events.sort(sortByStartTime)
 
-
     // Spara efter tillägg
     saveEventsToLocalStorage()
 
@@ -95,10 +95,7 @@ function displayEvents(eventsToDisplay) {
 
   // Loopa igenom alla events och lägg till dem i listan
   eventsToDisplay.forEach((event, index) => {
-
     const li = document.createElement('li')
-    //ta bort T
-    li.innerText = `${event.name} | Start: ${event.startTime.replace('T', ' ')} | End: ${event.endTime.replace('T', ' ')}`
     const editBtn = document.createElement('span')
     editBtn.innerText = '✏️'
     const deleteBtn = document.createElement('span')
@@ -135,6 +132,9 @@ function displayEvents(eventsToDisplay) {
       addBtn.innerText = 'Update event'
     })
 
+    //ta bort T
+    li.innerText = `${event.name} | Start: ${event.startTime.replace('T', ' ')} | End: ${event.endTime.replace('T', ' ')}`
+
     eventList.append(li)
     li.append(deleteBtn, editBtn)
 
@@ -150,7 +150,7 @@ addBtn.addEventListener('click', () => {
     const startTime = document.querySelector('#startTime').value
     const endTime = document.querySelector('#endTime').value
 
-    // Ersätt det gamla eventet med det nya
+    // Ersätt det gamla eventet med det nya via splice
     events.splice(editIndex, 1, {
       name: eventName,
       startTime: startTime,
@@ -201,3 +201,12 @@ function filterEvents(type) {
 upcomingBtn.addEventListener('click', () => filterEvents('upcoming'))
 previousBtn.addEventListener('click', () => filterEvents('previous'))
 allBtn.addEventListener('click', () => filterEvents('all'))
+
+
+if (document.getElementById("logoutButton")) {
+  document.getElementById("logoutButton").addEventListener("click", (event) => {
+    event.preventDefault();
+    sessionStorage.removeItem("currentUser");
+    window.location.href = "login.html";
+  });
+}
