@@ -1,0 +1,12 @@
+#eventList, #habitList, #todoList {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1rem;
+  .card {
+    background-color: aqua;
+    border-radius: 5px;
+    border: 1px solid #4c4a4a;
+    padding: 1rem;
+    margin-right: 2rem;
+  }
+}
