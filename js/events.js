@@ -131,6 +131,7 @@ function displayEvents(eventsToDisplay) {
 
       saveEventsToLocalStorage()
       filterEvents(event)
+      
       addBtn.innerText = 'Update event'
     })
 
@@ -167,6 +168,8 @@ addBtn.addEventListener('click', () => {
 
     // Återställ editIndex
     editIndex = -1
+    clearInputs()
+    return
   } else {
     // Om vi inte är i redigeringsläge, skapa nytt event
     createNewEvent()
@@ -187,6 +190,7 @@ function filterEvents(type) {
   } else {
     //visa alla events
     filteredEvents = events
+    h2Text.innerText = 'All Events'
   }
 
   //visa filtrerade events
