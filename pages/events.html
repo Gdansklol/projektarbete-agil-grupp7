@@ -3,20 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/events.css">
-  <script src="/js/events.js" defer></script>
+  <link rel="stylesheet" href="../css/events.css">
+  <script src="../js/events.js" defer></script>
   <title>Event Planner</title>
 </head>
 <body>
   
   <header>
     <h1>Event Planner</h1>
+
     <nav>
-      <a href="/start.html">Back To Main</a>
-      <a href="/pages/todo.html">Todos & Activities</a>
-      <a href="/pages/habits.html">Habits</a>
+      <a href="./start.html">Home</a> 
+      <a href="./todo.html">Todos & Activities</a>
+      <a href="./habits.html">Habits</a>
+      <a href="./events.html">Event Planner</a>
+      <a href="login.html" id="logoutButton">Log out</a>
     </nav>
+    
   </header>
+
   <main>
     <div class="container">
       <section>
@@ -38,19 +43,17 @@
       </section>
 
       <section>
-        <button id="upcoming">upcoming</button>
-        <button id="previous">previous</button>
-        <button id="all">all</button>
+        <button id="upcoming">Upcoming</button>
+        <button id="previous">Previous</button>
+        <button id="all">All</button>
       </section>
   
       <section>
         <h2>Upcoming Events</h2>
         <ul id="eventList"></ul>
       </section>
-
     </div>
   </main>
-  
-  
+
 </body>
 </html>

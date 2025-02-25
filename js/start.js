@@ -1,184 +1,109 @@
-// Visa välkomstext för inloggad anvädare
-const currentUser = sessionStorage.getItem('currentUser');
+const currentUser = sessionStorage.getItem("currentUser");
 
-function displayWelcomeMessage() {
-  if (currentUser) {
-    document.getElementById('welcomeContainer').innerHTML = `Welcome, ${currentUser}!`;
-  } else {
-    document.getElementById('welcomeContainer').innerHTML = 'No user logged in!';
-  }
+if (!currentUser) {
+    window.location.href = "../login.html"; 
 }
+
+const displayWelcomeMessage = () => {
+    const welcomeContainer = document.getElementById("welcomeContainer");
+    welcomeContainer.innerHTML = currentUser
+        ? `Welcome, ${currentUser}!`
+        : "No user logged in!";
+};
 
 displayWelcomeMessage();
 
-//Random Quote
+const quote = document.querySelector("#quote");
+const author = document.querySelector("#author");
 
-const quote = document.querySelector('#quote')
-const author = document.querySelector('#author')
-
-const url = 'https://dummyjson.com/quotes/random'
-
-//asynkron funktion för att hämta citat
 const getQuote = async () => {
-  try {
-    //anropa API
-    const response = await fetch(url)
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`)
+    try {
+        const response = await fetch("https://dummyjson.com/quotes/random");
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+        const data = await response.json();
+        quote.textContent = `"${data.quote}"`;
+        author.textContent = `- ${data.author}`;
+    } catch (error) {
+        console.error("Error fetching quote:", error);
+        quote.textContent = "Could not retrieve quote.";
+        author.textContent = "";
     }
-    const data = await response.json()
+};
 
-    //citat & författare
-    quote.textContent = `"${data.quote}"`
-    author.textContent = `- ${data.author}`
-  }
-  //felhantering
-  catch (error) {
-    console.error('Error fetching quote:', error)
-    quote.textContent = 'Could not retrieve quote.'
-    author.textContent = ''
-  }
-}
+getQuote();
 
-// Hämta citat vid sidladdning
-window.addEventListener('load', getQuote)
+const display3Todos = () => {
+    const todoList = document.querySelector("#todoList");
+    if (!todoList) return console.error("Error: #todoList element not found!");
 
-//3 senaste todos, habits & events.
+    const todos = JSON.parse(localStorage.getItem(`${currentUser}_todos`)) || [];
 
-//lista för events
-const eventList = document.querySelector('#eventList')
-//lista för habits
-const habitList = document.querySelector('#habitList')
-//lista för todos
-const todoList = document.querySelector("#todoList")
+    if (todos.length === 0) {
+        todoList.innerHTML = "<li>No pending tasks found.</li>";
+        return;
+    }
 
+    const unfinishedTodos = todos
+        .filter(todo => todo.status !== "done")
+        .sort((a, b) => new Date(a.deadline) - new Date(b.deadline))
+        .slice(0, 3);
 
-//Events
+    todoList.innerHTML = unfinishedTodos.length
+        ? unfinishedTodos.map(todo => `
+            <li class="card">
+                <p><b>Task:</b> ${todo.title}</p>
+                <p><b>Deadline:</b> ${todo.deadline}</p>
+                <p><b>Category:</b> ${todo.category}</p>
+            </li>
+        `).join("")
+        : "<li>No unfinished tasks.</li>";
+};
 
-// Funktion för att hämta och visa de tre nästkommande eventen
-function displayNext3Events() {
-  // Kollar inloggad anvädare
-  if (!currentUser) return;
+const displayTop3Habits = () => {
+    const habitList = document.querySelector("#habitList");
+    if (!habitList) return console.error("Error: #habitList element not found!");
 
-  // hämta user-specifika events från localStorage
-  const events = JSON.parse(localStorage.getItem(`${currentUser}_events`)) || [];
+    const habits = JSON.parse(localStorage.getItem(`${currentUser}_habits`)) || [];
 
-  // Om inga event finns, visa meddelande
-  if (events.length === 0) {
-    eventList.innerHTML = "<p>No upcoming events found.</p>"
-    return
-  }
+    habitList.innerHTML = habits.length
+        ? habits.sort((a, b) => b.repetitioner - a.repetitioner)
+            .slice(0, 3)
+            .map(habit => `
+                <li class="card">
+                    <p><b>Routine:</b> ${habit.rutin}</p>
+                    <p><b>Repetitions:</b> ${habit.repetitioner}</p>
+                </li>
+            `).join("")
+        : "<li>No habits saved.</li>";
+};
 
-  // Filtrera ut så vi ser kommande events
-  const upcomingEvents = events.filter(event => new Date(event.startTime) > new Date())
+const displayNext3Events = () => {
+    const eventList = document.querySelector("#eventList");
+    if (!eventList) return console.error("Error: #eventList element not found!");
 
-  // Sortera eventen efter starttid, från det närmaste till det äldsta
-  upcomingEvents.sort((a, b) => new Date(a.startTime) - new Date(b.startTime))
+    const events = JSON.parse(localStorage.getItem(`${currentUser}_events`)) || [];
 
-  // Ta de tre första kommande eventen
-  const nextThreeEvents = upcomingEvents.slice(0, 3)
+    eventList.innerHTML = events.length
+        ? events.filter(event => new Date(event.startTime) > new Date())
+            .sort((a, b) => new Date(a.startTime) - new Date(b.startTime))
+            .slice(0, 3)
+            .map(event => `
+                <li class="card">
+                    <p><b>Event:</b> ${event.name}</p>
+                    <p><b>Start:</b> ${event.startTime.replace("T", " ")}</p>
+                    <p><b>End:</b> ${event.endTime.replace("T", " ")}</p>
+                </li>
+            `).join("")
+        : "<li>No upcoming events found.</li>";
+};
 
-  //tom sträng för att skapa innehåll
-  let value = ''
-  nextThreeEvents.forEach((event) => {
-    value += `
-      <ul class = "card">
-        <p>Event: ${event.name.replace('T', ' ')} | Start: ${event.startTime.replace('T', ' ')} | End: ${event.endTime.replace('T', ' ')}</p>
-      </ul>
-    `
-  })
-
-  // visa innehåll i listan
-  eventList.innerHTML = value
-}
-
-
-//Habits 
-
-// Funktion för att hämta och visa de tre mest upprepade vanorna
-function displayTop3Habits() {
-  // Kollar inloggad anvädare
-  if (!currentUser) return;
-
-  // hämta rutiner från localStorage
-  const habits = JSON.parse(localStorage.getItem(`${currentUser}_habits`)) || []
-
-  // Om inga rutiner finns, visa meddelande
-  if (habits.length === 0) {
-    habitList.innerHTML = "<p>No habits saved.</p>"
-    return
-  }
-
-  // Sortera rutinerna efter antal repetitioner
-  habits.sort((a, b) => b.repetitioner - a.repetitioner)
-
-  // Ta de tre rutiner med högst antal repetitioner
-  const topThreeHabits = habits.slice(0, 3)
-
-  //tom sträng för att skapa innehåll
-  let value = ''
-  topThreeHabits.forEach((habit) => {
-    value += `
-      <ul class="card">
-        <p>Rutin: ${habit.rutin} | Repetitioner: ${habit.repetitioner}</p>
-      </ul>
-    `
-  })
-
-  //visa innehåll i lidtan
-  habitList.innerHTML = value
-}
-
-
-//todos 
-
-// Funktion för att hämta och visa de tre senaste ej utförda ärendena
-function display3Todos() {
-  // Kollar inloggad anvädare
-  if (!currentUser) return;
-
-  // Hämta todos från localStorage
-  const todos = JSON.parse(localStorage.getItem(`${currentUser}_todos`)) || []
-
-  // Om inga todos finns, visa meddelande
-  if (todos.length === 0) {
-    todoList.innerHTML = "<p>No pending tasks found.</p>"
-    return
-  }
-
-  // Filtrera ut todos som inte är klara
-  const pendingTodos = todos.filter(todo => todo.status !== "done")
-
-  // Sortera todos efter datum, närmast först
-  pendingTodos.sort((a, b) => new Date(a.deadline) - new Date(b.deadline))
-
-  // Ta de tre första (med närmst liggande datum)
-  const unfinishedTodos = pendingTodos.slice(0, 3)
-
-  let value = ""
-  unfinishedTodos.forEach(todo => {
-    value += `
-      <ul class="card">
-        <p>Task: ${todo.title} | Deadline: ${todo.deadline} | Category: ${todo.category}</p>
-      </ul>
-    `
-  })
-
-  //sätt innehåll i listan
-  todoList.innerHTML = value
-}
-
-// Kör funktionerna när startsidan laddats klart
-document.addEventListener("DOMContentLoaded", () => {
-  displayNext3Events()
-  displayTop3Habits()
-  display3Todos()
-})
-
-// Logga ut
-document.querySelector('#logoutButton').addEventListener('click', () => {
-  sessionStorage.removeItem('currentUser');
-  
-  window.location.href = '/pages/login.html';
+document.querySelector("#logoutButton").addEventListener("click", () => {
+    sessionStorage.removeItem("currentUser");
+    alert("✅ You have been logged out.");
+    window.location.href = "../login.html";  
 });
 
+display3Todos();
+displayTop3Habits();
+displayNext3Events();

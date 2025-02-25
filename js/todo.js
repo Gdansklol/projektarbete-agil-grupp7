@@ -96,7 +96,7 @@ window.removeTodo = (index) => {
 if (logoutButton) {
     logoutButton.addEventListener("click", () => {
         sessionStorage.removeItem("currentUser");
-        window.location.href = "/pages/login.html";
+        window.location.href = "/login.html";
     });
 }
 
