@@ -6,9 +6,30 @@ const previousBtn = document.querySelector('#previous')
 const allBtn = document.querySelector('#all')
 const h2Text = document.querySelector('h2')
 
+// Hämta inloggad användare
+const currentUser = sessionStorage.getItem('currentUser')
+
+//om ingen inloggad, gå till login
+if (!currentUser) {
+  window.location.href = "/pages/login.html"
+}
+
+// Ladda events för aktuell användare
+function getEventsFromStorage() {
+  const eventsData = localStorage.getItem(`${currentUser}_events`)
+  return eventsData ? JSON.parse(eventsData) : []
+}
+
+// Spara events till localStorage för aktuell användare
+function saveEventsToStorage(events) {
+  localStorage.setItem(`${currentUser}_events`, JSON.stringify(events))
+}
+
+let events = getEventsFromStorage()
+
 
 // Hämta events från localStorage eller skapa en tom array om inget finns sparat
-let events = JSON.parse(localStorage.getItem('events')) || []
+// let events = JSON.parse(localStorage.getItem('events')) || []
 
 
 //variabel för dagens datum & tid
@@ -62,10 +83,18 @@ function createNewEvent() {
     events.sort(sortByStartTime)
 
     // Spara efter tillägg
-    saveEventsToLocalStorage()
+    saveEventsToStorage(events)
 
     // Uppdatera array med nya events
-    displayEvents(events)
+    // displayEvents(events)
+
+    // Uppdatera array med nya events, men filtrera bort de som redan har passerat(ska abra synas på'previous'knappen)
+    if (h2Text.innerText === 'Upcoming Events') {
+      displayEvents(events.filter(event => new Date(event.startTime) > now))
+    } else {
+      // Visa alla om det inte är "Upcoming"
+      displayEvents(events)
+    }
 
     //renssa inputfält
     clearInputs()
@@ -110,7 +139,7 @@ function displayEvents(eventsToDisplay) {
     //radera
     deleteBtn.addEventListener('click', () => {
       events.splice(index, 1)
-      saveEventsToLocalStorage()
+      saveEventsToStorage(events)
       displayEvents(events)
     })
 
@@ -126,9 +155,9 @@ function displayEvents(eventsToDisplay) {
       //spara indexet på det event som ska redigeras
       editIndex = index
 
-      saveEventsToLocalStorage()
+      // saveEventsToLocalStorage()
       filterEvents(event)
-      
+
       addBtn.innerText = 'Update event'
     })
 
@@ -158,7 +187,7 @@ addBtn.addEventListener('click', () => {
     })
 
     // Spara uppdaterade events i localStorage
-    saveEventsToLocalStorage()
+    saveEventsToStorage(events)
 
     // Uppdatera visningen
     displayEvents(events)
@@ -179,7 +208,7 @@ addBtn.addEventListener('click', () => {
 // Funktion för att filtrera events
 function filterEvents(type) {
 
-  let filteredEvents = ''
+  let filteredEvents = []
 
   if (type === 'upcoming') {
     filteredEvents = events.filter(event => new Date(event.startTime) > now)
