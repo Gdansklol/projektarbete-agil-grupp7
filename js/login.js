@@ -111,9 +111,4 @@ if (document.getElementById("eventPlanner")) {
       window.location.href = "habits.html";
     });
   }
-
-  if (document.getElementById("getRandomMessage")) {
-    document.getElementById("getRandomMessage").addEventListener("click", () => {
-      window.location.href = "message.html";
-    });
-  }
+  

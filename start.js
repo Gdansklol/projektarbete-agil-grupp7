@@ -1,3 +1,4 @@
+
 //lista för events
 const eventList = document.querySelector('#eventList')
 //lista för habits
@@ -121,4 +122,3 @@ document.addEventListener("DOMContentLoaded", () => {
   displayTop3Habits()
   display3Todos()
 })
-
