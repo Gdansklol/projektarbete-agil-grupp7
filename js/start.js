@@ -1,17 +1,15 @@
-// Välkomstext för inloggad användare
-const welcomeContainer = document.querySelector('#welcomeContainer');
+// Visa välkomstext för inloggad anvädare
+const currentUser = sessionStorage.getItem('currentUser');
 
-function welcomeMessage() {
-  const currentUser = sessionStorage.getItem('currentUser');
-
+function displayWelcomeMessage() {
   if (currentUser) {
-    welcomeContainer.innerHTML = `Welcome, ${currentUser}!`;
+    document.getElementById('welcomeContainer').innerHTML = `Welcome, ${currentUser}!`;
   } else {
-    welcomeContainer.innerHTML = 'No user logged in!';
+    document.getElementById('welcomeContainer').innerHTML = 'No user logged in!';
   }
 }
 
-document.addEventListener("DOMContentLoaded", welcomeMessage);
+displayWelcomeMessage();
 
 //Random Quote
 
@@ -45,9 +43,6 @@ const getQuote = async () => {
 // Hämta citat vid sidladdning
 window.addEventListener('load', getQuote)
 
-
-
-
 //3 senaste todos, habits & events.
 
 //lista för events
@@ -62,8 +57,11 @@ const todoList = document.querySelector("#todoList")
 
 // Funktion för att hämta och visa de tre nästkommande eventen
 function displayNext3Events() {
-  // hämta events localStorage eller tom array om inget finns
-  const events = JSON.parse(localStorage.getItem('events')) || []
+  // Kollar inloggad anvädare
+  if (!currentUser) return;
+
+  // hämta user-specifika events från localStorage
+  const events = JSON.parse(localStorage.getItem(`${currentUser}_events`)) || [];
 
   // Om inga event finns, visa meddelande
   if (events.length === 0) {
@@ -95,13 +93,15 @@ function displayNext3Events() {
 }
 
 
-
 //Habits 
 
 // Funktion för att hämta och visa de tre mest upprepade vanorna
 function displayTop3Habits() {
+  // Kollar inloggad anvädare
+  if (!currentUser) return;
+
   // hämta rutiner från localStorage
-  const habits = JSON.parse(localStorage.getItem('habits')) || []
+  const habits = JSON.parse(localStorage.getItem(`${currentUser}_habits`)) || []
 
   // Om inga rutiner finns, visa meddelande
   if (habits.length === 0) {
@@ -115,7 +115,7 @@ function displayTop3Habits() {
   // Ta de tre rutiner med högst antal repetitioner
   const topThreeHabits = habits.slice(0, 3)
 
-  //yom sträng för att skapa innehåll
+  //tom sträng för att skapa innehåll
   let value = ''
   topThreeHabits.forEach((habit) => {
     value += `
@@ -130,14 +130,15 @@ function displayTop3Habits() {
 }
 
 
-
-
 //todos 
 
 // Funktion för att hämta och visa de tre senaste ej utförda ärendena
 function display3Todos() {
+  // Kollar inloggad anvädare
+  if (!currentUser) return;
+
   // Hämta todos från localStorage
-  const todos = JSON.parse(localStorage.getItem("todoList")) || []
+  const todos = JSON.parse(localStorage.getItem(`${currentUser}_todos`)) || []
 
   // Om inga todos finns, visa meddelande
   if (todos.length === 0) {
@@ -173,4 +174,11 @@ document.addEventListener("DOMContentLoaded", () => {
   displayTop3Habits()
   display3Todos()
 })
+
+// Logga ut
+document.querySelector('#logoutButton').addEventListener('click', () => {
+  sessionStorage.removeItem('currentUser');
+  
+  window.location.href = '/pages/login.html';
+});
 
