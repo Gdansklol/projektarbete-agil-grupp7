@@ -1,3 +1,18 @@
+// Välkomstext för inloggad användare
+const welcomeContainer = document.querySelector('#welcomeContainer');
+
+function welcomeMessage() {
+  const currentUser = sessionStorage.getItem('currentUser');
+
+  if (currentUser) {
+    welcomeContainer.innerHTML = `Welcome, ${currentUser}!`;
+  } else {
+    welcomeContainer.innerHTML = 'No user logged in!';
+  }
+}
+
+document.addEventListener("DOMContentLoaded", welcomeMessage);
+
 //Random Quote
 
 const quote = document.querySelector('#quote')
