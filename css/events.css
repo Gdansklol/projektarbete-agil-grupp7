@@ -5,7 +5,6 @@
 }
 
 body {
-  background-color: cadetblue;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 body header {
@@ -23,14 +22,21 @@ body header nav a {
   color: black;
 }
 body header nav a:hover {
-  color: rgb(3, 27, 240);
+  color: rgb(107, 112, 248);
 }
 
 main .container {
+  background-color: rgb(178, 180, 240);
   border: solid 2px rgb(27, 25, 25);
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 70%;
+  margin: 0 auto;
+  padding: 2rem;
+}
+main .container h2 {
+  margin-top: 1rem;
 }
 main .container .pastEvents {
   text-decoration: line-through;
