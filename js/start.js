@@ -158,3 +158,4 @@ document.addEventListener("DOMContentLoaded", () => {
   displayTop3Habits()
   display3Todos()
 })
+
