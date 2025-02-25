@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test</title>
+    <title>Home</title>
     <link rel="stylesheet" href="/css/start.css">
     <script src="js/start.js" defer></script>
   </head>
@@ -11,25 +11,34 @@
   
     <header>
       <h1>Dashboard</h1>
+      <nav>
+        <a href="start.html">Back To Main</a>
+        <a href="/pages/todo.html">Todos & Activities</a>
+        <a href="pages/habits.html">Habits</a>
+        <a href="pages/events.html">Event Planner</a>
+      </nav>
     </header>
 
-    <div id='quote-container'></div>
+    <div id="quoteContainer">
+      <p id="quote">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, earum?.</p>
+      <h2 id="author">Lorem, ipsum.</h2>
+    </div>
   
     <main>
       <section>
-        <h2>Three Latest Unfinished Todos</h2>
+        <h3>Three Latest Unfinished Todos</h3>
         <ul id="todoList"></ul>
         <a href="/pages/todo.html">View All Todos</a>
       </section>
   
       <section>
-        <h2>Top 3 Most Repeated Habits</h2>
+        <h3>Top 3 Most Repeated Habits</h3>
         <ul id="habitList"></ul>
         <a href="/pages/habits.html">View All Habits</a>
       </section>
   
       <section>
-        <h2>Next Three Upcoming Events</h2>
+        <h3>Next Three Upcoming Events</h3>
         <ul id="eventList"></ul>
         <a href="/pages/events.html">View All Events</a>
       </section>

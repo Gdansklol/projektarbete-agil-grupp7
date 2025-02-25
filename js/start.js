@@ -1,3 +1,39 @@
+//Random Quote
+
+const quote = document.querySelector('#quote')
+const author = document.querySelector('#author')
+
+const url = 'https://dummyjson.com/quotes/random'
+
+//asynkron funktion för att hämta citat
+const getQuote = async () => {
+  try {
+    //anropa API
+    const response = await fetch(url)
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`)
+    }
+    const data = await response.json()
+
+    //citat & författare
+    quote.textContent = `"${data.quote}"`
+    author.textContent = `- ${data.author}`
+  }
+  //felhantering
+  catch (error) {
+    console.error('Error fetching quote:', error)
+    quote.textContent = 'Could not retrieve quote.'
+    author.textContent = ''
+  }
+}
+
+// Hämta citat vid sidladdning
+window.addEventListener('load', getQuote)
+
+
+
+
+//3 senaste todos, habits & events.
 
 //lista för events
 const eventList = document.querySelector('#eventList')
