@@ -6,25 +6,8 @@ function initializePage() {
   const loginForm = document.getElementById("loginForm");
   const showSignupLink = document.getElementById("showSignupForm");
   const showLoginLink = document.getElementById("showLoginForm");
-  const userSection = document.getElementById("userSection");
-  const usernameDisplay = document.getElementById("usernameDisplay");
   const loginFormContainer = document.getElementById("loginFormContainer");
   const signupFormContainer = document.getElementById("signupFormContainer");
-  const logoutButton = document.getElementById("logoutButton");
-  const showTodoListButton = document.getElementById("showTodoList");
-
-  const currentUser = sessionStorage.getItem("currentUser");
-
-  if (currentUser) {
-    loginFormContainer.style.display = "none";
-    signupFormContainer.style.display = "none";
-    userSection.style.display = "block";
-    usernameDisplay.textContent = currentUser;
-  } else {
-    loginFormContainer.style.display = "block";
-    signupFormContainer.style.display = "none";
-    userSection.style.display = "none";
-  }
 
   showSignupLink.addEventListener("click", (event) => {
     event.preventDefault();
@@ -54,7 +37,6 @@ document.getElementById("signupForm").addEventListener("submit", (event) => {
   if (existingUser) {
     alert("User already exists.");
   } else {
-
     const newUser = { username: signupUsername, password: signupPassword };
     users.push(newUser);
     localStorage.setItem("users", JSON.stringify(users));
@@ -81,39 +63,8 @@ document.getElementById("loginForm").addEventListener("submit", (event) => {
   if (user && user.password === loginPassword) {
     sessionStorage.setItem("currentUser", loginUsername);
     alert("Login successful!");
-    location.reload(); 
+    window.location.href = "../start.html";
   } else {
     alert("Invalid username or password!");
   }
 });
-
-if (document.getElementById("logoutButton")) {
-  document.getElementById("logoutButton").addEventListener("click", () => {
-    sessionStorage.removeItem("currentUser");
-    location.reload();
-  });
-}
-
-if (document.getElementById("showTodoList")) {
-  document.getElementById("showTodoList").addEventListener("click", () => {
-    window.location.href = "todo.html";
-  });
-}
-
-if (document.getElementById("eventPlanner")) {
-    document.getElementById("eventPlanner").addEventListener("click", () => {
-      window.location.href = "event.html";
-    });
-  }
-
-  if (document.getElementById("habits")) {
-    document.getElementById("habits").addEventListener("click", () => {
-      window.location.href = "habits.html";
-    });
-  }
-
-  if (document.getElementById("getRandomMessage")) {
-    document.getElementById("getRandomMessage").addEventListener("click", () => {
-      window.location.href = "message.html";
-    });
-  }
