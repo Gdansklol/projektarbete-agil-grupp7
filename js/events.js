@@ -35,11 +35,13 @@ let events = getEventsFromStorage()
 //variabel för dagens datum & tid
 const now = new Date()
 
+let filteredEvents = []
+
 //index för vilket event som redigeras
 let editIndex = -1
 
-//visa events vid start
-displayEvents(events)
+//visa uupcoming events vid start
+filterEvents('upcoming')
 
 // Funktion för att spara events i localStorage
 function saveEventsToLocalStorage() {
@@ -86,20 +88,14 @@ function createNewEvent() {
     saveEventsToStorage(events)
 
     // Uppdatera array med nya events
-    // displayEvents(events)
-
-    // Uppdatera array med nya events, men filtrera bort de som redan har passerat(ska abra synas på'previous'knappen)
-    if (h2Text.innerText === 'Upcoming Events') {
-      displayEvents(events.filter(event => new Date(event.startTime) > now))
-    } else {
-      // Visa alla om det inte är "Upcoming"
-      displayEvents(events)
-    }
+    filterEvents(events)
 
     //renssa inputfält
     clearInputs()
     //återställ text på knapp
     addBtn.innerText = 'Add event'
+
+    alert('event saved!')
 
   } else {
     //om inputs inte är ifyllda, visa alert.
@@ -117,14 +113,17 @@ function clearInputs() {
 }
 
 // Funktion för att visa events i listan
-function displayEvents(eventsToDisplay) {
+function displayEvents(events) {
 
   // Töm listan innan den uppdateras
   eventList.innerHTML = ''
 
   // Loopa igenom alla events och lägg till dem i listan
-  eventsToDisplay.forEach((event, index) => {
+  events.forEach((event, index) => {
     const li = document.createElement('li')
+    //ta bort T
+    li.innerText = `${event.name} | Start: ${event.startTime.replace('T', ' ')} | End: ${event.endTime.replace('T', ' ')}`
+
     const editBtn = document.createElement('span')
     editBtn.innerText = '✏️'
     const deleteBtn = document.createElement('span')
@@ -155,14 +154,10 @@ function displayEvents(eventsToDisplay) {
       //spara indexet på det event som ska redigeras
       editIndex = index
 
-      // saveEventsToLocalStorage()
-      filterEvents(event)
+      displayEvents(filteredEvents)
 
       addBtn.innerText = 'Update event'
     })
-
-    //ta bort T
-    li.innerText = `${event.name} | Start: ${event.startTime.replace('T', ' ')} | End: ${event.endTime.replace('T', ' ')}`
 
     eventList.append(li)
     li.append(deleteBtn, editBtn)
@@ -190,7 +185,7 @@ addBtn.addEventListener('click', () => {
     saveEventsToStorage(events)
 
     // Uppdatera visningen
-    displayEvents(events)
+    displayEvents(filteredEvents)
 
     // Återställ knappen till "Add event"
     addBtn.innerText = 'Add event'
@@ -207,8 +202,6 @@ addBtn.addEventListener('click', () => {
 
 // Funktion för att filtrera events
 function filterEvents(type) {
-
-  let filteredEvents = []
 
   if (type === 'upcoming') {
     filteredEvents = events.filter(event => new Date(event.startTime) > now)
