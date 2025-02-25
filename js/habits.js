@@ -6,15 +6,22 @@ $(document).ready(function() {
         3: 'Hög'
     };
 
-    // ladda localStorage
+    // Hämta inloggad användare
+    const currentUser = sessionStorage.getItem('currentUser');
+
+    if (!currentUser) {
+        window.location.href = "/pages/login.html";
+    }
+
+    // ladda habits för aktuell användare
     function getHabitsFromStorage() {
-        const habitsData = localStorage.getItem('habits');
+        const habitsData = localStorage.getItem(`${currentUser}_habits`);
         return habitsData ? JSON.parse(habitsData) : [];
     }
 
-    // Spara till localStorage
+    // Spara habits till localStorage för aktuell användare
     function saveHabitsToStorage(habits) {
-        localStorage.setItem('habits', JSON.stringify(habits));
+        localStorage.setItem(`${currentUser}_habits`, JSON.stringify(habits));
     }
 
     let habits = getHabitsFromStorage();
@@ -68,7 +75,6 @@ $(document).ready(function() {
             $('#repInput').val('');
             $('#prioInput').val('');
         } else {
- 
             $('#emptyInputsModal').css('display', 'flex');
         }
     });
@@ -184,5 +190,6 @@ $(document).ready(function() {
         renderTable();
     });
 
+    // Initial render, table
     renderTable();
 });
