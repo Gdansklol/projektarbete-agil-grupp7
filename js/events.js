@@ -1,5 +1,4 @@
 const currentUser = sessionStorage.getItem("currentUser");
-
 if (!currentUser) {
   window.location.href = "../login.html"; 
 }
@@ -25,24 +24,32 @@ function createNewEvent() {
   const endTime = document.querySelector("#endTime").value;
 
   if (!eventName || !startTime || !endTime) {
-    alert("⚠️ Please fill in all fields.");
+    alert("⚠️ Fyll i alla fält.");
     return;
   }
 
-  if (endTime < startTime) {
-    alert("⚠️ The end date must be after the start date.");
+  if (new Date(endTime) < new Date(startTime)) {
+    alert("⚠️ Sluttiden måste vara efter starttiden.");
     return;
   }
 
   const newEvent = { name: eventName, startTime, endTime };
-  events.push(newEvent);
+
+  if (editIndex !== -1) {
+    events[editIndex] = newEvent;
+    editIndex = -1;
+    document.querySelector("#addBtn").innerText = "Lägg till Event";
+  } else {
+    events.push(newEvent);
+  }
+
   events.sort((a, b) => new Date(a.startTime) - new Date(b.startTime));
 
   saveEventsToStorage(events);
   filterEvents("upcoming");
   clearInputs();
-  alert("✅ Event saved!");
 }
+
 
 function clearInputs() {
   document.querySelector("#eventName").value = "";
@@ -56,47 +63,48 @@ function displayEvents(events) {
 
   events.forEach((event, index) => {
     const li = document.createElement("li");
-    li.innerText = `${event.name} | Start: ${event.startTime.replace("T", " ")} | End: ${event.endTime.replace("T", " ")}`;
-
-    const editBtn = document.createElement("span");
-    editBtn.innerText = "✏️";
-    const deleteBtn = document.createElement("span");
-    deleteBtn.innerText = "🗑️";
+    li.innerHTML = `
+      <span>${event.name} | Start: ${event.startTime.replace("T", " ")} | Slut: ${event.endTime.replace("T", " ")}</span>
+      <span class="edit-btn"><i class="fas fa-edit"></i></span>
+      <span class="delete-btn"><i class="fas fa-trash-alt"></i></span>
+    `;
 
     if (new Date(event.endTime) < now) {
       li.classList.add("pastEvents");
+      li.style.textDecoration = "line-through";
+      li.style.color = "gray";
     }
 
-    deleteBtn.addEventListener("click", () => {
+    li.querySelector(".delete-btn").addEventListener("click", () => {
       events.splice(index, 1);
       saveEventsToStorage(events);
       displayEvents(events);
     });
 
-    editBtn.addEventListener("click", () => {
+    li.querySelector(".edit-btn").addEventListener("click", () => {
       document.querySelector("#eventName").value = event.name;
       document.querySelector("#startTime").value = event.startTime;
       document.querySelector("#endTime").value = event.endTime;
-
       editIndex = index;
-      addBtn.innerText = "Update event";
+      document.querySelector("#addBtn").innerText = "Uppdatera Event";
     });
 
     eventList.append(li);
-    li.append(deleteBtn, editBtn);
   });
 }
 
 function filterEvents(type) {
+  const h2Text = document.querySelector("h2");
+
   if (type === "upcoming") {
     filteredEvents = events.filter(event => new Date(event.startTime) > now);
-    h2Text.innerText = "Upcoming Events";
+    h2Text.innerText = "Kommande Event";
   } else if (type === "previous") {
     filteredEvents = events.filter(event => new Date(event.endTime) < now);
-    h2Text.innerText = "Previous Events";
+    h2Text.innerText = "Tidigare Event";
   } else {
     filteredEvents = events;
-    h2Text.innerText = "All Events";
+    h2Text.innerText = "Alla Event";
   }
 
   displayEvents(filteredEvents);
@@ -111,20 +119,4 @@ document.querySelector("#logoutButton").addEventListener("click", () => {
   window.location.href = "../login.html";  
 });
 
-document.querySelector("#addBtn").addEventListener("click", () => {
-  if (editIndex !== -1) {
-    const eventName = document.querySelector("#eventName").value.trim();
-    const startTime = document.querySelector("#startTime").value;
-    const endTime = document.querySelector("#endTime").value;
-
-    events.splice(editIndex, 1, { name: eventName, startTime, endTime });
-    saveEventsToStorage(events);
-    displayEvents(filteredEvents);
-
-    editIndex = -1;
-    addBtn.innerText = "Add event";
-    clearInputs();
-  } else {
-    createNewEvent();
-  }
-});
+document.querySelector("#addBtn").addEventListener("click", createNewEvent);

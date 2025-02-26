@@ -1,50 +1,164 @@
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
+@import url('global.css');
 
-body {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-body header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-body header nav {
-  margin: 20px 0px 20px 40px;
-}
-body header nav a {
+header {
+  background: var(--gradient);
   padding: 20px;
-  text-decoration: none;
-  color: black;
-}
-body header nav a:hover {
-  color: rgb(107, 112, 248);
+  text-align: center;
+  font-size: 24px;
+  color: white;
 }
 
-main .container {
-  background-color: rgb(178, 180, 240);
-  border: solid 2px rgb(27, 25, 25);
+nav {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+nav a {
+  font-size: 16px;
+  text-decoration: none;
+  color: var(--text-color);
+  padding: 8px 12px;
+  transition: color 0.3s ease-in-out, border-bottom 0.3s ease-in-out;
+  border-bottom: 2px solid transparent;
+}
+
+nav a:hover {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+}
+
+/* 이벤트 컨테이너 */
+.container {
+  background: #fff;
+  padding: 20px;
+  margin: 20px auto;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 700px;
+  text-align: center;
+}
+
+/* 입력 폼 */
+#inputField {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  text-align: left;
+}
+
+#inputField input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+}
+
+#inputField label {
+  font-size: 14px;
+  font-weight: bold;
+  display: block;
+  margin-top: 12px;
+}
+
+#inputField button {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: background 0.3s ease-in-out;
+}
+
+#inputField button:hover {
+  background: var(--secondary-color);
+}
+
+/* 필터 버튼 스타일 */
+#eventFilters {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 16px auto;
+  flex-wrap: wrap;
+}
+
+#eventFilters button {
+  padding: 12px 18px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  background: var(--primary-color);
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+#eventFilters button:hover {
+  background: var(--secondary-color);
+}
+
+#eventList {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+#eventList li {
+  background: #eef1f5;
+  padding: 12px;
+  margin-bottom: 8px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  width: 70%;
-  margin: 0 auto;
-  padding: 2rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
 }
-main .container h2 {
-  margin-top: 1rem;
-}
-main .container .pastEvents {
+
+#eventList .pastEvents {
   text-decoration: line-through;
-  color: rgb(94, 93, 93);
+  color: gray;
 }
-main .container #inputField {
-  margin: 1.5rem;
+
+#eventList li span {
+  flex-grow: 1;
+  font-weight: 600;
 }
-main .container #inputField fieldset {
-  padding: 1rem;
-}/*# sourceMappingURL=events.css.map */
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 900px;
+  }
+
+  #inputField input {
+    font-size: 18px;
+    padding: 16px;
+  }
+
+  #inputField button {
+    font-size: 18px;
+    padding: 16px;
+  }
+
+  #eventFilters button {
+    font-size: 18px;
+    padding: 14px 24px;
+  }
+
+  #eventList li {
+    font-size: 18px;
+    padding: 16px;
+  }
+}
