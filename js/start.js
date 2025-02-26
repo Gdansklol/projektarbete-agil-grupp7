@@ -143,7 +143,7 @@ function display3Todos() {
   if (!currentUser) return;
 
   // Hämta todos från localStorage
-  const todos = JSON.parse(localStorage.getItem(`${currentUser}_todos`)) || []
+  const todos = JSON.parse(localStorage.getItem(`${currentUser}_todoList`)) || [];
 
   // Om inga todos finns, visa meddelande
   if (todos.length === 0) {
