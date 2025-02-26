@@ -5,12 +5,8 @@ if (!currentUser) {
 }
 
 const displayWelcomeMessage = () => {
-    const welcomeContainer = document.getElementById("welcomeContainer");
-    welcomeContainer.innerHTML = currentUser
-        ? `Welcome, ${currentUser}!`
-        : "No user logged in!";
+    document.getElementById("usernameDisplay").textContent = currentUser || "Guest";
 };
-
 displayWelcomeMessage();
 
 const quote = document.querySelector("#quote");
@@ -30,7 +26,6 @@ const getQuote = async () => {
         author.textContent = "";
     }
 };
-
 getQuote();
 
 const display3Todos = () => {

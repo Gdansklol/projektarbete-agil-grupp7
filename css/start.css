@@ -1,23 +1,123 @@
-#quoteContainer {
+@import url('global.css');
+
+@keyframes moveText {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(20px); }
+  100% { transform: translateX(0); }
+}
+
+header {
+  background: var(--gradient);
+  padding: 20px;
+  text-align: center;
+  font-size: 24px;
+  color: white;
+  overflow: hidden;
+}
+
+header h1 {
+  display: inline-block;
+  animation: moveText 2s infinite ease-in-out;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+nav a {
+  color: var(--primary-color);
+  text-decoration: underline;
+  font-weight: normal;
+  font-size: 16px;
+  transition: color 0.3s ease-in-out, font-weight 0.3s;
+  cursor: pointer;
+}
+
+nav a:hover {
+  color: var(--accent-color);
+  font-weight: bold;
+}
+
+#logoutButton {
+  color: var(--primary-color);
+  text-decoration: underline;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out, font-weight 0.3s;
+}
+
+#logoutButton:hover {
+  color: var(--accent-color);
+  font-weight: bold;
+}
+
+main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: cursive, sans-serif;
-  border: 2px solid aqua;
-}
-#quoteContainer h2 {
-  font-size: 0.8rem;
+  gap: 12px;
+  margin-top: 16px;
 }
 
-#eventList, #habitList, #todoList {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 1rem;
+section {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
 }
-#eventList .card, #habitList .card, #todoList .card {
-  background-color: aqua;
+
+section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+section ul li {
+  background: #f9f9f9;
+  padding: 10px;
+  margin-bottom: 8px;
   border-radius: 5px;
-  border: 1px solid #4c4a4a;
-  padding: 1rem;
-  margin-right: 2rem;
-}/*# sourceMappingURL=start.css.map */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  text-align: left;
+}
+
+section a {
+  display: inline;
+  color: var(--primary-color);
+  text-decoration: underline;
+  font-weight: normal;
+  transition: color 0.3s ease-in-out, font-weight 0.3s;
+}
+
+section a:hover {
+  color: var(--accent-color);
+  font-weight: bold;
+}
+
+@media (min-width: 768px) {
+  main {
+    flex-direction: row;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  section {
+    max-width: 320px;
+  }
+}
