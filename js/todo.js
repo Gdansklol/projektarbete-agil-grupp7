@@ -9,6 +9,12 @@ let categoryCheckboxes = document.querySelectorAll("input[name='filter-category'
 let selectAllCategories = document.getElementById("select-all-categories");
 let addTodoButton = document.getElementById("add-todo");
 
+//om ingen inloggad, gå till login
+if (!currentUser) {
+    window.location.href = "/pages/login.html"
+}
+
+
 let todoList = JSON.parse(localStorage.getItem("todoList")) || [];
 let editIndex = -1;
 
@@ -106,7 +112,7 @@ filterButton.addEventListener("click", () => {
     renderTodos(filteredTodos);
 });
 
-selectAllCategories.addEventListener("change",(event) => {
+selectAllCategories.addEventListener("change", (event) => {
     let isChecked = event.target.checked;
     categoryCheckboxes.forEach(checkbox => {
         checkbox.checked = isChecked;
@@ -137,9 +143,9 @@ const sortTasks = (sortBy, order) => {
 };
 
 sortButton.addEventListener("click", () => {
-    let sortBy = sortSelect.value; 
-    let order = document.querySelector('input[name="sort-order"]:checked').value; 
-    
+    let sortBy = sortSelect.value;
+    let order = document.querySelector('input[name="sort-order"]:checked').value;
+
     sortTasks(sortBy, order);
 });
 
@@ -155,9 +161,9 @@ renderTodos();
 
 if (document.getElementById("logoutButton")) {
     document.getElementById("logoutButton").addEventListener("click", (event) => {
-      event.preventDefault(); 
-      sessionStorage.removeItem("currentUser");
-      window.location.href = "login.html"; 
+        event.preventDefault();
+        sessionStorage.removeItem("currentUser");
+        window.location.href = "login.html";
     });
-  }
-  
+}
+

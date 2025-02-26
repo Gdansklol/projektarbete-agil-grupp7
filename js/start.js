@@ -11,6 +11,11 @@ function displayWelcomeMessage() {
 
 displayWelcomeMessage();
 
+//om ingen inloggad, gå till login
+if (!currentUser) {
+  window.location.href = "/pages/login.html"
+}
+
 //Random Quote
 
 const quote = document.querySelector('#quote')
