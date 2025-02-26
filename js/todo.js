@@ -9,26 +9,22 @@ let categoryCheckboxes = document.querySelectorAll("input[name='filter-category'
 let selectAllCategories = document.getElementById("select-all-categories");
 let addTodoButton = document.getElementById("add-todo");
 
-
-let currentUser = sessionStorage.getItem("currentUser"); // Get current user from sessionStorage
+let currentUser = sessionStorage.getItem("currentUser");
 
 //om ingen inloggad, gå till login
 if (!currentUser) {
     window.location.href = "/pages/login.html"
 }
 
-// Fetch the todo list from localStorage for the current user
 function getTodosFromStorage() {
     const todosData = localStorage.getItem(`${currentUser}_todoList`);
     return todosData ? JSON.parse(todosData) : [];
 }
 
-// Save the todo list to localStorage for the current user
 function saveTodosToStorage(todos) {
     localStorage.setItem(`${currentUser}_todoList`, JSON.stringify(todos));
 }
 
-// Initialize todo list from localStorage or an empty array
 let todoList = getTodosFromStorage();
 let editIndex = -1;
 
@@ -57,7 +53,7 @@ todoForm.addEventListener("submit", (event) => {
         todoList.push(newTodo);
     }
 
-    saveTodosToStorage(todoList); // Save updated todo list for the current user
+    saveTodosToStorage(todoList);
     todoForm.reset();
     renderTodos();
 });
@@ -79,7 +75,7 @@ const renderTodos = (filteredTodos = todoList) => {
         listContainer.appendChild(listItem);
     });
 
-    saveTodosToStorage(todoList); // Save updated todo list for the current user
+    saveTodosToStorage(todoList);
 };
 
 window.toggleComplete = (index) => {
