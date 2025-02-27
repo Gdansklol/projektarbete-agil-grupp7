@@ -11,7 +11,6 @@ let addTodoButton = document.getElementById("add-todo");
 
 let currentUser = sessionStorage.getItem("currentUser");
 
-//om ingen inloggad, gå till login
 if (!currentUser) {
     window.location.href = "/pages/login.html";
 }
@@ -37,6 +36,8 @@ todoForm.addEventListener("submit", (event) => {
     let category = document.getElementById("todo-category").value;
     let deadline = document.getElementById("todo-deadline").value;
 
+    console.log("DEBUG: ", { title, description, time, category, deadline });
+
     if (!title || !description || !time || !category || !deadline) {
         alert("⚠️ Please fill in all fields!");
         return;
@@ -60,12 +61,17 @@ todoForm.addEventListener("submit", (event) => {
     renderTodos();
 });
 
+addTodoButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    todoForm.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
+});
+
 const renderTodos = (filteredTodos = todoList) => {
     listContainer.innerHTML = "";
 
     filteredTodos.forEach((todo, index) => {
         let today = new Date().toISOString().split("T")[0];
-        let isPast = todo.deadline < today; 
+        let isPast = todo.deadline < today;
 
         const listItem = document.createElement("li");
         listItem.className = `todo-item ${todo.status === "done" ? "completed" : ""}`;
@@ -91,12 +97,13 @@ window.toggleComplete = (index) => {
 
     if (todo.deadline < today && todo.status === "done") {
         alert("⚠️ You cannot mark a past task as incomplete!");
+        renderTodos(); 
         return;
     }
 
-    if (todo.deadline > today) {
+    if (todo.deadline > today && todo.status === "not-done") {
         alert("⚠️ This task is scheduled for the future. Are you from the future? 😆");
-        renderTodos(); 
+        renderTodos();
         return;
     }
 
@@ -123,7 +130,7 @@ window.removeTodo = (index) => {
 };
 
 filterButton.addEventListener("click", () => {
-    let filteredTodos = todoList;
+    let filteredTodos = [...todoList];
 
     let selectedStatus = filterStatus.value;
     if (selectedStatus !== "all") {
@@ -141,17 +148,52 @@ filterButton.addEventListener("click", () => {
     renderTodos(filteredTodos);
 });
 
+selectAllCategories.addEventListener("change", (event) => {
+    let isChecked = event.target.checked;
+    categoryCheckboxes.forEach(checkbox => {
+        checkbox.checked = isChecked;
+    });
+});
+
 sortButton.addEventListener("click", () => {
     let sortBy = sortSelect.value;
     let order = document.querySelector('input[name="sort-order"]:checked').value;
 
-    todoList.sort((a, b) => {
-        let valueA = sortBy === "deadline" ? new Date(a.deadline) : parseInt(a.time, 10);
-        let valueB = sortBy === "deadline" ? new Date(b.deadline) : parseInt(b.time, 10);
+    let filteredTodos = [...todoList];
+
+    if (filterStatus.value !== "all") {
+        filteredTodos = filteredTodos.filter(todo => todo.status === filterStatus.value);
+    }
+
+    let selectedCategories = Array.from(categoryCheckboxes)
+        .filter(checkbox => checkbox.checked)
+        .map(checkbox => checkbox.value);
+
+    if (selectedCategories.length > 0) {
+        filteredTodos = filteredTodos.filter(todo => selectedCategories.includes(todo.category));
+    }
+
+    filteredTodos.sort((a, b) => {
+        let valueA, valueB;
+
+        if (sortBy === "status") {
+            if (a.status !== b.status) {
+                return a.status === "not-done" ? -1 : 1;
+            }
+            valueA = new Date(a.deadline);
+            valueB = new Date(b.deadline);
+        } else if (sortBy === "deadline") {
+            valueA = new Date(a.deadline);
+            valueB = new Date(b.deadline);
+        } else {
+            valueA = parseInt(a.time, 10);
+            valueB = parseInt(b.time, 10);
+        }
+
         return order === "asc" ? valueA - valueB : valueB - valueA;
     });
 
-    renderTodos();
+    renderTodos(filteredTodos);
 });
 
 resetButton.addEventListener("click", () => {
@@ -170,4 +212,4 @@ if (document.getElementById("logoutButton")) {
         sessionStorage.removeItem("currentUser");
         window.location.href = "login.html";
     });
-}
+};
