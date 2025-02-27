@@ -73,6 +73,13 @@ function createNewEvent() {
   alert('Event saved!✅')
 }
 
+//funktion för att rensa inputfält
+function clearInputs() {
+  document.querySelector("#eventName").value = ""
+  document.querySelector("#startTime").value = ""
+  document.querySelector("#endTime").value = ""
+}
+
 //funktion för att visa eventss
 function displayEvents(events) {
   // Töm listan innan den uppdateras
@@ -92,13 +99,6 @@ function displayEvents(events) {
     //om datum & tid redan passerat, lägg på klass.
     if (new Date(event.endTime) < now) {
       li.classList.add("pastEvents")
-    }
-
-    //funktion för att rensa inputfält
-    function clearInputs() {
-      document.querySelector("#eventName").value = ""
-      document.querySelector("#startTime").value = ""
-      document.querySelector("#endTime").value = ""
     }
 
     //radera
