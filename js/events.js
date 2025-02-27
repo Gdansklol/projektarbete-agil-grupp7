@@ -70,7 +70,7 @@ function createNewEvent() {
   saveEventsToStorage(events)
   filterEvents("upcoming")
   clearInputs()
-  alert('Event saved!✅')
+  alert("Event saved!✅")
 }
 
 //funktion för att rensa inputfält
@@ -103,9 +103,12 @@ function displayEvents(events) {
 
     //radera
     deleteBtn.addEventListener("click", () => {
-      events.splice(index, 1)
-      saveEventsToStorage(events)
-      displayEvents(events)
+      const confirmation = confirm("⚠️Are you sure you want to delete this event?")
+      if (confirmation) {
+        events.splice(index, 1)
+        saveEventsToStorage(events)
+        displayEvents(events)
+      }
     })
 
     //redigera
