@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-<link>
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Todos Page</title>
-  <link rel="stylesheet" href="../css/todo.css"></link>
+  <link rel="stylesheet" href="../css/todo.css">
+  <link rel="stylesheet" href="../css/global.css">
   <script src="https://kit.fontawesome.com/28fc0eb946.js" crossorigin="anonymous" defer></script>
   <script src="../js/todo.js" defer></script>
-</link>
+</head>
 <body>
-  <header id="header">
-    <h1 id="headerText">Productivity Assistant App</h1>
-  </header>
- 
-  [<a href="/start.html">Back To Main</a>]
-  [<a href="events.html">Event Planner</a>]
-  [<a href="todo.html">Todos & Activities</a>]
-  [<a href="habits.html">Habits</a>]
-  [<a href="login.html" id="logoutButton">Log out</a>]
 
+  <header id="header">
+    <img id="logo" src="/img/BZ_planner_logo.png" alt="BZ Planner Logo">
+    <h1 id="headerText">BZ Planner</h1>
+    <img id="bee" src="/img/bee-1.svg" alt="Bee Icon">
+  </header>
+
+  <nav>
+    <a href="/start.html">Home</a>
+    <a href="events.html">Event Planner</a>
+    <a href="todo.html">Todos & Activities</a>
+    <a href="habits.html">Habits</a>
+    <a href="login.html" id="logoutButton">Log out</a>
+  </nav>
+ 
   <main class="container">
     <section>
       <h1>Todos & Activities</h1>
@@ -26,7 +32,6 @@
         
     <section class="todo-form-section">
         <h2>Add a New Task</h2>
-
         <form id="todo-form">
             <div class="input-area">
                 <input type="text" id="todo-title" placeholder="Write your task title..." required>
@@ -58,52 +63,35 @@
                   <option value="music-relaxation">🎵 Music & Relaxation</option>
                 </select>
 
-              <input type="date" id="todo-deadline" required>
-                    <button type="submit" id="add-todo">Add task</button>
-                </div>
-            </form>
-        </section>
-
-        <section class="filter-container">
-            <h2>Filter</h2>
-
-            <select id="filter-todo-status">
-                <option value="all">All</option>
-                <option value="done">Completed</option>
-                <option value="not-done">Not Completed</option>
-            </select>
-
-            <fieldset>
-              <legend>Select a category</legend>
-              <div class="checkbox-group">
-                  <label><input type="checkbox" id="select-all-categories"> Select All</label>
-                  <label><input type="checkbox" name="filter-category" value="computer-games" id="filter-computer-games"> 🎮 Computer Games</label>
-                  <label><input type="checkbox" name="filter-category" value="restaurant-visit" id="filter-restaurant-visit"> 🍽️ Restaurant Visit</label>
-                  <label><input type="checkbox" name="filter-category" value="travel" id="filter-travel"> ✈️ Travel</label>
-                  <label><input type="checkbox" name="filter-category" value="housework" id="filter-housework"> 🏡 Housework</label>
-                  <label><input type="checkbox" name="filter-category" value="schoolwork" id="filter-schoolwork"> 📚 Schoolwork</label>
-                  <label><input type="checkbox" name="filter-category" value="fashion" id="filter-fashion"> 👗 Fashion</label>
-                  <label><input type="checkbox" name="filter-category" value="music-relaxation" id="filter-music-relaxation"> 🎵 Music & Relaxation</label>
-              </div>
-          </fieldset>
-
-          <button id="filter-todos">Filter</button>
-      </section>
-
-      <section class="sort-wrapper">
-        <h2>Sort</h2>
-        <select id="sort-todo">
-            <option value="deadline">Sort by Deadline</option>
-            <option value="time">Sort by Time Estimate</option>
-            <option value="status">Sort by Status</option>
-        </select>
-    
-    <section>
-        <label><input type="radio" name="sort-order" value="asc">Ascending</label>
-        <label><input type="radio" name="sort-order" value="des">Descending</label>
+                <input type="date" id="todo-deadline" required>
+                <button type="submit" id="add-todo">Add task</button>
+            </div>
+        </form>
     </section>
 
-        <button id="sort-button">Sort</button>
+    <section class="filter-container">
+        <h2>Filter</h2>
+        <select id="filter-todo-status">
+            <option value="all">All</option>
+            <option value="done">Completed</option>
+            <option value="not-done">Not Completed</option>
+        </select>
+
+        <fieldset>
+          <legend>Select a category</legend>
+          <div class="checkbox-group">
+              <label><input type="checkbox" id="select-all-categories"> Select All</label>
+              <label><input type="checkbox" name="filter-category" value="computer-games"> 🎮 Computer Games</label>
+              <label><input type="checkbox" name="filter-category" value="restaurant-visit"> 🍽️ Restaurant Visit</label>
+              <label><input type="checkbox" name="filter-category" value="travel"> ✈️ Travel</label>
+              <label><input type="checkbox" name="filter-category" value="housework"> 🏡 Housework</label>
+              <label><input type="checkbox" name="filter-category" value="schoolwork"> 📚 Schoolwork</label>
+              <label><input type="checkbox" name="filter-category" value="fashion"> 👗 Fashion</label>
+              <label><input type="checkbox" name="filter-category" value="music-relaxation"> 🎵 Music & Relaxation</label>
+          </div>
+        </fieldset>
+
+        <button id="filter-todos">Filter</button>
     </section>
 
     <section class="todo-list">
@@ -112,8 +100,8 @@
     </section>
 
     <button id="reset-todo" class="reset-button">Reset</button>
+  </main>
 
-</main>
   <footer id="footer">
     <p>&copy; 2025 Todos & Activities. Grupp 7 - All rights reserved.</p>
   </footer>
