@@ -9,11 +9,10 @@ let categoryCheckboxes = document.querySelectorAll("input[name='filter-category'
 let selectAllCategories = document.getElementById("select-all-categories");
 let addTodoButton = document.getElementById("add-todo");
 
-//om ingen inloggad, gå till login
+const currentUser = sessionStorage.getItem("currentUser");
 if (!currentUser) {
-    window.location.href = "/pages/login.html"
+    window.location.href = "/pages/login.html";
 }
-
 
 let todoList = JSON.parse(localStorage.getItem("todoList")) || [];
 let editIndex = -1;
@@ -23,15 +22,17 @@ todoForm.addEventListener("submit", (event) => {
 
     let title = document.getElementById("todo-title").value.trim();
     let description = document.getElementById("todo-description").value.trim();
-    let status = document.getElementById("todo-status").value;
     let time = document.getElementById("todo-time").value;
     let category = document.getElementById("todo-category").value;
     let deadline = document.getElementById("todo-deadline").value;
 
-    if (!title || !description || !status || !time || !category || !deadline) {
-        alert("⚠️ All fields must be filled!");
+    if (!title || !description || !time || !category || !deadline) {
+        alert("⚠️ Please fill in all fields!");
         return;
     }
+
+    let today = new Date().toISOString().split("T")[0]; 
+    let status = deadline < today ? "done" : "not-done"; 
 
     const newTodo = { title, description, status, time, category, deadline };
 
@@ -52,10 +53,15 @@ const renderTodos = (filteredTodos = todoList) => {
     listContainer.innerHTML = "";
 
     filteredTodos.forEach((todo, index) => {
+        let today = new Date().toISOString().split("T")[0];
+        let isPast = todo.deadline < today; 
+
         const listItem = document.createElement("li");
         listItem.className = `todo-item ${todo.status === "done" ? "completed" : ""}`;
+
         listItem.innerHTML = `
-            <input type="checkbox" class="check-task" onchange="toggleComplete(${index})" ${todo.status === "done" ? "checked" : ""}>
+            <input type="checkbox" class="check-task" onchange="toggleComplete(${index})" 
+                ${todo.status === "done" ? "checked" : ""} ${isPast ? "disabled" : ""}>
             <span class="todo-text" style="text-decoration: ${todo.status === "done" ? "line-through" : "none"}">
                 <b>${todo.title}</b> - ${todo.description} (${todo.category}) [${todo.time}] - ${todo.deadline}
             </span>
@@ -69,12 +75,21 @@ const renderTodos = (filteredTodos = todoList) => {
 };
 
 window.toggleComplete = (index) => {
-    todoList[index].status = todoList[index].status === "done" ? "not-done" : "done";
-    renderTodos();
-};
+    let today = new Date().toISOString().split("T")[0];
+    let todo = todoList[index];
 
-window.removeTodo = (index) => {
-    todoList.splice(index, 1);
+    if (todo.deadline < today && todo.status === "done") {
+        alert("⚠️ You cannot mark a past task as incomplete!");
+        return;
+    }
+
+    if (todo.deadline > today) {
+        alert("⚠️ This task is scheduled for the future. Are you from the future? 😆");
+        renderTodos(); 
+        return;
+    }
+
+    todo.status = todo.status === "done" ? "not-done" : "done";
     renderTodos();
 };
 
@@ -83,13 +98,17 @@ window.editTodo = (index) => {
 
     document.getElementById("todo-title").value = todo.title;
     document.getElementById("todo-description").value = todo.description;
-    document.getElementById("todo-status").value = todo.status;
     document.getElementById("todo-time").value = todo.time;
     document.getElementById("todo-category").value = todo.category;
     document.getElementById("todo-deadline").value = todo.deadline;
 
     editIndex = index;
-    addTodoButton.textContent = "Update task";
+    addTodoButton.textContent = "Update Task";
+};
+
+window.removeTodo = (index) => {
+    todoList.splice(index, 1);
+    renderTodos();
 };
 
 filterButton.addEventListener("click", () => {
@@ -108,45 +127,20 @@ filterButton.addEventListener("click", () => {
         filteredTodos = filteredTodos.filter(todo => selectedCategories.includes(todo.category));
     }
 
-    console.log(filteredTodos);
     renderTodos(filteredTodos);
 });
-
-selectAllCategories.addEventListener("change", (event) => {
-    let isChecked = event.target.checked;
-    categoryCheckboxes.forEach(checkbox => {
-        checkbox.checked = isChecked;
-    });
-});
-
-const sortTasks = (sortBy, order) => {
-    if (sortBy === 'deadline' || sortBy === 'time') {
-        todoList.sort((a, b) => {
-            let valueA, valueB;
-            if (sortBy === 'deadline') {
-                valueA = new Date(a.deadline);
-                valueB = new Date(b.deadline);
-            } else if (sortBy === 'time') {
-                valueA = parseInt(a.time, 10);
-                valueB = parseInt(b.time, 10);
-            }
-            return order === 'asc' ? valueA - valueB : valueB - valueA;
-        });
-    } else if (sortBy === 'status') {
-        todoList.sort((a, b) => {
-            if (a.status > b.status) return order === 'asc' ? 1 : -1;
-            if (a.status < b.status) return order === 'asc' ? -1 : 1;
-            return 0;
-        });
-    }
-    renderTodos();
-};
 
 sortButton.addEventListener("click", () => {
     let sortBy = sortSelect.value;
     let order = document.querySelector('input[name="sort-order"]:checked').value;
 
-    sortTasks(sortBy, order);
+    todoList.sort((a, b) => {
+        let valueA = sortBy === "deadline" ? new Date(a.deadline) : parseInt(a.time, 10);
+        let valueB = sortBy === "deadline" ? new Date(b.deadline) : parseInt(b.time, 10);
+        return order === "asc" ? valueA - valueB : valueB - valueA;
+    });
+
+    renderTodos();
 });
 
 resetButton.addEventListener("click", () => {
@@ -165,5 +159,4 @@ if (document.getElementById("logoutButton")) {
         sessionStorage.removeItem("currentUser");
         window.location.href = "login.html";
     });
-}
-
+};
