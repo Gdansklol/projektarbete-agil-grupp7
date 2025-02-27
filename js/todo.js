@@ -9,12 +9,23 @@ let categoryCheckboxes = document.querySelectorAll("input[name='filter-category'
 let selectAllCategories = document.getElementById("select-all-categories");
 let addTodoButton = document.getElementById("add-todo");
 
-const currentUser = sessionStorage.getItem("currentUser");
+let currentUser = sessionStorage.getItem("currentUser");
+
+//om ingen inloggad, gå till login
 if (!currentUser) {
     window.location.href = "/pages/login.html";
 }
 
-let todoList = JSON.parse(localStorage.getItem("todoList")) || [];
+function getTodosFromStorage() {
+    const todosData = localStorage.getItem(`${currentUser}_todoList`);
+    return todosData ? JSON.parse(todosData) : [];
+}
+
+function saveTodosToStorage(todos) {
+    localStorage.setItem(`${currentUser}_todoList`, JSON.stringify(todos));
+}
+
+let todoList = getTodosFromStorage();
 let editIndex = -1;
 
 todoForm.addEventListener("submit", (event) => {
@@ -44,7 +55,7 @@ todoForm.addEventListener("submit", (event) => {
         todoList.push(newTodo);
     }
 
-    localStorage.setItem("todoList", JSON.stringify(todoList));
+    saveTodosToStorage(todoList);
     todoForm.reset();
     renderTodos();
 });
@@ -71,7 +82,7 @@ const renderTodos = (filteredTodos = todoList) => {
         listContainer.appendChild(listItem);
     });
 
-    localStorage.setItem("todoList", JSON.stringify(todoList));
+    saveTodosToStorage(todoList);
 };
 
 window.toggleComplete = (index) => {
@@ -145,7 +156,7 @@ sortButton.addEventListener("click", () => {
 
 resetButton.addEventListener("click", () => {
     if (confirm("⚠️ Do you really want to reset the list?")) {
-        localStorage.removeItem("todoList");
+        localStorage.removeItem(`${currentUser}_todoList`);
         todoList = [];
         renderTodos();
     }
@@ -159,4 +170,4 @@ if (document.getElementById("logoutButton")) {
         sessionStorage.removeItem("currentUser");
         window.location.href = "login.html";
     });
-};
+}
