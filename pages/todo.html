@@ -12,18 +12,16 @@
 <body>
 
   <header id="header">
-    <img id="logo" src="/img/BZ_planner_logo.png" alt="BZ Planner Logo">
-    <h1 id="headerText">BZ Planner</h1>
-    <img id="bee" src="/img/bee-1.svg" alt="Bee Icon">
-  </header>
-
-  <nav>
-    <a href="/start.html">Home</a>
-    <a href="events.html">Event Planner</a>
-    <a href="todo.html">Todos & Activities</a>
-    <a href="habits.html">Habits</a>
-    <a href="login.html" id="logoutButton">Log out</a>
-  </nav>
+    <h1 id="headerText"></h1>
+    <img id="bee" src="/img/BZ_planner_logo.png" alt="BZ Planner logo">
+    <nav>
+        <a href="../start.html">Back To Main</a>
+        <a href="/pages/todo.html">Todos & Activities</a>
+        <a href="/pages/habits.html">Habits</a>
+        <a href="/pages/events.html">Event Planner</a>
+        <button id="logoutButton">Logout</button>
+    </nav>
+</header>
  
   <main class="container">
     <section>
@@ -70,7 +68,7 @@
     </section>
 
     <section class="filter-container">
-        <h2>Filter</h2>
+        <h2>Filter Tasks</h2>
         <select id="filter-todo-status">
             <option value="all">All</option>
             <option value="done">Completed</option>
@@ -90,9 +88,24 @@
               <label><input type="checkbox" name="filter-category" value="music-relaxation"> 🎵 Music & Relaxation</label>
           </div>
         </fieldset>
-
         <button id="filter-todos">Filter</button>
     </section>
+
+    <section class="sort-wrapper">
+      <h2>Sort Tasks</h2>
+      <select id="sort-todo">
+          <option value="deadline">Sort by Deadline</option>
+          <option value="time">Sort by Time Estimate</option>
+          <option value="status">Sort by Status</option>
+      </select>
+
+      <div>
+          <label><input type="radio" name="sort-order" value="asc"> Ascending</label>
+          <label><input type="radio" name="sort-order" value="desc"> Descending</label>
+      </div>
+
+      <button id="sort-button">Sort</button>
+  </section>
 
     <section class="todo-list">
         <h2>Task List</h2>
@@ -103,8 +116,8 @@
   </main>
 
   <footer id="footer">
-    <p>&copy; 2025 Todos & Activities. Grupp 7 - All rights reserved.</p>
-  </footer>
+    <p>&copy; 2025 BZ Planner. Property of GroupSeven - All rights reserved.</p>
+</footer>
 
 </body>
 </html>
