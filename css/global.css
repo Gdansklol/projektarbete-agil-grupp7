@@ -22,10 +22,6 @@ body {
   font-family: var(--primary-font);
   background: var(--background-light);
   color: var(--secondary-color);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 40px;
   min-height: 100vh;
 }
 
@@ -35,16 +31,15 @@ header {
   background: var(--gradient);
   display: flex;
   justify-content: flex-start;
-  align-items: center; 
+  align-items: center;
   color: white;
-  border-radius: 10px;
   margin-bottom: 40px;
   font-family: var(--secondary-font);
 }
 
 nav {
   display: flex;
-  flex-direction: row; 
+  flex-direction: row;
   justify-content: center;
   gap: 15px;
   margin-bottom: 30px;
@@ -52,7 +47,7 @@ nav {
 
 nav a {
   text-decoration: none;
-  color: var(--primary-color);
+  color: white;
   font-weight: bold;
   font-family: var(--secondary-font);
   position: relative;
@@ -67,12 +62,12 @@ nav a::after {
   bottom: 0;
   width: 0;
   height: 2px;
-  background-color: var(--accent-color);
+  background-color: white;
   transition: width 0.3s ease-in-out;
 }
 
 nav a:hover {
-  color: var(--accent-color);
+  color: white;
 }
 
 nav a:hover::after {
@@ -111,8 +106,8 @@ footer {
   background: var(--gradient);
   text-align: center;
   color: white;
-  margin-top: 50px;
   font-family: var(--primary-font);
+  margin-top: 3.5rem;
 }
 
 @media (max-width: 768px) {
@@ -125,7 +120,7 @@ footer {
   }
 
   nav {
-    flex-direction: column; 
+    flex-direction: column;
     align-items: center;
     gap: 10px;
   }
@@ -141,4 +136,3 @@ footer {
     padding: 12px;
   }
 }
-

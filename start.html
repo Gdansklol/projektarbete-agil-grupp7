@@ -9,46 +9,54 @@
   </head>
   <body>
   
-    <header>
-      <img src="/img/BZ_planner_logo.png" alt="BZ Planner Logo">
-      <h1>Dashboard</h1>
+    
+    <header id="header">
+      <img id="logo" src="/img/BZ_planner_logo.png" alt="BZ Planner Logo">
       <nav>
         <a href="start.html">Back To Main</a>
         <a href="/pages/todo.html">Todos & Activities</a>
         <a href="pages/habits.html">Habits</a>
         <a href="pages/events.html">Event Planner</a>
-        <button id="logoutButton">Logout</button>
       </nav>
+      <button id="logoutButton">Logout</button>
     </header>
 
-    <div id="welcomeContainer">
+    <div class="startContainer">
+      <div id="welcomeContainer">
 
-    </div>
+      </div>
 
-    <div id="quoteContainer">
-      <p id="quote"></p>
-      <h2 id="author"></h2>
+      <div id="quoteContainer">
+        <p id="quote"></p>
+        <h2 id="author"></h2>
+      </div>
     </div>
   
     <main>
-      <section>
-        <h3>Three Latest Unfinished Todos</h3>
-        <ul id="todoList"></ul>
-        <a href="/pages/todo.html">View All Todos</a>
-      </section>
-  
-      <section>
-        <h3>Top 3 Most Repeated Habits</h3>
-        <ul id="habitList"></ul>
-        <a href="/pages/habits.html">View All Habits</a>
-      </section>
-  
-      <section>
-        <h3>Next Three Upcoming Events</h3>
-        <ul id="eventList"></ul>
-        <a href="/pages/events.html">View All Events</a>
-      </section>
+      <div class="threeLatest">
+        <section>
+          <h3>Three Latest Unfinished Todos</h3>
+          <ul id="todoList"></ul>
+          <a href="/pages/todo.html">View All</a>
+        </section>
+    
+        <section>
+          <h3>Top 3 Most Repeated Habits</h3>
+          <ul id="habitList"></ul>
+          <a href="/pages/habits.html">View All</a>
+        </section>
+    
+        <section>
+          <h3>Next Three Upcoming Events</h3>
+          <ul id="eventList"></ul>
+          <a href="/pages/events.html">View All</a>
+        </section>
+      </div>
     </main>
+
+    <footer id="footer">
+      <p>&copy; 2025 BZ Planner. Grupp 7 - All rights reserved.</p>
+    </footer>
   
   </body>
   </html>

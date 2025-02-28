@@ -7,23 +7,28 @@
 body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
 body header {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
+
 body header nav {
   margin: 20px 0px 20px 40px;
 }
+
 body header nav a {
   padding: 20px;
   text-decoration: none;
   color: black;
 }
+
 body header nav a:hover {
   color: rgb(107, 112, 248);
 }
+
 
 main .container {
   background-color: rgb(178, 180, 240);
@@ -34,6 +39,7 @@ main .container {
   width: 70%;
   margin: 0 auto;
   padding: 2rem;
+  
 }
 main .container h2 {
   margin-top: 1rem;
@@ -47,4 +53,4 @@ main .container #inputField {
 }
 main .container #inputField fieldset {
   padding: 1rem;
-}/*# sourceMappingURL=events.css.map */
+}# sourceMappingURL=events.css.map
