@@ -4,20 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="../css/habits.css">
+    <link rel="stylesheet" href="../css/global.css">
     <script src="../js/habits.js" defer></script>
     <title>Habits</title>
 </link>
 <body>
-    <div id="nav">
-        <a href="/start.html">Back To Main</a>
-        <a href="/pages/todo.html">Todos & Activities</a>
-        <a href="events.html">Event Planner</a>
-    </div>
+
+    <header id="header">
+        <h1 id="headerText"></h1>
+        <img id="bee" src="/img/BZ_planner_logo.png" alt="BZ Planner logo">
+        <nav>
+            <a href="../start.html">Back To Main</a>
+            <a href="/pages/todo.html">Todos & Activities</a>
+            <a href="/pages/habits.html">Habits</a>
+            <a href="/pages/events.html">Event Planner</a>
+            <button id="logoutButton">Logout</button>
+        </nav>
+    </header>
+
     
     <div id="habitsContainer">
-        <h1>Habits</h1>
 
         <div id="inputDiv">
             
@@ -95,5 +103,9 @@
         
         
     </div>
+
+    <footer id="footer">
+        <p>&copy; 2025 BZ Planner. Property of GroupSeven - All rights reserved.</p>
+    </footer>
 </body>
 </html>
