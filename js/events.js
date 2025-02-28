@@ -1,4 +1,3 @@
-
 const addBtn = document.querySelector('#addBtn')
 const eventList = document.querySelector('#eventList')
 const upcomingBtn = document.querySelector('#upcoming')
@@ -6,18 +5,15 @@ const previousBtn = document.querySelector('#previous')
 const allBtn = document.querySelector('#all')
 const h2Text = document.querySelector('h2')
 
-// Hämta inloggad användare
+//hämta inloggad användare, om ingen inloggad, gå till login.
 const currentUser = sessionStorage.getItem('currentUser')
-
-//om ingen inloggad, gå till login
 if (!currentUser) {
-  window.location.href = "/pages/login.html"
+  window.location.href = '/pages/login.html'
 }
 
 // Ladda events för aktuell användare
 function getEventsFromStorage() {
-  const eventsData = localStorage.getItem(`${currentUser}_events`)
-  return eventsData ? JSON.parse(eventsData) : []
+  return JSON.parse(localStorage.getItem(`${currentUser}_events`)) || []
 }
 
 // Spara events till localStorage för aktuell användare
@@ -26,100 +22,76 @@ function saveEventsToStorage(events) {
 }
 
 let events = getEventsFromStorage()
-
-
-// Hämta events från localStorage eller skapa en tom array om inget finns sparat
-// let events = JSON.parse(localStorage.getItem('events')) || []
-
-
-//variabel för dagens datum & tid
-const now = new Date()
-
 let filteredEvents = []
-
 //index för vilket event som redigeras
 let editIndex = -1
-
-//visa uupcoming events vid start
+//visa upcoming events vid sidladdning
 filterEvents('upcoming')
 
-// Funktion för att spara events i localStorage
-function saveEventsToLocalStorage() {
-  localStorage.setItem('events', JSON.stringify(events))
-}
-
-
-// Funktion för att skapa och lägga till event
 function createNewEvent() {
-
-  // Hämta värden från inputs
-  const eventName = document.querySelector('#eventName').value
+  //hämta inputs
+  const eventName = document.querySelector('#eventName').value.trim()
   const startTime = document.querySelector('#startTime').value
   const endTime = document.querySelector('#endTime').value
 
-  // Om alla inputs är ifyllda
-  if (eventName && startTime && endTime) {
-
-    // Skapa ett objekt till listan 'events'
-    const newEvent = {
-      name: eventName,
-      startTime: startTime,
-      endTime: endTime
-    }
-
-    //checka så startdatum är innan slutdatum
-    if (endTime < startTime) {
-      alert('The end date must be after the start date.')
-      return
-    }
-
-    // Lägg till i array
-    events.push(newEvent)
-
-    //jämför starttider och få fram det närmst kommande eventet.
-    function sortByStartTime(a, b) {
-      return new Date(a.startTime) - new Date(b.startTime)
-    }
-
-    //sortera events-listan baserat på ovanstående funktion
-    events.sort(sortByStartTime)
-
-    // Spara efter tillägg
-    saveEventsToStorage(events)
-
-    // Uppdatera array med nya events
-    filterEvents(events)
-
-    //renssa inputfält
-    clearInputs()
-    //återställ text på knapp
-    addBtn.innerText = 'Add event'
-
-    alert('event saved!')
-
-  } else {
-    //om inputs inte är ifyllda, visa alert.
-    alert('Please ensure all fields are filled in.')
-
+  //om inputs inte är ifyllda, visa alert.
+  if (!eventName || !startTime || !endTime) {
+    alert('⚠️ Please ensure all fields are filled in.')
+    return
   }
 
+  //checka så startdatum är innan slutdatum
+  if (new Date(endTime) < new Date(startTime)) {
+    alert('⚠️ The end date must be after the start date.')
+    return
+  }
+
+  //Skapa ett objekt till listan 'events'
+  const newEvent = { name: eventName, startTime, endTime }
+
+  if (editIndex !== -1) {
+    events[editIndex] = newEvent
+    editIndex = -1
+    addBtn.innerText = 'Add Event'
+  } else {
+    events.push(newEvent)
+  }
+
+  //sortera efter datum
+  events.sort((a, b) => new Date(a.startTime) - new Date(b.startTime))
+  //spara till localstorage, visa filtrerade, rensa.
+  saveEventsToStorage(events)
+
+  //bestäm vilken lista som ska visas baserat på det nya eventets datum
+  const eventStart = new Date(newEvent.startTime)
+  const eventEnd = new Date(newEvent.endTime)
+  const currentDate = new Date()
+
+  if (eventEnd < currentDate) {
+    filterEvents('previous')
+  } else if (eventStart > currentDate) {
+    filterEvents('upcoming')
+  } else {
+    filterEvents('all')
+  }
+
+  clearInputs()
+  alert('Event saved!✅')
 }
 
-//funktion för att tömma inputfält
+//funktion för att rensa inputfält
 function clearInputs() {
   document.querySelector('#eventName').value = ''
   document.querySelector('#startTime').value = ''
   document.querySelector('#endTime').value = ''
 }
 
-// Funktion för att visa events i listan
-function displayEvents(events) {
-
+//funktion för att visa events
+function displayEvents(eventsToDisplay) {
   // Töm listan innan den uppdateras
   eventList.innerHTML = ''
 
-  // Loopa igenom alla events och lägg till dem i listan
-  events.forEach((event, index) => {
+  eventsToDisplay.forEach((event) => {
     const li = document.createElement('li')
     //ta bort T
     li.innerText = `${event.name} | Start: ${event.startTime.replace('T', ' ')} | End: ${event.endTime.replace('T', ' ')}`
@@ -130,105 +102,83 @@ function displayEvents(events) {
     deleteBtn.innerText = '🗑️'
 
     //om datum & tid redan passerat, lägg på klass.
-    if (new Date(event.endTime) < now) {
+    if (new Date(event.endTime) < new Date()) {
       li.classList.add('pastEvents')
     }
 
-
     //radera
     deleteBtn.addEventListener('click', () => {
-      events.splice(index, 1)
-      saveEventsToStorage(events)
-      displayEvents(events)
+      if (confirm('⚠️Are you sure you want to delete this event?')) {
+        // Hitta eventets ursprungliga index i events med findIndex
+        const originalIndex = events.findIndex(e =>
+          e.name === event.name &&
+          e.startTime === event.startTime &&
+          e.endTime === event.endTime
+        )
+        if (originalIndex !== -1) {
+          events.splice(originalIndex, 1)
+          saveEventsToStorage(events)
+          // Visa rätt filter 
+          if (h2Text.innerText === 'Upcoming Events') {
+            filterEvents('upcoming')
+          } else if (h2Text.innerText === 'Previous Events') {
+            filterEvents('previous')
+          } else {
+            filterEvents('all')
+          }
+        }
+      }
     })
-
 
     //redigera
     editBtn.addEventListener('click', () => {
-
-      // Fyll i inputfält med det valda eventet
-      document.querySelector('#eventName').value = event.name
-      document.querySelector('#startTime').value = event.startTime
-      document.querySelector('#endTime').value = event.endTime
-
-      //spara indexet på det event som ska redigeras
-      editIndex = index
-
-      displayEvents(filteredEvents)
-
-      addBtn.innerText = 'Update event'
+      // Hitta eventets ursprungliga index i events
+      const originalIndex = events.findIndex(e =>
+        e.name === event.name &&
+        e.startTime === event.startTime &&
+        e.endTime === event.endTime
+      )
+      if (originalIndex !== -1) {
+        document.querySelector('#eventName').value = event.name
+        document.querySelector('#startTime').value = event.startTime
+        document.querySelector('#endTime').value = event.endTime
+        //spara indexet på det event som ska redigeras
+        editIndex = originalIndex
+        document.querySelector('#addBtn').innerText = 'Update Event'
+      }
     })
 
-    eventList.append(li)
     li.append(deleteBtn, editBtn)
-
+    eventList.append(li)
   })
 }
 
-//
-addBtn.addEventListener('click', () => {
-  // Om vi är i redigeringsläge
-  if (editIndex !== -1) {
-    // Hämta de nya värdena från inputfälten
-    const eventName = document.querySelector('#eventName').value
-    const startTime = document.querySelector('#startTime').value
-    const endTime = document.querySelector('#endTime').value
+addBtn.addEventListener('click', createNewEvent)
 
-    // Ersätt det gamla eventet med det nya via splice
-    events.splice(editIndex, 1, {
-      name: eventName,
-      startTime: startTime,
-      endTime: endTime
-    })
-
-    // Spara uppdaterade events i localStorage
-    saveEventsToStorage(events)
-
-    // Uppdatera visningen
-    displayEvents(filteredEvents)
-
-    // Återställ knappen till "Add event"
-    addBtn.innerText = 'Add event'
-
-    // Återställ editIndex
-    editIndex = -1
-    clearInputs()
-    return
-  } else {
-    // Om vi inte är i redigeringsläge, skapa nytt event
-    createNewEvent()
-  }
-})
-
-// Funktion för att filtrera events
 function filterEvents(type) {
-
+  //funktion för att filtera events
   if (type === 'upcoming') {
-    filteredEvents = events.filter(event => new Date(event.startTime) > now)
+    filteredEvents = events.filter(event => new Date(event.startTime) > new Date())
     h2Text.innerText = 'Upcoming Events'
   } else if (type === 'previous') {
-    filteredEvents = events.filter(event => new Date(event.endTime) < now)
+    filteredEvents = events.filter(event => new Date(event.endTime) < new Date())
     h2Text.innerText = 'Previous Events'
   } else {
-    //visa alla events
     filteredEvents = events
     h2Text.innerText = 'All Events'
   }
 
-  //visa filtrerade events
   displayEvents(filteredEvents)
 }
 
-// Filtrera enligt type beroende på vilken knapp som klickas på
 upcomingBtn.addEventListener('click', () => filterEvents('upcoming'))
 previousBtn.addEventListener('click', () => filterEvents('previous'))
 allBtn.addEventListener('click', () => filterEvents('all'))
 
-
-if (document.getElementById("logoutButton")) {
-  document.getElementById("logoutButton").addEventListener("click", (event) => {
-    event.preventDefault();
-    sessionStorage.removeItem("currentUser");
-    window.location.href = "login.html";
-  });
+if (document.getElementById('logoutButton')) {
+  document.getElementById('logoutButton').addEventListener('click', (event) => {
+    event.preventDefault()
+    sessionStorage.removeItem('currentUser')
+    window.location.href = 'login.html'
+  })
 }
