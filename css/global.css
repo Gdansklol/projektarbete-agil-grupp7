@@ -24,6 +24,7 @@ body {
   color: var(--secondary-color);
   min-height: 100vh;
 }
+
 /* 
 header {
   width: 100%;
@@ -40,11 +41,23 @@ header {
 header {
   display: flex;
   align-items: center;
-  justify-content: space-between; 
-  position: relative; 
-  padding: 0 20px; 
+  justify-content: space-between;
+  position: relative;
+  padding: 0 20px;
   background: var(--gradient);
   height: 150px;
+}
+
+header img {
+  width: calc(100% - 20px);
+  max-width: 300px;
+  height: calc(100% - 20px);
+  max-height: 300px;
+  justify-content: flex-start;
+  padding: 20px;
+  object-fit: contain;
+  transform: translateX(-50px);
+  transition: transform 0.3s ease-in-out;
 }
 
 nav {
@@ -82,6 +95,7 @@ nav a::after {
   background-color: white;
   transition: width 0.3s ease-in-out;
 }
+
 /* 
 nav a:hover {
   color: white;
@@ -89,6 +103,11 @@ nav a:hover {
 
 nav a:hover::after {
   width: 100%;
+}
+
+#logoutButton {
+  margin-right: 1rem;
+  border: 2px solid white;
 }
 
 .container {
