@@ -84,22 +84,49 @@ function clearInputs() {
   document.querySelector('#eventName').value = ''
   document.querySelector('#startTime').value = ''
   document.querySelector('#endTime').value = ''
+
+  document.querySelector('fieldset').classList.remove('editing')
 }
+
+// gör hela inputfältet klickbart för både start&slut-tid
+const startInput = document.getElementById('startTime')
+startInput.addEventListener('click', function () {
+  this.focus()
+  if (this.showPicker) {
+    this.showPicker()
+  }
+})
+
+const endInput = document.getElementById('endTime')
+endInput.addEventListener('click', function () {
+  this.focus()
+  if (this.showPicker) {
+    this.showPicker()
+  }
+})
 
 //funktion för att visa events
 function displayEvents(eventsToDisplay) {
   // Töm listan innan den uppdateras
   eventList.innerHTML = ''
 
+  // Om inga event finns, visa meddelande
+  if (events.length === 0) {
+    eventList.innerHTML = "<p>No events found.</p>"
+    return
+  }
+
   eventsToDisplay.forEach((event) => {
     const li = document.createElement('li')
-    //ta bort T
-    li.innerText = `${event.name} | Start: ${event.startTime.replace('T', ' ')} | End: ${event.endTime.replace('T', ' ')}`
 
-    const editBtn = document.createElement('span')
-    editBtn.innerText = '✏️'
-    const deleteBtn = document.createElement('span')
-    deleteBtn.innerText = '🗑️'
+    const eventText = document.createElement('span')
+    eventText.className = 'eventText'
+    eventText.innerText = `${event.name} | Start: ${event.startTime.replace('T', ' ')} | End: ${event.endTime.replace('T', ' ')}`
+
+    const editBtn = document.createElement('button')
+    editBtn.innerHTML = '<i class="fa-solid fa-pen-to-square"></i>'
+    const deleteBtn = document.createElement('button')
+    deleteBtn.innerHTML = '<i class="fas fa-trash"></i>'
 
     //om datum & tid redan passerat, lägg på klass.
     if (new Date(event.endTime) < new Date()) {
@@ -145,10 +172,11 @@ function displayEvents(eventsToDisplay) {
         //spara indexet på det event som ska redigeras
         editIndex = originalIndex
         document.querySelector('#addBtn').innerText = 'Update Event'
+        document.querySelector('fieldset').classList.add('editing')
       }
     })
 
-    li.append(deleteBtn, editBtn)
+    li.append(eventText, deleteBtn, editBtn)
     eventList.append(li)
   })
 }

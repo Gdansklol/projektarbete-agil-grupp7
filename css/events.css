@@ -1,62 +1,127 @@
 @import url(global.css);
 
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
+ * {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+ }
 
-body {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
+ body {
+   font-family: Verdana, Geneva, Tahoma, sans-serif;
+ }
 
-/* body header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-} */
+ .container {
+   background: var(--background-dark);
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   width: 70%;
+   margin: 0 auto;
+   padding: 2rem;
+ }
 
-/* body header nav {
-  margin: 20px 0px 20px 40px;
-}
+ .container h2 {
+   margin: 1rem;
+ }
 
-body header nav a {
-  padding: 20px;
-  text-decoration: none;
-  color: black;
-}
+ .container .pastEvents {
+   text-decoration: line-through;
+   color: rgb(94, 93, 93);
+ }
 
-body header nav a:hover {
-  color: rgb(107, 112, 248);
-} */
+ #inputField {
+   margin: 1.5rem;
+ }
+
+ #inputField fieldset {
+   padding: 1rem;
+ }
+
+ #inputField input {
+   padding: 0.8rem;
+   font-family: var(--primary-font);
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+ }
+
+ #inputField input::placeholder {
+   color: black;
+ }
+
+ #inputField input:focus {
+   outline: none;
+   border: 2px solid rgba(75, 108, 183, 0.5);
+   box-shadow: 0 0 5px rgba(75, 108, 183, 0.5);
+ }
+
+ 
+ #addBtn {
+   margin-top: 1rem;
+ }
+
+ 
+ #eventList li {
+   list-style: none;
+   background: #fff;
+   margin: 0.5rem 0;
+   padding: 1rem;
+   border-radius: 5px;
+   display: flex;
+   align-items: center;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   animation: fadeIn 0.5s ease;
+ }
+
+ #eventList li .eventText {
+   margin-right: 1rem;
+ }
+
+ #eventList li button {
+   margin: 0.3rem;
+ }
+
+ #eventList li button:first-of-type {
+   margin-left: auto;
+ }
+
+ #eventList li button i {
+   transition: transform 0.3s ease;
+ }
+
+ #eventList li button:hover i {
+   transform: rotate(10deg);
+ }
 
 
-main .container {
-  background-color: rgb(178, 180, 240);
-  border: solid 2px rgb(27, 25, 25);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 70%;
-  margin: 0 auto;
-  padding: 2rem;
+ @keyframes fadeIn {
+   from {
+     opacity: 0;
+     transform: translateY(10px);
+   }
 
-}
+   to {
+     opacity: 1;
+     transform: translateY(0);
+   }
+ }
 
-main .container h2 {
-  margin-top: 1rem;
-}
 
-main .container .pastEvents {
-  text-decoration: line-through;
-  color: rgb(94, 93, 93);
-}
+ fieldset {
+   border: 2px solid transparent;
+   border-image: var(--gradient) 1;
+   padding: 1.5rem;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+   transition: transform 0.3s ease, box-shadow 0.3s ease, border-image 0.3s ease;
+ }
 
-main .container #inputField {
-  margin: 1.5rem;
-}
-
-main .container #inputField fieldset {
-  padding: 1rem;
-}
+ fieldset.editing {
+   position: relative;
+   padding: 1rem;
+   border: 2px solid #6e8efb;
+   border-radius: 8px;
+   background-color: rgba(255, 255, 255, 0.1);
+   box-shadow: 0 0 8px rgba(110, 142, 251, 0.6);
+   transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+ }
+ 
