@@ -46,6 +46,7 @@ header {
   padding: 0 20px;
   background: var(--gradient);
   height: 150px;
+  margin-bottom: 3.5rem;
 }
 
 header img {
