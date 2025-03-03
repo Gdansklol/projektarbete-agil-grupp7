@@ -191,6 +191,14 @@ $(document).ready(function() {
         renderTable();
     });
 
+
+    // Logga ut
+    document.querySelector('#logoutButton').addEventListener('click', () => {
+        sessionStorage.removeItem('currentUser');
+        
+        window.location.href = '/pages/login.html';
+    });
+
     // Initial render, table
     renderTable();
 });
