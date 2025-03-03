@@ -1,11 +1,11 @@
 $(document).ready(function() {
     //Prio map
     const priorityMapping = {
-        1: 'Låg',
-        2: 'Mellan',
-        3: 'Hög'
+        1: { swedish: 'Låg', english: 'Low' },
+        2: { swedish: 'Mellan', english: 'Medium' },
+        3: { swedish: 'Hög', english: 'High' }
     };
-
+    
     // Hämta inloggad användare
     const currentUser = sessionStorage.getItem('currentUser');
 
@@ -32,14 +32,15 @@ $(document).ready(function() {
         $('#myTable').empty()
 
         filteredHabits.forEach(function(habit, index) {
-            const priorityName = priorityMapping[habit.prioritet];
+            const priorityEnglish = priorityMapping[habit.prioritet].english;
+
 
             const row = `<tr data-index="${index}">
                 <td>${habit.rutin}</td>
                 <td>${habit.repetitioner}</td>
-                <td class="prio-${habit.prioritet}">${priorityName}</td>
-                <td><button class="editBtn">Ändra</button></td>
-                <td><button class="deleteBtn">Ta bort</button></td>
+                <td class="prio-${habit.prioritet}">${priorityEnglish}</td>
+                <td><button class="editBtn"><i class="fas fa-pen-to-square"></i></button></td>
+                <td><button class="deleteBtn"><i class="fas fa-trash"></i></button></td>
             </tr>`;
 
             $('#myTable').append(row);
@@ -68,7 +69,7 @@ $(document).ready(function() {
             renderTable();
     
             // Success Modal
-            $('#modalMessage').text("Rutin sparad!");
+            $('#modalMessage').text("Routine saved!");
             $('#successModal').fadeIn();
     
             $('#rutinInput').val('');
