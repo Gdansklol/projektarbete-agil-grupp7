@@ -2,31 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 @import url(global.css);
 
-header {
-  position: relative; 
-  width: 100%;
-  height: 150px;
-  background: var(--gradient);
-  display: flex;
-  justify-content: flex-start; 
-  align-items: center;
-  gap: 50px; 
-  padding-left: 20px; 
-  overflow: hidden;
-  transition: transform 0.3s ease-in-out; 
-}
-
-header img {
-  width: calc(100% - 20px); 
-  max-width: 300px; 
-  height: calc(100% - 20px); 
-  max-height: 300px; 
-  justify-content: flex-start;
-  padding: 20px;
-  object-fit: contain; 
-  transform: translateX(-50px); 
-  transition: transform 0.3s ease-in-out; 
-}
 
 #modalsContainer {
   display: block;
@@ -51,6 +26,12 @@ header img {
   display: flex;
   justify-content: center;
   align-items: center;
+  pointer-events: none;
+}
+
+.modal.active {
+  display: flex;
+  pointer-events: auto;
 }
 
 .modal-content {
@@ -61,52 +42,23 @@ header img {
   min-width: 300px;
   border-radius: 5px;
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+  pointer-events: auto;
 }
 
 button {
-  cursor: pointer; /* Make buttons clickable */
-}
-
-#emptyInputsModal {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
-  overflow: auto;
-}
-
-#emptyInputsModal .modal-content {
-  background-color: #fff;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 50%;
-  min-width: 300px;
-  max-width: 300px;
-  border-radius: 5px;
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
-  text-align: center;
-  box-sizing: border-box;
-}
-
-#emptyInputsModal button {
   cursor: pointer;
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s;
 }
 
-#nav {
-  display: flex;
-  justify-content: center;
-  padding: 24px;
-  gap: 24px;
-}
 
 #habitsContainer {
-  min-width: 600px;
+  width: 700px;
   margin: 20px auto;
   background: #e0e5ec;
   padding: 30px;
@@ -115,12 +67,15 @@ button {
 }
 
 #inputDiv {
-
+  width: 640px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
 
+
 #dataTableDiv {
+  width: 640px;
   display: flex;
   justify-content: baseline;
   width: -moz-fit-content;
@@ -128,75 +83,32 @@ button {
   padding: 0px;
 }
 
-#habitsContainer #dataTableDiv .table-striped {
-  width: 600px;
+.table-striped {
+  width: 640px;
   
+}
+
+#myTable tr:nth-child(odd) {
+  background-color: rgba(89, 102, 175, 0.1);
+}
+
+#myTable tr:nth-child(even) {
+  background-color: #e0e5ec;
 }
 
 #radioBtns{
   padding: 24px 0px;
 }
 
-
 .bg-info th {
   background-color: #5966af;
   color: #fff;
-
 }
 
-@media (min-width: 600px) {
-  body {
-      padding: 0 16px;
-  }
-
-  .container {
-      width: 90%;
-      padding: 20px;
-  }
-
-  header h1 {
-      font-size: 36px;
-  }
-
-  input, select, button {
-      font-size: 16px;
-      padding: 10px;
-  }
-
-  .filter-container fieldset {
-      font-size: 18px;
-  }
-
-  input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-  }
-}
-
-@media (min-width: 768px) {
-  .filter-container fieldset {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      width: 100%;
-  }
-
-  .filter-container .checkbox-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      width: 100%;
-  }
-
-  .filter-container .checkbox-group label {
-      flex: 1 1 calc(25% - 10px); 
-      display: flex;
-      align-items: center;
-      font-size: 16px;
-  }
-
-  button {
-      width: auto;
-      padding: 10px 20px;
-  }
+input, select{
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  transition: all 0.3sease-in-out;
+  padding: 10px;
 }
