@@ -1,1 +1,0 @@
-# Projektarbet - Producivity Assistant Application
