@@ -1,31 +1,40 @@
-@import url(global.css);
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css');
+
+:root {
+  --primary-color: rgb(89, 102, 175);
+  --secondary-color: #2c3e50;
+  --accent-color: rgb(76, 95, 201);
+  --background-light: #f4f4f4;
+  --background-dark: #e0e5ec;
+  --gradient: linear-gradient(to right, rgb(207, 211, 133) 0%, rgb(40, 148, 51) 50%, rgb(76, 95, 201) 100%);
+  --primary-font: 'Poppins', sans-serif;
+  --secondary-font: 'Roboto', sans-serif;
+}
 
 body {
+  background: linear-gradient(to right, rgb(207, 211, 133) 0%, rgb(40, 148, 51) 50%, rgb(76, 95, 201) 100%);
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
   font-family: var(--primary-font);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-
+  margin: 0;
 }
 
-#header {
-  text-align: center;
-  width: 100%;
-  margin-bottom: 30px; 
-  margin-top: 0;
-  height: 300px;
-  padding: 0;
-}
-
-#header img {
-  max-width: 1240px; 
-  height: 300px;
-  padding: 15px; 
+img {
+  max-width: 500px;
+  height: auto;
+  padding: 15px;     
+  margin-bottom: 26px;
   object-fit: contain;
- align-items: center;
- justify-content: center;
+  align-items: center;
+  justify-content: center;
 }
 
 #loginFormContainer,
@@ -33,6 +42,7 @@ body {
   background: var(--background-dark);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
+  border-radius: 10px;
   width: 100%;
   max-width: 350px;
   text-align: center;
@@ -52,6 +62,7 @@ input[type="password"] {
   border: 2px solid var(--primary-color);
   border-radius: 5px;
   background: white;
+  max-width: 250px;
   color: var(--secondary-color);
   font-size: 16px;
   text-align: center;
@@ -73,6 +84,27 @@ a:hover {
   color: var(--accent-color);
 }
 
+button {
+  padding: 14px;
+  border: none;
+  border-radius: 5px;
+  background: var(--primary-color);
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  font-family: var(--secondary-font);
+}
+
+button:hover {
+  background: var(--accent-color);
+}
+
+footer p{
+  color: white;
+}
+
+
 @media (max-width: 600px) {
   body {
     padding: 10px;
@@ -87,5 +119,32 @@ a:hover {
 
   button {
     font-size: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 20px;
+  }
+
+  header {
+    height: 120px;
+  }
+
+  nav {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .container {
+    width: 95%;
+    padding: 20px;
+    max-width: 600px;
+  }
+
+  button {
+    font-size: 16px;
+    padding: 12px;
   }
 }
