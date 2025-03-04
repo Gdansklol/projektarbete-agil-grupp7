@@ -1,6 +1,5 @@
 const todoForm = document.getElementById("todo-form");
 const listContainer = document.getElementById("listContainer");
-const resetButton = document.getElementById("reset-todo");
 const addTodoButton = document.getElementById("add-todo");
 const sortSelect = document.getElementById("sort-todo");
 const sortButton = document.getElementById("sort-button");
