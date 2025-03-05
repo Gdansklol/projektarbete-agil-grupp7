@@ -3,24 +3,37 @@ const listContainer = document.getElementById("listContainer");
 const addTodoButton = document.getElementById("add-todo");
 const sortSelect = document.getElementById("sort-todo");
 const sortButton = document.getElementById("sort-button");
-const sortOrderRadios = document.querySelectorAll("input[name='sort-order']");
 const filterButton = document.getElementById("filter-todos");
 const filterStatus = document.getElementById("filter-todo-status");
 const categoryCheckboxes = document.querySelectorAll("input[name='filter-category']");
 const selectAllCategories = document.getElementById("select-all-categories");
+const sortOrderRadios = document.querySelectorAll("input[name='sort-order']");
 
-const currentUser = sessionStorage.getItem("currentUser");
+let currentUser = sessionStorage.getItem("currentUser");
+
 if (!currentUser) {
-    window.location.href = "/pages/login.html";
+    currentUser = localStorage.getItem("lastUser");
+    if (!currentUser) {
+        window.location.href = "/pages/login.html";
+    } else {
+        sessionStorage.setItem("currentUser", currentUser);
+    }
 }
 
-const getTodosFromStorage = () => JSON.parse(localStorage.getItem(`${currentUser}_todoList`)) || [];
-const saveTodosToStorage = () => localStorage.setItem(`${currentUser}_todoList`, JSON.stringify(todoList));
+const getTodosFromStorage = () => {
+    const storedTodos = localStorage.getItem(`${currentUser}_todoList`);
+    return storedTodos ? JSON.parse(storedTodos) : [];
+};
+
+const saveTodosToStorage = () => {
+    localStorage.setItem(`${currentUser}_todoList`, JSON.stringify(todoList));
+    localStorage.setItem("lastUser", currentUser);
+};
 
 let todoList = getTodosFromStorage();
 let editIndex = -1;
 
-const addTodo = (event) => {
+todoForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
     const title = document.getElementById("todo-title").value.trim();
@@ -49,34 +62,17 @@ const addTodo = (event) => {
     saveTodosToStorage();
     todoForm.reset();
     renderTodos();
-};
+});
 
-const toggleComplete = (index) => {
-    const today = new Date(); 
-    const todo = todoList[index];
-    const todoDate = new Date(todo.deadline);
-
-    console.log(`Checking Task: ${todo.title}, Deadline: ${todoDate}, Status: ${todo.status}`); // Debugging
-
-    if (todoDate < today && todo.status === "done") {
-        alert("⚠️ You cannot mark a past completed task as incomplete.");
-        renderTodos(); 
-        return;
-    }
-
-    if (todoDate > today && todo.status === "not-done") {
-        alert("⚠️ You cannot complete a future task.");
+window.removeTodo = (index) => {
+    if (confirm("Are you sure you want to delete this task?")) {
+        todoList.splice(index, 1);
+        saveTodosToStorage();
         renderTodos();
-        return;
     }
-
-    todo.status = todo.status === "done" ? "not-done" : "done";
-    saveTodosToStorage();
-    renderTodos();
 };
 
-
-const editTodo = (index) => {
+window.editTodo = (index) => {
     const todo = todoList[index];
 
     document.getElementById("todo-title").value = todo.title;
@@ -89,84 +85,69 @@ const editTodo = (index) => {
     addTodoButton.textContent = "Update Task";
 };
 
-const removeTodo = (index) => {
-    if (confirm("Are you sure you want to delete this task?")) {
-        todoList.splice(index, 1);
-        saveTodosToStorage();
+window.toggleComplete = (index) => {
+    const today = new Date().toISOString().split("T")[0];
+    const todo = todoList[index];
+
+    if (todo.deadline < today && todo.status === "done") {
+        alert("⚠️ You cannot uncheck a past completed task. Are you from the past? 😆");
         renderTodos();
+        return;
     }
-};
 
-const sortTodos = () => {
-    const sortBy = sortSelect.value;
-    const order = document.querySelector("input[name='sort-order']:checked")?.value || "asc";
+    if (todo.deadline > today && todo.status === "not-done") {
+        alert("⚠️ This task is scheduled for the future. Are you from the future? 😆");
+        renderTodos();
+        return;
+    }
 
-    todoList.sort((a, b) => {
-        let valueA = a[sortBy];
-        let valueB = b[sortBy];
-
-        if (sortBy === "deadline") {
-            valueA = new Date(a.deadline);
-            valueB = new Date(b.deadline);
-        } else if (sortBy === "status") {
-            valueA = (a.status === "not-done" ? 0 : 1) + new Date(a.deadline).getTime();
-            valueB = (b.status === "not-done" ? 0 : 1) + new Date(b.deadline).getTime();
-        } else if (sortBy === "time") {
-            valueA = parseInt(a.time);
-            valueB = parseInt(b.time);
-        }
-
-        return order === "asc" ? valueA - valueB : valueB - valueA;
-    });
-
+    todo.status = todo.status === "done" ? "not-done" : "done";
+    saveTodosToStorage();
     renderTodos();
 };
 
-const filterTodos = () => {
-    let filteredTodos = [...todoList];
+sortButton.addEventListener("click", () => {
+    const sortBy = sortSelect.value;
+    const order = document.querySelector("input[name='sort-order']:checked")?.value || "asc";
 
-    const selectedStatus = filterStatus.value;
-    if (selectedStatus !== "all") {
-        filteredTodos = filteredTodos.filter(todo => todo.status === selectedStatus);
+    if (sortBy === "time") {
+        todoList.sort((a, b) => order === "asc" ? parseInt(a.time) - parseInt(b.time) : parseInt(b.time) - parseInt(a.time));
+
+    } else if (sortBy === "status") {
+        let doneTodos = todoList.filter(todo => todo.status === "done");
+        let notDoneTodos = todoList.filter(todo => todo.status === "not-done");
+
+        doneTodos.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
+        notDoneTodos.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
+
+        if (order === "asc") {
+            todoList = [...doneTodos, ...notDoneTodos];
+        } 
+     
+        else {
+            notDoneTodos.reverse();  
+            doneTodos.reverse();  
+            todoList = [...notDoneTodos, ...doneTodos];
+        }
+
+    } else if (sortBy === "deadline") {
+      
+        todoList.sort((a, b) => order === "asc" ? new Date(a.deadline) - new Date(b.deadline) : new Date(b.deadline) - new Date(a.deadline));
     }
 
-    const selectedCategories = Array.from(categoryCheckboxes)
-        .filter(checkbox => checkbox.checked)
-        .map(checkbox => checkbox.value);
-
-    if (selectedCategories.length > 0) {
-        filteredTodos = filteredTodos.filter(todo => selectedCategories.includes(todo.category));
-    }
-
-    renderTodos(filteredTodos);
-};
-
-selectAllCategories.addEventListener("change", () => {
-    categoryCheckboxes.forEach(checkbox => checkbox.checked = selectAllCategories.checked);
-});
-
-categoryCheckboxes.forEach(checkbox => {
-    checkbox.addEventListener("change", () => {
-        selectAllCategories.checked = categoryCheckboxes.length === 
-        document.querySelectorAll("input[name='filter-category']:checked").length;
-    });
+    renderTodos();
 });
 
 const renderTodos = (filteredTodos = todoList) => {
     listContainer.innerHTML = "";
 
     filteredTodos.forEach((todo, index) => {
-        const today = new Date().toISOString().split("T")[0];
-        const isPast = todo.deadline < today;
-
-        if (isPast) todo.status = "done";
-
         const listItem = document.createElement("li");
         listItem.className = `todo-item ${todo.status === "done" ? "completed" : ""}`;
 
         listItem.innerHTML = `
-            <input type="checkbox" class="check-task" onchange="toggleComplete(${index})"
-                ${todo.status === "done" ? "checked disabled" : ""}>
+            <input type="checkbox" class="check-task" data-index="${index}" onchange="toggleComplete(${index})" 
+                ${todo.status === "done" ? "checked" : ""}>
             <span class="todo-text">
                 <b>${todo.title}</b> - ${todo.description} (${todo.category}) [${todo.time}] - ${todo.deadline}
             </span>
@@ -178,17 +159,5 @@ const renderTodos = (filteredTodos = todoList) => {
 
     saveTodosToStorage();
 };
-
-const logoutButton = document.getElementById("logoutButton");
-if (logoutButton) {
-    logoutButton.addEventListener("click", () => {
-        sessionStorage.removeItem("currentUser");
-        window.location.href = "/pages/login.html";
-    });
-}
-
-todoForm.addEventListener("submit", addTodo);
-sortButton.addEventListener("click", sortTodos);
-filterButton.addEventListener("click", filterTodos);
 
 renderTodos();

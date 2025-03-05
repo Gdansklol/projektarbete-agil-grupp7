@@ -12,6 +12,10 @@
     flex: 1;
 }
 
+h1 {
+    padding-bottom: 24px;
+}
+
 .input-area, .filter-container, .sort-wrapper {
     display: flex;
     flex-direction: column;
@@ -22,7 +26,6 @@
 
 input, select, button {
     padding: 10px;
-    font-size: 16px;
     border-radius: 5px;
     border: 1px solid #ddd;
     transition: all 0.3s ease-in-out;
@@ -57,17 +60,23 @@ li {
     border: none;
     font-size: 16px;
     cursor: pointer;
-    transition: transform 0.2s ease-in-out;
 }
 
-.todo-remove:hover {
-    color: darkorange;
-    transform: scale(1.1);
+.completed .todo-text {
+    text-decoration: line-through;
+    opacity: 0.6;
+    color: var(--secondary-color);
 }
 
-.todo-edit:hover {
-    color: green;
-    transform: scale(1.1);
+button {
+    cursor: pointer;
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s;
 }
 
 fieldset {
@@ -76,11 +85,6 @@ fieldset {
     padding: 1.5rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-image 0.3s ease;
-}
-
-fieldset:hover {
-    transform: scale(1.02);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 fieldset.editing {
@@ -99,17 +103,9 @@ fieldset.editing {
         padding: 20px;
     }
 
-    header h1 {
-        font-size: 36px;
-    }
-
     input, select, button {
         font-size: 16px;
         padding: 10px;
-    }
-
-    .filter-container fieldset {
-        font-size: 18px;
     }
 
     input[type="checkbox"] {
@@ -117,12 +113,12 @@ fieldset.editing {
         height: 18px;
     }
 
-    .filter-container fieldset,
-    .sort-wrapper {
+    .filter-container fieldset {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
         width: 100%;
+        font-size: 18px;
     }
 
     .filter-container .checkbox-group {
@@ -137,6 +133,11 @@ fieldset.editing {
         display: flex;
         align-items: center;
         font-size: 16px;
+    }
+
+    button {
+        width: auto;
+        padding: 10px 20px;
     }
 
     .radioBtn-sort {
@@ -171,29 +172,5 @@ fieldset.editing {
         width: 20px;
         height: 20px;
         margin-right: 8px;
-    }
-
-    fieldset {
-        border: 2px solid transparent;
-        border-image: var(--gradient) 1;
-        padding: 1.5rem;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease, border-image 0.3s ease;
-      }
-     
-      fieldset.editing {
-        position: relative;
-        padding: 1rem;
-        border: 2px solid #6e8efb;
-        border-radius: 8px;
-        background-color: rgba(255, 255, 255, 0.1);
-        box-shadow: 0 0 8px rgba(110, 142, 251, 0.6);
-        transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
-      }
-      
-
-    button {
-        width: auto;
-        padding: 10px 20px;
     }
 }
