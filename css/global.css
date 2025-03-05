@@ -27,6 +27,11 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  font-size: 16px;
+}
+
+h2 {
+  font-size: 24px;
 }
 
 header {
@@ -88,27 +93,6 @@ nav a::after {
   transition: width 0.3s ease-in-out;
 }
 
-/* nav a {
-  text-decoration: none;
-  color: white;
-  font-family: var(--secondary-font);
-  position: relative;
-  padding-bottom: 5px;
-  margin: 5px;
-  font-size: 18px;
-}
-
-nav a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0;
-  height: 2px;
-  background-color: white;
-  transition: width 0.3s ease-in-out;
-} */
-
 nav a:hover::after {
   width: 100%;
 }
@@ -126,7 +110,6 @@ nav a.active::after {
 #logoutButton {
   margin-right: 1rem;
   border: 2px solid white;
-  padding: 0.3rem;
 }
 
 .container {
