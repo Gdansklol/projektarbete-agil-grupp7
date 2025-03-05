@@ -176,7 +176,7 @@ function displayEvents(eventsToDisplay) {
       }
     })
 
-    li.append(eventText, deleteBtn, editBtn)
+    li.append(eventText, editBtn, deleteBtn)
     eventList.append(li)
   })
 }

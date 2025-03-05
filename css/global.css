@@ -152,14 +152,14 @@ button {
   font-family: var(--secondary-font);
 }
 
-button a {
-  color: white;
-  text-decoration: none;
-}
-
 button:hover {
   background: rgb(75, 85, 146);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+button a {
+  color: white;
+  text-decoration: none;
 }
 
 footer {
