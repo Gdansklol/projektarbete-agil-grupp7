@@ -22,6 +22,7 @@
 
  .container h2 {
    margin: 1rem;
+   font-size: 1.2rem;
  }
 
  .container .pastEvents {
@@ -75,6 +76,9 @@
 
  #eventList li .eventText {
    margin-right: 1rem;
+   font-size: 0.9rem;
+   font-weight:bolder;
+   font-family: var(--primary-font);
  }
 
  #eventList li button {
@@ -93,6 +97,10 @@
    transform: rotate(10deg);
  }
 
+ #eventList li button {
+  padding: 0.4rem 0.6rem;
+  font-size: 0.9rem;      
+}
 
  @keyframes fadeIn {
    from {
