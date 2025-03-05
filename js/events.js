@@ -1,9 +1,14 @@
+const fieldset = document.querySelector('fieldset')
+const eventNameInput = document.querySelector('#eventName')
+const startTimeInput = document.querySelector('#startTime')
+const endTimeInput = document.querySelector('#endTime')
 const addBtn = document.querySelector('#addBtn')
 const eventList = document.querySelector('#eventList')
 const upcomingBtn = document.querySelector('#upcoming')
 const previousBtn = document.querySelector('#previous')
 const allBtn = document.querySelector('#all')
 const h2Text = document.querySelector('h2')
+
 
 //hämta inloggad användare, om ingen inloggad, gå till login.
 const currentUser = sessionStorage.getItem('currentUser')
@@ -28,21 +33,65 @@ let editIndex = -1
 //visa upcoming events vid sidladdning
 filterEvents('upcoming')
 
+//modals ist för alerts
+// Alert-modal
+function showModalAlert(message) {
+  const modal = document.querySelector('#alertModal')
+  const msg = document.querySelector('#alertMessage')
+  msg.innerText = message
+  modal.style.display = 'block'
+}
+
+document.querySelector('#alertClose').addEventListener('click', () => {
+  document.querySelector('#alertModal').style.display = 'none'
+})
+
+// Confirm modal
+function showModalConfirm(message, onConfirm, onCancel) {
+  const modal = document.querySelector('#confirmModal')
+  const msg = document.querySelector('#confirmMessage')
+  msg.innerText = message
+  modal.style.display = 'block'
+
+  const btnOk = document.querySelector('#confirmOk')
+  const btnCancel = document.querySelector('#confirmCancel')
+
+  function cleanup() {
+    modal.style.display = 'none'
+    btnOk.removeEventListener('click', okHandler)
+    btnCancel.removeEventListener('click', cancelHandler)
+  }
+
+  function okHandler() {
+    cleanup()
+    if (typeof onConfirm === 'function') onConfirm()
+  }
+
+  function cancelHandler() {
+    cleanup()
+    if (typeof onCancel === 'function') onCancel()
+  }
+
+  btnOk.addEventListener('click', okHandler)
+  btnCancel.addEventListener('click', cancelHandler)
+}
+
+
 function createNewEvent() {
   //hämta inputs
-  const eventName = document.querySelector('#eventName').value.trim()
-  const startTime = document.querySelector('#startTime').value
-  const endTime = document.querySelector('#endTime').value
+  const eventName = eventNameInput.value.trim()
+  const startTime = startTimeInput.value
+  const endTime = endTimeInput.value
 
   //om inputs inte är ifyllda, visa alert.
   if (!eventName || !startTime || !endTime) {
-    alert('⚠️ Please ensure all fields are filled in.')
+    showModalAlert('⚠️ Please ensure all fields are filled in.')
     return
   }
 
   //checka så startdatum är innan slutdatum
   if (new Date(endTime) < new Date(startTime)) {
-    alert('⚠️ The end date must be after the start date.')
+    showModalAlert('⚠️ The end date must be after the start date.')
     return
   }
 
@@ -76,29 +125,27 @@ function createNewEvent() {
   }
 
   clearInputs()
-  alert('Event saved!✅')
+  showModalAlert('Event saved!✅')
 }
 
 //funktion för att rensa inputfält
 function clearInputs() {
-  document.querySelector('#eventName').value = ''
-  document.querySelector('#startTime').value = ''
-  document.querySelector('#endTime').value = ''
+  eventNameInput.value = ''
+  startTimeInput.value = ''
+  endTimeInput.value = ''
 
-  document.querySelector('fieldset').classList.remove('editing')
+  fieldset.classList.remove('editing')
 }
 
 // gör hela inputfältet klickbart för både start&slut-tid
-const startInput = document.getElementById('startTime')
-startInput.addEventListener('click', function () {
+startTimeInput.addEventListener('click', function () {
   this.focus()
   if (this.showPicker) {
     this.showPicker()
   }
 })
 
-const endInput = document.getElementById('endTime')
-endInput.addEventListener('click', function () {
+endTimeInput.addEventListener('click', function () {
   this.focus()
   if (this.showPicker) {
     this.showPicker()
@@ -135,7 +182,7 @@ function displayEvents(eventsToDisplay) {
 
     //radera
     deleteBtn.addEventListener('click', () => {
-      if (confirm('⚠️Are you sure you want to delete this event?')) {
+      showModalConfirm('⚠️Are you sure you want to delete this event?', () => {
         // Hitta eventets ursprungliga index i events med findIndex
         const originalIndex = events.findIndex(e =>
           e.name === event.name &&
@@ -154,7 +201,11 @@ function displayEvents(eventsToDisplay) {
             filterEvents('all')
           }
         }
-      }
+      },
+        () => {
+          // Cancel - inget sker
+        }
+      )
     })
 
     //redigera
@@ -166,13 +217,13 @@ function displayEvents(eventsToDisplay) {
         e.endTime === event.endTime
       )
       if (originalIndex !== -1) {
-        document.querySelector('#eventName').value = event.name
-        document.querySelector('#startTime').value = event.startTime
-        document.querySelector('#endTime').value = event.endTime
+        eventNameInput.value = event.name
+        startTimeInput.value = event.startTime
+        endTimeInput.value = event.endTime
         //spara indexet på det event som ska redigeras
         editIndex = originalIndex
-        document.querySelector('#addBtn').innerText = 'Update Event'
-        document.querySelector('fieldset').classList.add('editing')
+        addBtn.innerText = 'Update Event'
+        fieldset.classList.add('editing')
       }
     })
 
@@ -203,8 +254,8 @@ upcomingBtn.addEventListener('click', () => filterEvents('upcoming'))
 previousBtn.addEventListener('click', () => filterEvents('previous'))
 allBtn.addEventListener('click', () => filterEvents('all'))
 
-if (document.getElementById('logoutButton')) {
-  document.getElementById('logoutButton').addEventListener('click', (event) => {
+if (document.querySelector('#logoutButton')) {
+  document.querySelector('#logoutButton').addEventListener('click', (event) => {
     event.preventDefault()
     sessionStorage.removeItem('currentUser')
     window.location.href = 'login.html'
