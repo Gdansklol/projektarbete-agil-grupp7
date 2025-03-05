@@ -57,15 +57,14 @@ const habitList = document.querySelector('#habitList')
 //lista för todos
 const todoList = document.querySelector("#todoList")
 
-
-//Events
+// Events
 
 // Funktion för att hämta och visa de tre nästkommande eventen
 function displayNext3Events() {
   // Kollar inloggad anvädare
   if (!currentUser) return;
 
-  // hämta user-specifika events från localStorage
+  // Hämta user-specifika events från localStorage
   const events = JSON.parse(localStorage.getItem(`${currentUser}_events`)) || [];
 
   // Om inga event finns, visa meddelande
@@ -77,26 +76,31 @@ function displayNext3Events() {
   // Filtrera ut så vi ser kommande events
   const upcomingEvents = events.filter(event => new Date(event.startTime) > new Date())
 
+  // Om inga kommande event finns, visa meddelande
+  if (upcomingEvents.length === 0) {
+    eventList.innerHTML = "<p>No upcoming events found.</p>"
+    return
+  }
+
   // Sortera eventen efter starttid, från det närmaste till det äldsta
   upcomingEvents.sort((a, b) => new Date(a.startTime) - new Date(b.startTime))
 
   // Ta de tre första kommande eventen
   const nextThreeEvents = upcomingEvents.slice(0, 3)
 
-  //tom sträng för att skapa innehåll
+  // Tom sträng för att skapa innehåll
   let value = ''
   nextThreeEvents.forEach((event) => {
     value += `
-      <ul class = "card">
+      <ul class="card">
         <p>Event: ${event.name.replace('T', ' ')} | Start: ${event.startTime.replace('T', ' ')} | End: ${event.endTime.replace('T', ' ')}</p>
       </ul>
     `
   })
 
-  // visa innehåll i listan
+  // Visa innehåll i listan
   eventList.innerHTML = value
 }
-
 
 //Habits 
 
@@ -135,7 +139,7 @@ function displayTop3Habits() {
 }
 
 
-//todos 
+// Todos
 
 // Funktion för att hämta och visa de tre senaste ej utförda ärendena
 function display3Todos() {
@@ -151,15 +155,22 @@ function display3Todos() {
     return
   }
 
-  // Filtrera ut todos som inte är klara
-  const pendingTodos = todos.filter(todo => todo.status !== "done")
+  // Filtrera ut todos som inte är klara (status !== "done") eller som har passerat deadline
+  const pendingTodos = todos.filter(todo => todo.status !== "done" && new Date(todo.deadline) >= new Date())
 
-  // Sortera todos efter datum, närmast först
+  // Om inga todos finns kvar (alla är klara eller förfallna), visa meddelande
+  if (pendingTodos.length === 0) {
+    todoList.innerHTML = "<p>No pending tasks found.</p>"
+    return
+  }
+
+  // Sortera todos efter deadline, närmast först
   pendingTodos.sort((a, b) => new Date(a.deadline) - new Date(b.deadline))
 
   // Ta de tre första (med närmst liggande datum)
   const unfinishedTodos = pendingTodos.slice(0, 3)
 
+  // Bygg upp innehållet att visa
   let value = ""
   unfinishedTodos.forEach(todo => {
     value += `
@@ -169,9 +180,10 @@ function display3Todos() {
     `
   })
 
-  //sätt innehåll i listan
+  // Sätt innehåll i listan
   todoList.innerHTML = value
 }
+
 
 // Kör funktionerna när startsidan laddats klart
 document.addEventListener("DOMContentLoaded", () => {
