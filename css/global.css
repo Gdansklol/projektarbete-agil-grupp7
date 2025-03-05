@@ -124,6 +124,7 @@ nav a.active::after {
 
 
 #logoutButton {
+  background-color: rgb(0, 164, 0);
   margin-right: 1rem;
   border: 2px solid white;
   padding: 12px;
