@@ -1,137 +1,88 @@
 # Frontend projekt och agila metoder
 ## Projektarbete - Producivity Assistant Application
 
-### 📌 Planering
-- Trello för att skapa en planering samt översikt över hur arbetet går. 
+---
 
-- Ni ska ha minst följande fem spalter: Backlog, Todo,In progress, Ready for test, Done
+## 📌 Planering
 
-- Backlog - Börja med att fylla på backloggen med så många kort som möjligt för att tydliggöra vilka ärenden som ska utföras under hela projektets gång.
+### Arbetsmetodik
 
-- En wireframe ska tas fram utifrån kravställning som ni utgår ifrån.
+- Vårt team använde **Trello** och **Git** för att organisera och strukturera arbetet. Trello användes för att skapa en planering samt ge en översikt över hur arbetet gick.
 
-## Projektmetodik
-Projektlängd: 2 sprintar (ca 2 veckor/sprint).
+- Vi hade fem huvudsakliga spalter i Trello:
+  - **Backlog**: Lista över alla uppgifter som ska utföras under projektets gång.
+  - **ToDo**: Uppgifter som prioriterats att påbörjas inom sprinten.
+  - **In progress**: Uppgifter som teammedlemmar arbetade aktivt med.
+  - **Ready for test**: Uppgifter som var klara för testning och granskning.
+  - **Done**: Slutförda uppgifter.
 
-Sprintplanering - Påbörja varje sprint med att dra över/skapa ärenden från Backlog till Todo. Varje Trello-ärende ska ha en huvudansvarig vid utförning.
+- En **wireframe** togs fram baserat på kravspecifikationen 
+och användes som grund för utvecklingen.
 
-Återkommande avstämningsmöten (standups)
+- **GitHub** användes för versionshantering:
+  - Varje teammedlem arbetade med en **feature-branch** för ny funktionalitet.
+  - Efter kodgranskning mergades ändringarna till **develop**.
+  - Max en aktiv feature-branch per person.
 
-Ca 5-15 minuter. OBS. Dessa ska dokumenteras! Ni ska ha en samling mötesanteckningar 
-där ni skriver vilken tid ni håller mötet, vilka som deltar, samt vad som sägs under mötets gång.
-Ni kan ha detta i Trello eller ett Google-dokument.
+## 📌 Projektmetodik / Agilt arbete
 
-Retrospektiv - Ni ska hålla ett retrospektiv efter sprint 1, där ni diskuterar 
-vad som gått bra och vad som kan förbättras i arbetet.
- Detta moment ska dokumenteras. Ni kan ha detta i Trello eller ett Google-dokument.
+- Vi arbetade enligt **SCRUM-metoden** och höll regelbundna sprintmöten (varannan vecka).
+- Varje dag höll vi **15-minuters stand-up-möten** via Discord och på plats i skolan.
+- Scrum-master-rollen roterade mellan teammedlemmarna, och mötesanteckningar dokumenterades på Trello.
+- **Retrospektiv** hölls efter varje sprint för att diskutera förbättringar.
+- **Avstämning** med produktägaren (läraren) skedde efter sprint 1.
 
-Avstämning med kund sker efter sprint 1.
+## 📌 Funktionalitet och Tekniker
 
-Git flow - Ni ska använda Github för att dela med er av kod och skapa branches varje gång 
-ni jobbar på ny funktionalitet. Max en aktiv feature-branch per person (är ni 3 personer bör 
-det finnas max 3 feature-branches). Stäng sedan branchen när ni mergat in den i develop.
-Se exempel:
+### 🔐 Inloggning (Endast VG)
+- Man ska kunna registrera flera olika användare med användarnamn samt lösenord.
+- **SessionStorage** används för att lagra information om inloggade användare   
+    och hålla kvar sessionen.
+- Vid inloggning valideras användarnamn och användar-ID genom 
+    en **credentials check** för att se om de matchar sparade användare.
+- Varje användare har sin egen data lagrad i **LocalStorage**, 
+    så att deras ärenden, rutiner och händelser är tillgängliga vid inloggning.
 
-main
+### 🏠 Startsida
+- **SessionStorage** används för att hämta information om den inloggade användaren 
+    och visa personliga data.
+- Ett **slumpat citat** hämtas från API:t `https://dummyjson.com/quotes/random` 
+    vid varje sidladdning för att visa inspirerande innehåll.
+- Visa en översikt över applikationen:
+  - **De tre senaste ej utförda ärenden**.
+  - **De tre rutiner med högst antal repetitioner**.
+  - **De tre nästkommande händelserna**.
+- Varje sektion innehåller länkar för att navigera till fullständiga listor.
 
-develop
+### 📝 Todos & Aktiviteter
+- **CRUD**-operationer: Skapa, läsa, uppdatera och ta bort uppgifter.
+- **Filtrering** efter status och kategori.
+- **Sortering** baserat på deadline, tid eller status.
+- **LocalStorage** används för att lagra användarens data.
+- **SessionStorage** används för att hantera aktuell användarsession och identifiera om en användare är inloggad eller ej.
+- Dynamisk rendering av UI genom att manipulera **DOM**.
+- **Font Awesome**-ikoner användes för **edit**, **delete** och **add** knappar för att göra gränssnittet mer intuitivt.
 
-feature/navigation
+### 🔄 Habits (Rutiner)
+- **CRUD**-operationer: Skapa, ta bort och uppdatera rutiner.
+- Spåra framsteg i form av **repetitioner**.
+- **Filtrering och sortering** efter prioritet och antal repetitioner.
+- Användare kan markera en rutin som slutförd och nollställa dess progress.
 
-feature/login
+### 📅 Event Planner
+-**CRUD**-operationer: Skapa, redigera och ta bort händelser.
+- Händelser sorteras efter närmast kommande tid.
+- Filtrering baserat på **tidigare och kommande händelser**.
+- Händelser som redan infallit visas i en separat lista.
+- Användare kan ändra händelseprioritet.
 
-Testning - Ni ska testa varandras ärenden. Man får ej markera sina egna ärenden som färdiga.
+## 📌 Använda Teknologier
 
-## Inloggning (Endast VG)
-Man ska kunna registrera flera olika användare med användarnamn samt lösenord.
-
-Varje användare ska kunna logga in och logga ut ur applikationen.
-
-Vid lyckad inloggning - Ska en användare mötas av en hälsning samt ett slumpat citat 
-från t.ex följande API: https://api.quotable.io/
-
-Varje användare ska ha tillgång till alla sina ärenden, rutiner och händelser den 
-skapat när den loggar in.
-
-## Startsida
-Visa ut en översikt över applikationen. Följande ska visas ut.
-De tre senaste ej utförda ärenden som användaren lagt till. Länk för att navigera till lista med samtliga ärenden.
-
-De tre rutiner med högst antal repetitioner. Länk för att navigera till lista med samtliga rutiner.
-
-De tre nästkommande händelserna. Länk för att navigera till lista med samtliga händelser.
-
-## Todos & Activities
- ### En fullständig todo-app med följande funktioner:
- - Lägg till nya uppgifter
- - Redigera uppgifter
- - Ta bort uppgifter
- - Filtrera efter status och kategori
- - Sortera baserat på deadline, tid eller status
-
- ### Använder LocalStorage
- - Data lagras per användare
- - Möjliggör beständig datalagring mellan sidladdningar.
-
-### Automatisk uppdatering av gränssnittet (UI)
-  - DOM uppdateras genom en dynamisk renderingsfunktion.
-  - Säkerställer att den aktuella uppgiftslistan alltid speglas korrekt.
-
-### Effektiv datamanipulation
- - Metoder för att hantera listuppdateringar.
-
-### Interaktivitet genom event-lyssnare
- - addEventListener() används för att hantera användarinteraktioner såsom
-   formulärinlämningar, klickhändelser och checkboxändringar.
-
-### Effektiv DOM-hantering
-- JSON-strukturerade uppgifter lagras per användare i localStorage.setItem().
-
-<hr>
-
-## Habits
-
-Användare ska kunna se en lista av valda rutiner som ska kunna spåra framsteg i form av antal repetitioner.
-
-
-Användaren ska kunna skapa en ny rutin och ta bort existerande rutiner.
-
-Varje rutin ska innehålla följande:
-
-Titel - t.ex “Träning, läsa bok, meditera etc.”
-
-Repetitioner - En siffra på hur många gånger användaren utfört rutinen.
-
-Prioritet - (låg,mellan,hög)
-
-Man ska kunna öka, minska och nollställa repetitioner för varje rutin.
-
-Filtrering - Ska kunna filtreras på prioritet.
-
-Sortering - Ska kunna sorteras på (stigande och fallande):
-
-Repetitioner
-
-Prioritet
-
-<hr>
-
-## Event planner
-
-Varje händelse ska innehålla följande:
-
-Start (datum och tid)
-
-Slut (datum och tid)
-
-Namn på händelse
-
-Det ska vara möjligt att lägga till, ta bort och redigera händelser.
-
-Händelserna ska alltid vara sorterade på vilken som infaller närmast i tid.
-
-Det ska framgå vilka händelser som redan infallit (t.ex genom utgråad text/visas i en separat lista eller liknande)
-
-Filtrering baserat på:
-
-Kommande händelser/Tidigare händelser
+- **HTML, CSS, JavaScript** - Grundläggande frontend-teknologier.
+- **LocalStorage och SessionStorage** - Permanent och sessionsbaserad datalagring.
+- **CRUD-funktionalitet** - Hantering av användardata.
+- **Event Listeners** - Interaktivitet via `addEventListener()`.
+- **fetch API** - Används för att hämta och skicka data.
+- **Global Style** - Enhetligt utseende genom gemensamma CSS-regler.
+- **Font Awesome** - Användes för att inkludera intuitiva ikoner i gränssnittet.
+- **GitHub & Git Flow** - Versionshantering och samarbete.
