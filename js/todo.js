@@ -20,7 +20,7 @@ const saveTodosToStorage = () => localStorage.setItem(`${currentUser}_todoList`,
 let todoList = getTodosFromStorage();
 let editIndex = -1;
 
-todoForm.addEventListener("submit", (event) => {
+const addTodo = (event) => {
     event.preventDefault();
 
     const title = document.getElementById("todo-title").value.trim();
@@ -49,17 +49,34 @@ todoForm.addEventListener("submit", (event) => {
     saveTodosToStorage();
     todoForm.reset();
     renderTodos();
-    updateStartPageTodos();
-});
-
-window.removeTodo = (index) => {
-    todoList.splice(index, 1);
-    saveTodosToStorage();
-    renderTodos();
-    updateStartPageTodos();
 };
 
-window.editTodo = (index) => {
+const toggleComplete = (index) => {
+    const today = new Date(); 
+    const todo = todoList[index];
+    const todoDate = new Date(todo.deadline);
+
+    console.log(`Checking Task: ${todo.title}, Deadline: ${todoDate}, Status: ${todo.status}`); // Debugging
+
+    if (todoDate < today && todo.status === "done") {
+        alert("⚠️ You cannot mark a past completed task as incomplete.");
+        renderTodos(); 
+        return;
+    }
+
+    if (todoDate > today && todo.status === "not-done") {
+        alert("⚠️ You cannot complete a future task.");
+        renderTodos();
+        return;
+    }
+
+    todo.status = todo.status === "done" ? "not-done" : "done";
+    saveTodosToStorage();
+    renderTodos();
+};
+
+
+const editTodo = (index) => {
     const todo = todoList[index];
 
     document.getElementById("todo-title").value = todo.title;
@@ -72,29 +89,15 @@ window.editTodo = (index) => {
     addTodoButton.textContent = "Update Task";
 };
 
-window.toggleComplete = (index) => {
-    const today = new Date().toISOString().split("T")[0];
-    const todo = todoList[index];
-
-    if (todo.deadline > today && todo.status === "not-done") {
-        alert("⚠️ This task is scheduled for the future. Are you from the future? 😆");
+const removeTodo = (index) => {
+    if (confirm("Are you sure you want to delete this task?")) {
+        todoList.splice(index, 1);
+        saveTodosToStorage();
         renderTodos();
-        return;
     }
-
-    if (todo.deadline < today) {
-        alert("⚠️ Past tasks are automatically completed.");
-        renderTodos();
-        return;
-    }
-
-    todo.status = todo.status === "done" ? "not-done" : "done";
-    saveTodosToStorage();
-    renderTodos();
-    updateStartPageTodos();
 };
 
-sortButton.addEventListener("click", () => {
+const sortTodos = () => {
     const sortBy = sortSelect.value;
     const order = document.querySelector("input[name='sort-order']:checked")?.value || "asc";
 
@@ -106,10 +109,10 @@ sortButton.addEventListener("click", () => {
             valueA = new Date(a.deadline);
             valueB = new Date(b.deadline);
         } else if (sortBy === "status") {
-            valueA = a.status === "not-done" ? 0 : 1;
-            valueB = b.status === "not-done" ? 0 : 1;
+            valueA = (a.status === "not-done" ? 0 : 1) + new Date(a.deadline).getTime();
+            valueB = (b.status === "not-done" ? 0 : 1) + new Date(b.deadline).getTime();
         } else if (sortBy === "time") {
-            valueA = parseInt(a.time); 
+            valueA = parseInt(a.time);
             valueB = parseInt(b.time);
         }
 
@@ -117,9 +120,9 @@ sortButton.addEventListener("click", () => {
     });
 
     renderTodos();
-});
+};
 
-filterButton.addEventListener("click", () => {
+const filterTodos = () => {
     let filteredTodos = [...todoList];
 
     const selectedStatus = filterStatus.value;
@@ -136,7 +139,7 @@ filterButton.addEventListener("click", () => {
     }
 
     renderTodos(filteredTodos);
-});
+};
 
 selectAllCategories.addEventListener("change", () => {
     categoryCheckboxes.forEach(checkbox => checkbox.checked = selectAllCategories.checked);
@@ -162,7 +165,7 @@ const renderTodos = (filteredTodos = todoList) => {
         listItem.className = `todo-item ${todo.status === "done" ? "completed" : ""}`;
 
         listItem.innerHTML = `
-            <input type="checkbox" class="check-task" onchange="toggleComplete(${index})" 
+            <input type="checkbox" class="check-task" onchange="toggleComplete(${index})"
                 ${todo.status === "done" ? "checked disabled" : ""}>
             <span class="todo-text">
                 <b>${todo.title}</b> - ${todo.description} (${todo.category}) [${todo.time}] - ${todo.deadline}
@@ -176,17 +179,6 @@ const renderTodos = (filteredTodos = todoList) => {
     saveTodosToStorage();
 };
 
-const updateStartPageTodos = () => {
-    const startPageTodoList = document.querySelector("#todoList");
-    if (!startPageTodoList) return;
-
-    const pendingTodos = todoList.filter(todo => todo.status !== "done").sort((a, b) => 
-                         new Date(a.deadline) - new Date(b.deadline));
-    startPageTodoList.innerHTML = pendingTodos.slice(0, 3).map(todo => 
-    `<li>${todo.title} - ${todo.deadline} (${todo.category})</li>`).join("") || 
-    "<li>No pending tasks found.</li>";
-};
-
 const logoutButton = document.getElementById("logoutButton");
 if (logoutButton) {
     logoutButton.addEventListener("click", () => {
@@ -195,5 +187,8 @@ if (logoutButton) {
     });
 }
 
+todoForm.addEventListener("submit", addTodo);
+sortButton.addEventListener("click", sortTodos);
+filterButton.addEventListener("click", filterTodos);
+
 renderTodos();
-updateStartPageTodos();

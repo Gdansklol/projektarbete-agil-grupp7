@@ -1,5 +1,6 @@
 @import url(global.css);
 
+/* ✅ 컨테이너 스타일 */
 .container {
     width: 100%;
     max-width: 1000px;
@@ -12,6 +13,7 @@
     flex: 1;
 }
 
+/* ✅ 입력 필드 및 필터, 정렬 컨테이너 */
 .input-area, .filter-container, .sort-wrapper {
     display: flex;
     flex-direction: column;
@@ -20,6 +22,7 @@
     margin-bottom: 15px;
 }
 
+/* ✅ 입력 필드 및 버튼 스타일 */
 input, select, button {
     padding: 10px;
     font-size: 16px;
@@ -35,6 +38,7 @@ input:focus, select:focus {
     border-color: var(--primary-color);
 }
 
+/* ✅ 리스트 스타일 */
 ul {
     list-style: none;
     padding: 0;
@@ -52,22 +56,50 @@ li {
     animation: fadeIn 0.5s;
 }
 
+/* ✅ 삭제 및 수정 버튼 */
 .todo-remove, .todo-edit {
     background: none;
     border: none;
     font-size: 16px;
     cursor: pointer;
+    transition: transform 0.2s ease-in-out;
 }
 
 .todo-remove:hover {
-    color: rgb(239, 98, 22);
+    color: darkorange;
+    transform: scale(1.1);
 }
 
 .todo-edit:hover {
     color: green;
+    transform: scale(1.1);
 }
 
-@media (min-width: 600px) {
+
+fieldset {
+    border: 2px solid transparent;
+    border-image: var(--gradient) 1;
+    padding: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-image 0.3s ease;
+}
+
+fieldset:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+fieldset.editing {
+    position: relative;
+    padding: 1rem;
+    border: 2px solid #6e8efb;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 8px rgba(110, 142, 251, 0.6);
+    transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+@media (min-width: 768px) {
     .container {
         width: 90%;
         padding: 20px;
@@ -90,10 +122,9 @@ li {
         width: 18px;
         height: 18px;
     }
-}
 
-@media (min-width: 768px) {
-    .filter-container fieldset {
+    .filter-container fieldset,
+    .sort-wrapper {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
@@ -114,12 +145,6 @@ li {
         font-size: 16px;
     }
 
-    button {
-        width: auto;
-        padding: 10px 20px;
-    }
-}
-@media (min-width: 768px) {
     .radioBtn-sort {
         display: flex;
         flex-wrap: wrap;
@@ -145,12 +170,36 @@ li {
     }
 
     .radioBtn-sort label:hover {
-        background: var( --background-dark);
+        background: var(--background-dark);
     }
 
     .radioBtn-sort input[type="radio"] {
         width: 20px;
         height: 20px;
         margin-right: 8px;
+    }
+
+    fieldset {
+        border: 2px solid transparent;
+        border-image: var(--gradient) 1;
+        padding: 1.5rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-image 0.3s ease;
+      }
+     
+      fieldset.editing {
+        position: relative;
+        padding: 1rem;
+        border: 2px solid #6e8efb;
+        border-radius: 8px;
+        background-color: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 8px rgba(110, 142, 251, 0.6);
+        transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+      }
+      
+
+    button {
+        width: auto;
+        padding: 10px 20px;
     }
 }
