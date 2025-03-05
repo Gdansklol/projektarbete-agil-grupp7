@@ -126,7 +126,13 @@ nav a.active::after {
 #logoutButton {
   margin-right: 1rem;
   border: 2px solid white;
-  padding: 0.3rem;
+  padding: 12px;
+}
+
+#logoutButton:hover {
+  background-color: darkorange;
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
 }
 
 .container {
@@ -152,14 +158,14 @@ button {
   font-family: var(--secondary-font);
 }
 
-button a {
-  color: white;
-  text-decoration: none;
-}
-
 button:hover {
   background: rgb(75, 85, 146);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+button a {
+  color: white;
+  text-decoration: none;
 }
 
 footer {
@@ -169,6 +175,7 @@ footer {
   text-align: center;
   color: white;
   font-family: var(--primary-font);
+  font-size: 14px;
   margin-top: auto;
 }
 

@@ -71,6 +71,11 @@ h1{
   justify-content: space-between;
 }
 
+#submitBtn:hover {
+  background-color: green;
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
 
 #dataTableDiv {
   width: 640px;
@@ -101,6 +106,28 @@ h1{
 .bg-info th {
   background-color: #5966af;
   color: #fff;
+}
+
+
+td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+#myTable button i {
+  transition: transform 0.3s ease;
+}
+
+#myTable button:hover i {
+  transform: rotate(10deg);
+}
+
+#myTable button.editBtn:hover {
+  background-color: green;
+}
+
+#myTable button.deleteBtn:hover {
+  background-color: darkorange;
 }
 
 input, select{
