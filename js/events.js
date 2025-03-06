@@ -85,13 +85,13 @@ function createNewEvent() {
 
   //om inputs inte är ifyllda, visa alert.
   if (!eventName || !startTime || !endTime) {
-    showModalAlert('⚠️ Please ensure all fields are filled in.')
+    showModalAlert('Please ensure all fields are filled in.')
     return
   }
 
   //checka så startdatum är innan slutdatum
   if (new Date(endTime) < new Date(startTime)) {
-    showModalAlert('⚠️ The end date must be after the start date.')
+    showModalAlert('The end date must be after the start date.')
     return
   }
 
@@ -125,7 +125,7 @@ function createNewEvent() {
   }
 
   clearInputs()
-  showModalAlert('Event saved!✅')
+  showModalAlert('Event saved!')
 }
 
 //funktion för att rensa inputfält
@@ -182,7 +182,7 @@ function displayEvents(eventsToDisplay) {
 
     //radera
     deleteBtn.addEventListener('click', () => {
-      showModalConfirm('⚠️Are you sure you want to delete this event?', () => {
+      showModalConfirm('Are you sure you want to delete this event?', () => {
         // Hitta eventets ursprungliga index i events med findIndex
         const originalIndex = events.findIndex(e =>
           e.name === event.name &&
