@@ -1,5 +1,4 @@
 const currentUser = sessionStorage.getItem('currentUser');
-let confettiTriggered = false;
 
 function generateConfetti() {
   if (confettiTriggered) return;
