@@ -1,8 +1,6 @@
 # Frontend projekt och agila metoder
 ## Projektarbete - Producivity Assistant Application
 
-<<<<<<< HEAD
-=======
 ---
 
 ## 📌 Planering
@@ -103,4 +101,3 @@ Hanterar **DOM-manipulering**, eventlogik, sortering och modaler för användarf
 - **Global Style** - Enhetligt utseende genom gemensamma CSS-regler.
 - **Font Awesome** - Användes för att inkludera intuitiva ikoner i gränssnittet.
 - **GitHub & Git Flow** - Versionshantering och samarbete.
->>>>>>> dev
