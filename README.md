@@ -1,4 +1,9 @@
 # Frontend projekt och agila metoder
+
+## Github Pages (preview)
+
+[Se på github pages](https://gdansklol.github.io/projektarbete-agil-grupp7/)
+
 ## Projektarbete - Producivity Assistant Application
 
 ---
