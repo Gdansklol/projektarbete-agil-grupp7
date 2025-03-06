@@ -127,6 +127,7 @@ nav a.active::after {
   max-width: 1000px;
   text-align: center;
   flex: 1;
+  margin: 20px auto;
 }
 
 button {
