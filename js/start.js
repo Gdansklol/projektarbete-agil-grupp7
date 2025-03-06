@@ -1,4 +1,10 @@
 const currentUser = sessionStorage.getItem('currentUser');
+let confettiTriggered = false;
+
+
+if (!currentUser) {
+  window.location.href = "/pages/login.html";
+}
 
 function generateConfetti() {
   if (confettiTriggered) return;
@@ -146,7 +152,6 @@ async function initPage() {
 }
 
 document.addEventListener("DOMContentLoaded", initPage);
-
 
 document.querySelector('#logoutButton').addEventListener('click', () => {
   sessionStorage.removeItem('currentUser');
