@@ -1,5 +1,118 @@
 @import url(global.css);
 
+/* Confetti */
+.confetti-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-100%) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.confetti-piece {
+  position: absolute;
+  width: 10px;
+  height: 20px;
+  background: var(--confetti-color, red);
+  opacity: 1;
+  animation: confetti-fall var(--fall-duration, 4s) linear forwards;
+  z-index: 9999;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-50%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+/* Confetti slut */
+
+/* Styling for page elements */
+h1 {
+  font-size: 24px;
+  color: #fff;
+  z-index: 1;
+  font-family: var(--p);
+  animation: slideIn 3s ease-in-out infinite alternate;
+}
+
+.startContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem;
+}
+
+#welcomeContainer {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+#quoteContainer {
+  text-align: center;
+  width: 600px;
+}
+
+#author {
+  font-size: 0.8rem;
+  margin-top: 1rem;
+}
+
+#quote {
+  font-size: 1.2rem;
+  font-style: italic;
+}
+
+.threeLatest {
+  width: 100%;
+  display: flex;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  margin: 1rem;
+  background: var(--background-dark);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#eventList,
+#habitList,
+#todoList {
+  height: auto;
+}
+
+ul .card {
+  margin: 1rem;
+  background: rgb(253, 253, 253);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
 h1 {
   font-size: 24px;
   color: #fff;

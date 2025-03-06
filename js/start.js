@@ -1,6 +1,35 @@
-// Visa välkomstext för inloggad anvädare
+// Visa välkomsttext för inloggad anvädare
 const currentUser = sessionStorage.getItem('currentUser');
+let confettiTriggered = false;
 
+function generateConfetti() {
+  if (confettiTriggered) return;
+
+  confettiTriggered = true;
+
+  const confettiWrapper = document.querySelector('.confetti-wrapper');
+
+  for (let i = 0; i < 50; i++) {
+    const confetti = document.createElement('div');
+    confetti.classList.add('confetti-piece');
+    confetti.style.left = `${Math.random() * 100}%`;
+    confetti.style.setProperty('--fall-duration', `${Math.random() * 3 + 3}s`);
+    confetti.style.setProperty('--confetti-color', getRandomColor());
+    confettiWrapper.appendChild(confetti);
+  }
+
+  setTimeout(() => {
+    const confettiPieces = document.querySelectorAll('.confetti-piece');
+    confettiPieces.forEach(confetti => confetti.remove());
+  }, 5000);
+}
+
+function getRandomColor() {
+  const colors = ['#ff6347', '#ffa500', '#32cd32', '#1e90ff', '#ff69b4'];
+  return colors[Math.floor(Math.random() * colors.length)];
+}
+
+// Välkomstmeddelande
 function displayWelcomeMessage() {
   if (currentUser) {
     document.getElementById('welcomeContainer').innerHTML = `Welcome, ${currentUser}!`;
@@ -9,44 +38,54 @@ function displayWelcomeMessage() {
   }
 }
 
-displayWelcomeMessage();
+// Random Quote
+const quote = document.querySelector('#quote');
+const author = document.querySelector('#author');
 
-//om ingen inloggad, gå till login
-if (!currentUser) {
-  window.location.href = "/pages/login.html"
-}
-
-//Random Quote
-
-const quote = document.querySelector('#quote')
-const author = document.querySelector('#author')
-
-const url = 'https://dummyjson.com/quotes/random'
+const url = 'https://dummyjson.com/quotes/random';
 
 //asynkron funktion för att hämta citat
 const getQuote = async () => {
   try {
+    // Hide the quote initially
+    quote.style.display = 'none';
+    author.style.display = 'none';
+
     //anropa API
-    const response = await fetch(url)
+    const response = await fetch(url);
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`)
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    const data = await response.json()
+    const data = await response.json();
 
     //citat & författare
-    quote.textContent = `"${data.quote}"`
-    author.textContent = `- ${data.author}`
-  }
-  //felhantering
-  catch (error) {
-    console.error('Error fetching quote:', error)
-    quote.textContent = 'Could not retrieve quote.'
-    author.textContent = ''
+    quote.textContent = `"${data.quote}"`;
+    author.textContent = `- ${data.author}`;
+
+    // Display the quote and author
+    quote.style.display = 'block';
+    author.style.display = 'block';
+
+    // Confetti
+    generateConfetti();
+
+  } catch (error) {
+    console.error('Error fetching quote:', error);
+    quote.textContent = 'Could not retrieve quote.';
+    author.textContent = '';
+    quote.style.display = 'block';
+    author.style.display = 'none';
   }
 }
 
 // Hämta citat vid sidladdning
-window.addEventListener('load', getQuote)
+async function initPage() {
+  displayWelcomeMessage();
+  await getQuote();
+}
+
+document.addEventListener("DOMContentLoaded", initPage);
+
 
 //3 senaste todos, habits & events.
 
