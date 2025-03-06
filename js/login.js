@@ -63,7 +63,7 @@ document.getElementById("loginForm").addEventListener("submit", (event) => {
   if (user && user.password === loginPassword) {
     sessionStorage.setItem("currentUser", loginUsername);
     alert("Login successful!");
-    window.location.href = "../start.html";
+    window.location.href = "../index.html";
   } else {
     alert("Invalid username or password!");
   }
