@@ -1,0 +1,191 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css');
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: rgb(89, 102, 175);
+  --secondary-color: #2c3e50;
+  --accent-color: rgb(76, 95, 201);
+  --background-light: #f4f4f4;
+  --background-dark: #e0e5ec;
+  --gradient: linear-gradient(to right, rgb(207, 211, 133) 0%, rgb(40, 148, 51) 50%, rgb(76, 95, 201) 100%);
+  --primary-font: 'Poppins', sans-serif;
+  --secondary-font: 'Roboto', sans-serif;
+}
+
+body {
+  font-family: var(--primary-font);
+  background: var(--background-light);
+  color: var(--secondary-color);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-size: 16px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  padding: 0 20px;
+  background: var(--gradient);
+  height: 150px;
+}
+
+header img {
+  width: calc(100% - 20px);
+  max-width: 300px;
+  height: calc(100% - 20px);
+  max-height: 300px;
+  justify-content: flex-start;
+  padding: 20px;
+  object-fit: contain;
+  transform: translateX(-50px);
+  transition: transform 0.3s ease-in-out;
+}
+
+nav {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+  font-family: var(--secondary-font);
+  position: relative;
+  padding: 5px 10px;
+  margin: 5px;
+  font-size: 18px;
+  transition: color 0.3s ease, transform 0.3s ease;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  padding: 10px 15px;
+}
+
+nav a:hover {
+  color: white;
+  transform: scale(1.05);
+}
+
+
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background-color: white;
+  transition: width 0.3s ease-in-out;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+.active {
+  font-weight: bold;
+  transition: text-shadow 0.3s ease;
+}
+
+nav a.active::after {
+  width: 100%;
+}
+
+
+#logoutButton {
+  margin-right: 1rem;
+  border: 2px solid white;
+  padding: 12px;
+}
+
+#logoutButton:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
+
+.container {
+  background: var(--background-dark);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 1000px;
+  text-align: center;
+  flex: 1;
+  margin: 20px auto;
+}
+
+button {
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  background: var(--primary-color);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  font-family: var(--secondary-font);
+}
+
+button:hover {
+  background: rgb(75, 85, 146);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+button a {
+  color: white;
+  text-decoration: none;
+}
+
+footer {
+  width: 100%;
+  padding: 20px;
+  background: var(--gradient);
+  text-align: center;
+  color: white;
+  font-family: var(--primary-font);
+  font-size: 14px;
+  margin-top: auto;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 20px;
+  }
+
+  header {
+    height: 120px;
+  }
+
+  nav {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .container {
+    width: 95%;
+    padding: 20px;
+    max-width: 600px;
+  }
+
+  button {
+    font-size: 16px;
+    padding: 12px;
+  }
+}

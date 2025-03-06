@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="../css/habits.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <script src="../js/habits.js" defer></script>
+    <title>Habits</title>
+</link>
+<body>
+
+    <header id="header">
+        <img id="logo" src="/img/BZ_planner_logo.png" alt="BZ Planner Logo">
+        <nav>
+          <a href="../start.html">Home</a>
+          <a href="/pages/todo.html">Todos & Activities</a>
+          <a href="/pages/habits.html" class="active">Habits</a>
+          <a href="/pages/events.html">Event Planner</a>
+        </nav>
+        <button id="logoutButton">Logout</button>
+      </header>
+
+    
+    <div id="habitsContainer">
+        <div id="inputDiv">
+            
+            <input id="rutinInput" type="text" placeholder="Add routine">
+            
+            <input id="repInput" type="number" name="times" min="0" step="1" placeholder="Number of repetitions">
+            
+            <select id="prioInput" name="prio">
+                <option value="">Priority</option>
+                <option class="låg" value="1">Low</option>
+                <option class="mellan" value="2">Medium</option>
+                <option class="hög" value="3">High</option>
+            </select>
+            
+            <button id="submitBtn">Add routine</button>
+        </div>
+        
+        <div id="radioBtns">
+            <p>Filter priority:<p>
+            <input type="radio" name="radio" id="låg" value="1">
+            <label for="låg">Low </label>
+            <input type="radio" name="radio" id="mellan" value="2">
+            <label for="mellan">Medium </label>
+            <input type="radio" name="radio" id="hög" value="3">
+            <label for="hög">High </label>
+            <input type="radio" name="radio" id="alla" value="" checked>
+            <label for="alla">Show all </label>
+        </div>
+        
+        <div id="dataTableDiv">
+            <table class="table-striped">
+                <tr class="bg-info">
+                    <th data-column="rutin" data-order="desc">Routine &#9650</th>
+                    <th data-column="repetitioner" data-order="desc">Repetitions &#9650</th>
+                    <th data-column="prioritet" data-order="desc">Priority &#9650</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tbody id="myTable">
+                    <!-- data läggs här -->
+                </tbody>
+            </table>
+            
+        </div>
+        
+
+        <!-- Success Modal -->
+        <div id="successModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <p id="modalMessage"></p>
+                <button id="okButton">OK</button>
+            </div>
+        </div>
+
+        <!-- Delete Modal -->
+        <div id="deleteModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <p>Are you sure you want to delete this routine?</p>
+                <button id="confirmDeleteBtn">Yes</button>
+                <button id="cancelDeleteBtn">Cancel</button>
+            </div>
+        </div>
+
+        <!-- Empty Inputs Modal -->
+        <div id="emptyInputsModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <p id="emptyInputsMessage">Fill in all fields before creating a routine!</p>
+                <button id="okButtonEmpty">OK</button>
+            </div>
+        </div>
+
+
+        
+        
+    </div>
+
+    <footer id="footer">
+        <p>&copy; 2025 BZ Planner. Property of GroupSeven - All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inloggning with random quote API</title>
+  <link rel="stylesheet" href="/css/login.css">
+  <!-- <link rel="stylesheet" href="/css/global.css"> -->
+  <script src="/js/login.js" defer></script>
+</head>
+<body>
+
+  <header>
+  <h1 id="headerText"></h1>
+  <img src="/img/BZ_planner_logo.png" alt="BZ Planner Logo">
+  </header>
+
+  <main>
+   
+    <section id="loginFormContainer">
+      <h2>Log In</h2>
+      <form id="loginForm">
+        <input type="text" id="loginUsername" placeholder="Write your username..." required>
+        <input type="password" id="password" placeholder="Write your password..." required>
+        <button type="submit">Log in</button>
+      </form>
+      <p>Not a member? <a href="#" id="showSignupForm">Sign up</a></p>
+    </section>
+
+    <section id="signupFormContainer" style="display: none;">
+      <h2>Sign Up</h2>
+      <form id="signupForm">
+        <input type="text" id="signupUsername" placeholder="Sign up username..." required>
+        <input type="password" id="signupPassword" placeholder="Sign up password..." required>
+        <button type="submit">Sign up</button>
+      </form>
+      <p>Already a member? <a href="#" id="showLoginForm">Log in</a></p>
+    </section>
+
+  </main>
+
+  <footer id="footer">
+    <p>&copy; 2025 BZ Planner. Property of GroupSeven - All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

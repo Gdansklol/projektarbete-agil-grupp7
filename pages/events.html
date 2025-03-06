@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/events.css">
+  <script src="https://kit.fontawesome.com/28fc0eb946.js" crossorigin="anonymous" defer></script>
+  <script src="/js/events.js" defer></script>
+  <title>Event Planner</title>
+</head>
+<body>
+  
+  <header id="header">
+    <img id="logo" src="/img/BZ_planner_logo.png" alt="BZ Planner Logo">
+    <nav>
+      <a href="/start.html">Home</a>
+      <a href="todo.html">Todos & Activities</a>
+      <a href="habits.html">Habits</a>
+      <a href="events.html" class="active">Event Planner</a>
+    </nav>
+    <button id="logoutButton">Logout</button>
+  </header>
+  <main>
+    <div class="container">
+      <section>
+        <form id="inputField">
+          <fieldset>
+            <legend>Add new events</legend>
+
+            <input type="text" id="eventName" placeholder="Title">
+
+            <label for="startTime">Start time:</label>
+            <input type="datetime-local" id="startTime">
+
+            <label for="endTime">End time:</label>
+            <input type="datetime-local" id="endTime">
+
+            <button type="button" id="addBtn">Add event</button>
+          </fieldset>
+        </form>
+      </section>
+
+      <section>
+        <button id="upcoming">upcoming</button>
+        <button id="previous">previous</button>
+        <button id="all">all</button>
+      </section>
+  
+      <section>
+        <h2>Upcoming Events</h2>
+        <ul id="eventList"></ul>
+      </section>
+
+    </div>
+
+    <div id="alertModal" class="modal">
+      <div class="modal-content">
+        <p id="alertMessage"></p>
+        <button id="alertClose">OK</button>
+      </div>
+    </div>
+
+    <div id="confirmModal" class="modal">
+      <div class="modal-content">
+        <p id="confirmMessage"></p>
+        <button id="confirmOk">Yes</button>
+        <button id="confirmCancel">Cancel</button>
+      </div>
+    </div>
+
+  </main>
+
+  <footer id="footer">
+    <p>&copy; 2025 BZ Planner. Property of GroupSeven - All rights reserved.</p>
+  </footer>
+  
+  
+</body>
+</html>

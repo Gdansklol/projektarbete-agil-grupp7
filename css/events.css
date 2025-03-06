@@ -1,0 +1,154 @@
+@import url(global.css);
+
+ .container {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+ }
+
+ .container h2 {
+   margin: 1rem;
+ }
+
+ .container .pastEvents {
+   text-decoration: line-through;
+   color: rgb(94, 93, 93);
+ }
+
+ #inputField {
+   margin: 1.5rem;
+ }
+
+ #inputField fieldset {
+   padding: 1rem;
+ }
+
+ #inputField input {
+   padding: 0.8rem;
+   font-family: var(--primary-font);
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+ }
+
+ #inputField input::placeholder {
+   color: black;
+ }
+
+ #inputField input:focus {
+   outline: none;
+   border: 2px solid rgba(75, 108, 183, 0.5);
+   box-shadow: 0 0 5px rgba(75, 108, 183, 0.5);
+ }
+
+ 
+ #addBtn {
+   margin-top: 1rem;
+ }
+
+ #addBtn:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+ }
+
+ 
+ #eventList li {
+   list-style: none;
+   background: #fff;
+   margin: 0.5rem 0;
+   padding: 1rem;
+   border-radius: 5px;
+   display: flex;
+   align-items: center;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   animation: fadeIn 0.5s ease;
+ }
+
+ #eventList li .eventText {
+   margin-right: 1rem;
+   font-weight:bolder;
+   font-family: var(--primary-font);
+ }
+
+ #eventList li button {
+   margin: 0.3rem;
+ }
+
+ #eventList li button:first-of-type {
+   margin-left: auto;
+ }
+
+ #eventList li button i {
+   transition: transform 0.3s ease;
+ }
+
+ #eventList li button:hover i {
+   transform: rotate(10deg);
+ }
+
+ #eventList li button {
+  padding: 0.4rem 0.6rem;
+  font-size: 0.9rem;      
+}
+
+ @keyframes fadeIn {
+   from {
+     opacity: 0;
+     transform: translateY(10px);
+   }
+
+   to {
+     opacity: 1;
+     transform: translateY(0);
+   }
+ }
+
+
+ fieldset {
+   border: 2px solid transparent;
+   border-image: var(--gradient) 1;
+   padding: 1.5rem;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+   transition: transform 0.3s ease, box-shadow 0.3s ease, border-image 0.3s ease;
+ }
+
+ fieldset.editing {
+   position: relative;
+   padding: 1rem;
+   border: 2px solid #6e8efb;
+   border-radius: 8px;
+   background-color: rgba(255, 255, 255, 0.1);
+   box-shadow: 0 0 8px rgba(110, 142, 251, 0.6);
+   transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+ }
+ 
+
+ .modal {
+  display: none; 
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  width: 80%;
+  max-width: 300px;
+  text-align: center;
+  border-radius: 8px;
+}
+
+#confirmOk, #confirmCancel {
+  margin: 3px;
+}
+
+#confirmOk:hover,
+#confirmCancel:hover {
+  transform: scale(1.05);
+}

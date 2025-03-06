@@ -1,0 +1,293 @@
+@import url(global.css);
+
+.container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    flex: 1;
+}
+
+h1 {
+    padding-bottom: 24px;
+}
+
+.input-area,
+.filter-container,
+.sort-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+input,
+select,
+button {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease-in-out;
+    width: 90%;
+    max-width: 550px;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background: white;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+    animation: fadeIn 0.5s;
+}
+
+.todo-remove,
+.todo-edit {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.completed .todo-text {
+    text-decoration: line-through;
+    opacity: 0.6;
+    color: var(--secondary-color);
+}
+
+button {
+    cursor: pointer;
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+fieldset {
+    border: 2px solid transparent;
+    border-image: var(--gradient) 1;
+    padding: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-image 0.3s ease;
+}
+
+fieldset.editing {
+    position: relative;
+    padding: 1rem;
+    border: 2px solid #6e8efb;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 8px rgba(110, 142, 251, 0.6);
+    transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.editBtn,
+.deleteBtn {
+    margin: 0.3rem;
+}
+
+.editBtn:first-of-type {
+    margin-left: auto;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content button {
+    margin: 10px;
+    padding: 8px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#confirmDeleteBtn {
+    background-color: #5966af;
+    color: white;
+}
+
+#confirmDeleteBtn:hover {
+    background-color: #47538f;
+    transform: scale(1.05);
+}
+
+#cancelDeleteBtn {
+    background-color: #9aa5d6;
+    color: white;
+}
+
+#cancelDeleteBtn:hover {
+    background-color: #7b87b3;
+    transform: scale(1.05);
+}
+
+.todo-edit i,
+.todo-remove i {
+    transition: transform 0.3s ease;
+}
+
+.todo-edit:hover i {
+    transform: rotate(10deg);
+
+}
+
+.todo-remove:hover i {
+    transform: rotate(10deg);
+
+}
+
+@media (min-width: 768px) {
+    .container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    input,
+    select,
+    button {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+    }
+
+    .filter-container fieldset {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 100%;
+        font-size: 18px;
+    }
+
+    .filter-container .checkbox-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .filter-container .checkbox-group label {
+        flex: 1 1 calc(25% - 10px);
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+    }
+
+    button {
+        width: auto;
+        padding: 10px 20px;
+    }
+
+    .radioBtn-sort {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        background: var(--background-light);
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        width: fit-content;
+        margin: 10px auto;
+    }
+
+    .radioBtn-sort label {
+        display: flex;
+        align-items: center;
+        background: white;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease-in-out;
+        cursor: pointer;
+    }
+
+    .radioBtn-sort label:hover {
+        background: var(--background-dark);
+    }
+
+    .radioBtn-sort input[type="radio"] {
+        width: 20px;
+        height: 20px;
+        margin-right: 8px;
+    }
+
+    .todo-edit i,
+    .todo-remove i {
+        transition: transform 0.3s ease;
+    }
+
+    .todo-edit:hover i {
+        transform: rotate(10deg);
+
+    }
+
+    .todo-remove:hover i {
+        transform: rotate(10deg);
+
+    }
+
+    .editBtn,
+    .deleteBtn {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.9rem;
+    }
+
+    .editBtn i,
+    .deleteBtn i {
+        transition: transform 0.3s ease;
+    }
+
+    .editBtn:hover i {
+        transform: rotate(10deg);
+
+    }
+
+    .deleteBtn:hover i {
+        transform: rotate(10deg);
+
+    }
+}
