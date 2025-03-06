@@ -151,7 +151,7 @@ fieldset.editing {
 }
 
 .todo-edit:hover i {
-    transform: rotate(-10deg);
+    transform: rotate(10deg);
  
 }
 
@@ -242,7 +242,7 @@ fieldset.editing {
 }
 
 .todo-edit:hover i {
-    transform: rotate(-10deg);
+    transform: rotate(10deg);
   
 }
 
@@ -256,7 +256,7 @@ fieldset.editing {
 }
 
 .editBtn:hover i {
-    transform: rotate(-10deg);
+    transform: rotate(10deg);
    
 }
 
