@@ -47,6 +47,9 @@ const getQuote = async () => {
 
 // Hämta citat vid sidladdning
 window.addEventListener('load', getQuote)
+document.addEventListener('DOMContentLoaded', getQuote)
+
+
 
 //3 senaste todos, habits & events.
 
@@ -195,7 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // Logga ut
 document.querySelector('#logoutButton').addEventListener('click', () => {
   sessionStorage.removeItem('currentUser');
-  
+
   window.location.href = '/pages/login.html';
 });
 
