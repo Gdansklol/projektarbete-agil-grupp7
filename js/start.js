@@ -1,32 +1,8 @@
 // Visa välkomsttext för inloggad anvädare
 const currentUser = sessionStorage.getItem('currentUser');
-let confettiTriggered = false;
 
-function generateConfetti() {
-  if (confettiTriggered) return;
-
-  confettiTriggered = true;
-
-  const confettiWrapper = document.querySelector('.confetti-wrapper');
-
-  for (let i = 0; i < 50; i++) {
-    const confetti = document.createElement('div');
-    confetti.classList.add('confetti-piece');
-    confetti.style.left = `${Math.random() * 100}%`;
-    confetti.style.setProperty('--fall-duration', `${Math.random() * 3 + 3}s`);
-    confetti.style.setProperty('--confetti-color', getRandomColor());
-    confettiWrapper.appendChild(confetti);
-  }
-
-  setTimeout(() => {
-    const confettiPieces = document.querySelectorAll('.confetti-piece');
-    confettiPieces.forEach(confetti => confetti.remove());
-  }, 5000);
-}
-
-function getRandomColor() {
-  const colors = ['#ff6347', '#ffa500', '#32cd32', '#1e90ff', '#ff69b4'];
-  return colors[Math.floor(Math.random() * colors.length)];
+if (!currentUser) {
+  window.location.href = "/pages/login.html";
 }
 
 // Välkomstmeddelande
@@ -78,6 +54,35 @@ const getQuote = async () => {
   }
 }
 
+let confettiTriggered = false;
+
+function generateConfetti() {
+  if (confettiTriggered) return;
+
+  confettiTriggered = true;
+
+  const confettiWrapper = document.querySelector('.confetti-wrapper');
+
+  for (let i = 0; i < 50; i++) {
+    const confetti = document.createElement('div');
+    confetti.classList.add('confetti-piece');
+    confetti.style.left = `${Math.random() * 100}%`;
+    confetti.style.setProperty('--fall-duration', `${Math.random() * 3 + 3}s`);
+    confetti.style.setProperty('--confetti-color', getRandomColor());
+    confettiWrapper.appendChild(confetti);
+  }
+
+  setTimeout(() => {
+    const confettiPieces = document.querySelectorAll('.confetti-piece');
+    confettiPieces.forEach(confetti => confetti.remove());
+  }, 5000);
+}
+
+function getRandomColor() {
+  const colors = ['#ff6347', '#ffa500', '#32cd32', '#1e90ff', '#ff69b4'];
+  return colors[Math.floor(Math.random() * colors.length)];
+}
+
 // Hämta citat vid sidladdning
 async function initPage() {
   displayWelcomeMessage();
@@ -85,7 +90,6 @@ async function initPage() {
 }
 
 document.addEventListener("DOMContentLoaded", initPage);
-
 
 //3 senaste todos, habits & events.
 
