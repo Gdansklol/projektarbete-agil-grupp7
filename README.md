@@ -71,10 +71,25 @@ och användes som grund för utvecklingen.
 
 ### 📅 Event Planner
 -**CRUD**-operationer: Skapa, redigera och ta bort händelser.
+Start (datum och tid),Slut (datum och tid) & Namn på händelse.
+
 - Händelser sorteras efter närmast kommande tid.
-- Filtrering baserat på **tidigare och kommande händelser**.
+
+- **Filtrering:**
+  Växla mellan kommande, tidigare och alla event.
+
 - Händelser som redan infallit visas i en separat lista.
-- Användare kan ändra händelseprioritet.
+
+-**LocalStorage & Autentisering:**
+  Eventdata sparas per inloggad användare via *localStorage*; *sessionStorage* säkerställer att endast inloggade användare får åtkomst.
+
+-Teknisk Översikt
+HTML:
+Strukturerad med header, main och footer. Inkluderar externa CSS/JS och Font Awesome-ikoner.
+CSS:
+Ansvarar för layout, animationer och responsiv design med stöd från en global stilfil.
+JavaScript:
+Hanterar **DOM-manipulering**, eventlogik, sortering och modaler för användarfeedback.
 
 ## 📌 Använda Teknologier
 
