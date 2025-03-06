@@ -147,3 +147,12 @@
   text-align: center;
   border-radius: 8px;
 }
+
+#confirmOk, #confirmCancel {
+  margin: 3px;
+}
+
+#confirmOk:hover,
+#confirmCancel:hover {
+  transform: scale(1.05);
+}
