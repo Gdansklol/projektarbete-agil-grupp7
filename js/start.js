@@ -50,6 +50,12 @@ window.addEventListener('load', getQuote)
 document.addEventListener('DOMContentLoaded', getQuote)
 
 
+async function initPage() {
+  displayWelcomeMessage();
+  await getQuote();
+}
+
+document.addEventListener("DOMContentLoaded", initPage);
 
 //3 senaste todos, habits & events.
 
