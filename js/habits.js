@@ -10,7 +10,7 @@ $(document).ready(function() {
     const currentUser = sessionStorage.getItem('currentUser');
 
     if (!currentUser) {
-        window.location.href = "/pages/login.html";
+        window.location.href = "./pages/login.html";
     }
 
     // ladda habits för aktuell användare
@@ -196,7 +196,7 @@ $(document).ready(function() {
     document.querySelector('#logoutButton').addEventListener('click', () => {
         sessionStorage.removeItem('currentUser');
         
-        window.location.href = '/pages/login.html';
+        window.location.href = './pages/login.html';
     });
 
     // Initial render, table

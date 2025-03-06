@@ -13,7 +13,7 @@ const h2Text = document.querySelector('h2')
 //hämta inloggad användare, om ingen inloggad, gå till login.
 const currentUser = sessionStorage.getItem('currentUser')
 if (!currentUser) {
-  window.location.href = '/pages/login.html'
+  window.location.href = './pages/login.html'
 }
 
 // Ladda events för aktuell användare

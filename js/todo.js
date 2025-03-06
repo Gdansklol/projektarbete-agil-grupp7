@@ -23,7 +23,7 @@ let currentUser = sessionStorage.getItem("currentUser");
 if (!currentUser) {
     currentUser = localStorage.getItem("lastUser");
     if (!currentUser) {
-        window.location.href = "/pages/login.html";
+        window.location.href = "./pages/login.html";
     } else {
         sessionStorage.setItem("currentUser", currentUser);
     }
@@ -224,7 +224,7 @@ if (logoutButton) {
     logoutButton.addEventListener("click", () => {
         sessionStorage.removeItem("currentUser");
         localStorage.removeItem("lastUser");
-        window.location.href = "/pages/login.html"; 
+        window.location.href = "./pages/login.html"; 
     });
 }
 

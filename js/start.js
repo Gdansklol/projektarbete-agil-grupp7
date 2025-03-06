@@ -1,7 +1,7 @@
 const currentUser = sessionStorage.getItem('currentUser');
 
 if (!currentUser) {
-  window.location.href = "/pages/login.html";
+  window.location.href = "./pages/login.html";
 }
 
 function generateConfetti() {
@@ -156,5 +156,5 @@ document.addEventListener("DOMContentLoaded", initPage);
 document.querySelector('#logoutButton').addEventListener('click', () => {
   sessionStorage.removeItem('currentUser');
   sessionStorage.removeItem('confettiTriggered');
-  window.location.href = '/pages/login.html';
+  window.location.href = './pages/login.html';
 });
