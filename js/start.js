@@ -43,7 +43,10 @@ const getQuote = async () => {
     author.style.display = 'block';
 
     // Confetti
-    generateConfetti();
+    if (!sessionStorage.getItem('confettiTriggered')) {
+      generateConfetti();
+      sessionStorage.setItem('confettiTriggered', 'true');
+    }
 
   } catch (error) {
     console.error('Error fetching quote:', error);
@@ -238,6 +241,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // Logga ut
 document.querySelector('#logoutButton').addEventListener('click', () => {
   sessionStorage.removeItem('currentUser');
+  sessionStorage.removeItem('confettiTriggered');
   
   window.location.href = '/pages/login.html';
 });
