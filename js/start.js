@@ -1,17 +1,15 @@
 const currentUser = sessionStorage.getItem('currentUser');
-let confettiTriggered = false;
-
 
 if (!currentUser) {
   window.location.href = "/pages/login.html";
 }
 
 function generateConfetti() {
-  if (confettiTriggered) return;
+  if (sessionStorage.getItem('confettiTriggered')) return;
 
-  confettiTriggered = true;
+  sessionStorage.setItem('confettiTriggered', 'true');
+
   const confettiWrapper = document.querySelector('.confetti-wrapper');
-
   for (let i = 0; i < 50; i++) {
     const confetti = document.createElement('div');
     confetti.classList.add('confetti-piece');
@@ -60,7 +58,9 @@ const getQuote = async () => {
     author.textContent = `- ${data.author}`;
     author.style.display = 'block';
 
-    generateConfetti();
+    if (!sessionStorage.getItem('confettiTriggered')) {
+      generateConfetti();
+    }
   } catch (error) {
     console.error('Error fetching quote:', error);
     quote.textContent = 'Could not retrieve quote.';
@@ -155,5 +155,6 @@ document.addEventListener("DOMContentLoaded", initPage);
 
 document.querySelector('#logoutButton').addEventListener('click', () => {
   sessionStorage.removeItem('currentUser');
+  sessionStorage.removeItem('confettiTriggered');
   window.location.href = '/pages/login.html';
 });
