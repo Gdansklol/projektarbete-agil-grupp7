@@ -129,7 +129,7 @@ function displayTop3Habits() {
   topThreeHabits.forEach((habit) => {
     value += `
       <ul class="card">
-        <p>Rutin: ${habit.rutin} | Repetitioner: ${habit.repetitioner}</p>
+        <p>Routine: ${habit.rutin} | Repetitioner: ${habit.repetitioner}</p>
       </ul>
     `
   })
