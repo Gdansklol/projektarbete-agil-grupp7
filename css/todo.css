@@ -251,6 +251,11 @@ fieldset.editing {
   
 }
 
+.editBtn, .deleteBtn {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.9rem; 
+}
+
 .editBtn i, .deleteBtn i {
     transition: transform 0.3s ease;
 }
