@@ -199,7 +199,6 @@ function renderTodos(todos = todoList) {
 
         const listItem = document.createElement("li");
         listItem.className = `todo-item ${isCompleted ? "completed" : ""}`;
-        console.log(listItem.className);
         listItem.innerHTML = `
             <input type="checkbox" class="check-task" onchange="toggleComplete(${index})"
                 ${isCompleted ? "checked" : ""}>
