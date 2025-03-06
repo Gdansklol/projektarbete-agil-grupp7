@@ -16,7 +16,9 @@ h1 {
     padding-bottom: 24px;
 }
 
-.input-area, .filter-container, .sort-wrapper {
+.input-area,
+.filter-container,
+.sort-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -24,7 +26,9 @@ h1 {
     margin-bottom: 15px;
 }
 
-input, select, button {
+input,
+select,
+button {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ddd;
@@ -33,7 +37,8 @@ input, select, button {
     max-width: 550px;
 }
 
-input:focus, select:focus {
+input:focus,
+select:focus {
     outline: none;
     border-color: var(--primary-color);
 }
@@ -55,7 +60,8 @@ li {
     animation: fadeIn 0.5s;
 }
 
-.todo-remove, .todo-edit {
+.todo-remove,
+.todo-edit {
     background: none;
     border: none;
     font-size: 16px;
@@ -97,6 +103,15 @@ fieldset.editing {
     transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
 }
 
+.editBtn,
+.deleteBtn {
+    margin: 0.3rem;
+}
+
+.editBtn:first-of-type {
+    margin-left: auto;
+}
+
 .modal {
     display: none;
     position: fixed;
@@ -111,7 +126,7 @@ fieldset.editing {
 }
 
 .modal-content {
-    background-color: white; 
+    background-color: white;
     padding: 20px;
     border-radius: 8px;
     text-align: center;
@@ -146,18 +161,19 @@ fieldset.editing {
     transform: scale(1.05);
 }
 
-.todo-edit i, .todo-remove i {
+.todo-edit i,
+.todo-remove i {
     transition: transform 0.3s ease;
 }
 
 .todo-edit:hover i {
     transform: rotate(10deg);
- 
+
 }
 
 .todo-remove:hover i {
     transform: rotate(10deg);
-  
+
 }
 
 @media (min-width: 768px) {
@@ -166,7 +182,9 @@ fieldset.editing {
         padding: 20px;
     }
 
-    input, select, button {
+    input,
+    select,
+    button {
         font-size: 16px;
         padding: 10px;
     }
@@ -237,36 +255,39 @@ fieldset.editing {
         margin-right: 8px;
     }
 
-.todo-edit i, .todo-remove i {
-    transition: transform 0.3s ease;
-}
+    .todo-edit i,
+    .todo-remove i {
+        transition: transform 0.3s ease;
+    }
 
-.todo-edit:hover i {
-    transform: rotate(10deg);
-  
-}
+    .todo-edit:hover i {
+        transform: rotate(10deg);
 
-.todo-remove:hover i {
-    transform: rotate(10deg);
-  
-}
+    }
 
-.editBtn, .deleteBtn {
-    padding: 0.4rem 0.6rem;
-    font-size: 0.9rem; 
-}
+    .todo-remove:hover i {
+        transform: rotate(10deg);
 
-.editBtn i, .deleteBtn i {
-    transition: transform 0.3s ease;
-}
+    }
 
-.editBtn:hover i {
-    transform: rotate(10deg);
-   
-}
+    .editBtn,
+    .deleteBtn {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.9rem;
+    }
 
-.deleteBtn:hover i {
-    transform: rotate(10deg);
-   
+    .editBtn i,
+    .deleteBtn i {
+        transition: transform 0.3s ease;
+    }
+
+    .editBtn:hover i {
+        transform: rotate(10deg);
+
+    }
+
+    .deleteBtn:hover i {
+        transform: rotate(10deg);
+
     }
 }
